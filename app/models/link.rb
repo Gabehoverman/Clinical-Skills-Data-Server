@@ -4,9 +4,9 @@ class Link < ActiveRecord::Base
 
   def as_json(options={})
     super(
-      :only => [
-        :title, :link, :visible
-      ]
+        :only => [
+            :title, :link, :visible
+        ]
     )
   end
 end
