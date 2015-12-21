@@ -11,6 +11,11 @@ class System < ActiveRecord::Base
             :name, :description, :visible
         ],
         :include => {
+            :parent_system => {
+              :only => [
+                :name
+              ]
+            },
             :links => {
                 :only => [
                     :title, :link, :visible
