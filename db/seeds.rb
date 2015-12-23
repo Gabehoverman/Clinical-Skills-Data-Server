@@ -18,7 +18,10 @@ ent.links << [Link.create(title: 'Ears, Nose, & Throat', link: 'https://www.yout
 ]
 
 cardio = System.create(name: 'Cardiovascular', description: 'This system includes anything relating to the hearts, veins, or arteries', visible: true)
-cardio.links << [Link.create(title: 'Cardiovascular System Anatomy', link: 'https://www.youtube.com/watch?v=Sc3IN99sRrI', visible: true)]
+cardio.links << [Link.create(title: 'Cardiovascular System Anatomy', link: 'https://www.youtube.com/watch?v=Sc3IN99sRrI', visible: true),
+                 Link.create(title: 'Google', link: 'http://www.google.com', visible: true)
+
+]
 
 musc = System.create(name: 'Musculoskeletal', description: 'This system includes anything relating to the muscles or the skeleton', visible: false)
 musc.links << Link.create(title: 'The Musculoskeletal System', link: 'https://www.youtube.com/watch?v=g6sLwgUHwTk', visible: true)
