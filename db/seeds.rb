@@ -33,19 +33,19 @@ abdomen = System.create(name: 'Abdomen', description: 'This system includes anyt
 abdomen.links << Link.create(title: 'Abdomen Exam', link: 'https://www.youtube.com/watch?v=AirqmUB-T1Y', visible: true)
 
 # Subsystems
-# = System.create(name: '', description: '', visible: true, parent_system: )
+# = System.create(name: '', description: '', visible: true, parent: )
 
-ear = System.create(name: 'Ear', description: 'This system includes anything relating to the ears', visible: true, parent_system: ent)
+ear = System.create(name: 'Ear', description: 'This system includes anything relating to the ears', visible: true, parent: ent)
 ear.links << Link.create(title: 'Examination of the Ear', link: 'https://www.youtube.com/watch?v=ZU0Aix2qYGE', visible: true)
 
-nose = System.create(name: 'Nose', description: 'This system includes anything relating to the nose', visible: true, parent_system: ent)
+nose = System.create(name: 'Nose', description: 'This system includes anything relating to the nose', visible: true, parent: ent)
 nose.links << Link.create(title: 'Nose Examination Role Play', link: 'https://www.youtube.com/watch?v=j7FQuiMQUBU', visible: true)
 
-throat = System.create(name: 'Throat', description: 'This system includes anything relating to the throat', visible: true, parent_system: ent)
+throat = System.create(name: 'Throat', description: 'This system includes anything relating to the throat', visible: true, parent: ent)
 throat.links << Link.create(title: 'ENT - Physical Exam of the Ear Nose Throat', link: 'https://www.youtube.com/watch?v=HMOugR37_do', visible: true)
 
-left_tonsil = System.create(name: 'Left Tonsil', description: 'Mass of lymphoid tissue in the back of the throat on the left side', visible: true, parent_system: throat)
+left_tonsil = System.create(name: 'Left Tonsil', description: 'Mass of lymphoid tissue in the back of the throat on the left side', visible: true, parent: throat)
 left_tonsil.links << Link.create(title: 'Examination Of Tonsils', link: 'https://www.youtube.com/watch?v=dM4jPUIMDT0', visible: true)
 
-right_tonsil = System.create(name: 'Right Tonsil', description: 'Mass of lymphoid tissue in the back of the throat on the right side', visible: true, parent_system: throat)
+right_tonsil = System.create(name: 'Right Tonsil', description: 'Mass of lymphoid tissue in the back of the throat on the right side', visible: true, parent: throat)
 right_tonsil.links << Link.create(title: 'Examination Of Tonsils', link: 'https://www.youtube.com/watch?v=dM4jPUIMDT0', visible: true)

@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  get 'links/all'
-  get 'systems/all'
+  get 'data/systems'
+  get 'data/subsystems'
+  get 'data/links'
+  get 'data/detailed'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

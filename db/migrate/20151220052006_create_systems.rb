@@ -1,7 +1,7 @@
 class CreateSystems < ActiveRecord::Migration
   def change
     create_table :systems do |t|
-      t.references :parent_system
+      t.references :parent
       t.string :name
       t.string :description
       t.boolean :visible

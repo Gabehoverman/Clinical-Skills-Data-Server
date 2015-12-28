@@ -1,4 +1,4 @@
-class SystemsController < ApplicationController
+class DataController < ApplicationController
   def systems
     @systems = System.where(parent: nil)
     respond_to do |format|
@@ -15,10 +15,18 @@ class SystemsController < ApplicationController
     end
   end
 
-  def all
+  def links
+    @links = Link.all
+    respond_to do |format|
+      format.html { render :all }
+      format.json { render json: @links, status: :ok }
+    end
+  end
+
+  def detailed
     @systems = System.all
     respond_to do |format|
-      format.html { render :base }
+      format.html { render :detailed }
       format.json { render json: @systems, status: :ok }
     end
   end
