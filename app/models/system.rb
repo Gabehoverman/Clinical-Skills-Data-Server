@@ -10,17 +10,27 @@ class System < ActiveRecord::Base
   end
 
   def as_json(options={})
-    json = super(
-        :only => [
-            :name, :description, :visible
-        ]
-    )
-
-    unless parent.nil?
-      json['parent_name '] = parent.name
+    if options[:systems] or options[:detailed]
+      top_level_key = 'system'
+    elsif options[:subsystems]
+      top_level_key = 'subsystem'
+    else
+      top_level_key = 'data'
     end
 
-    json['links'] = links.as_json
+    json = {
+        top_level_key => super(
+            :only => [
+                :name, :description, :visible
+            ]
+        )
+    }
+
+    unless parent.nil?
+      json[top_level_key]['parent_name '] = parent.name
+    end
+
+    json[top_level_key]['links'] = links.as_json
 
     json
   end

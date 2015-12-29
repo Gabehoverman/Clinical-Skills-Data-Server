@@ -7,10 +7,13 @@ class Link < ActiveRecord::Base
   end
 
   def as_json(options={})
-    super(
+    json = {}
+    json['link'] = super(
         :only => [
             :title, :link, :visible
         ]
     )
+
+    json
   end
 end
