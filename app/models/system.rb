@@ -27,7 +27,7 @@ class System < ActiveRecord::Base
     }
 
     unless parent.nil?
-      json[top_level_key]['parent_name '] = parent.name
+      json[top_level_key]['parent_name'] = parent.name
     end
 
     json[top_level_key]['links'] = links.as_json
