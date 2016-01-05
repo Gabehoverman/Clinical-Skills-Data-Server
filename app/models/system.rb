@@ -21,7 +21,7 @@ class System < ActiveRecord::Base
     json = {
         top_level_key => super(
             :only => [
-                :name, :description, :visible
+                :name, :details, :visible
             ]
         )
     }

@@ -32,10 +32,10 @@ ActiveRecord::Schema.define(version: 20151220060943) do
   create_table "systems", force: :cascade do |t|
     t.integer  "parent_id"
     t.string   "name"
-    t.string   "description"
+    t.string   "details"
     t.boolean  "visible"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

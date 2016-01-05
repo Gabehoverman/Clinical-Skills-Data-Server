@@ -3,7 +3,7 @@ class CreateSystems < ActiveRecord::Migration
     create_table :systems do |t|
       t.references :parent
       t.string :name
-      t.string :description
+      t.string :details
       t.boolean :visible
 
       t.timestamps null: false

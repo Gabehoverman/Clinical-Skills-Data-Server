@@ -2,10 +2,10 @@
 
 one:
   name: MyString
-  description: MyString
+  details: MyString
   visible: false
 
 two:
   name: MyString
-  description: MyString
+  details: MyString
   visible: false
