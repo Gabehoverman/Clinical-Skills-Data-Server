@@ -1,25 +1,54 @@
 class SystemsController < ApplicationController
-  def systems
+
+  def index
+    @toolbar_title = 'Systems'
     @systems = System.where(parent: nil)
     respond_to do |format|
-      format.html { render :base }
+      format.html { render :index }
       format.json { render json: @systems, status: :ok }
     end
   end
 
-  def subsystems
-    @systems = System.where.not(parent: nil)
-    respond_to do |format|
-      format.html { render :base }
-      format.json { render json: @systems, status: :ok }
-    end
+  # def show
+
+  # end
+
+  def new
+    @toolbar_title = 'New System'
+    @system = System.new(systems_params)
+    # if @system.save
+    #   puts 'CREATION SUCCESSFUL'
+    # else
+    #   puts 'CREATION FAILED'
+    # end
   end
 
-  def all
-    @systems = System.all
-    respond_to do |format|
-      format.html { render :base }
-      format.json { render json: @systems, status: :ok }
-    end
+  # def create
+
+  # end
+
+  def edit
+    @toolbar_title = 'Edit System'
+    @system = System.find(params[:id])
+    # if @system.update(systems_params)
+    #   puts 'UPDATE SUCCESSFUL'
+    # else
+    #   puts 'UPDATE FAILED'
+    # end
   end
+
+  # def update
+
+  # end
+
+  # def destroy
+
+  # end
+
+  private
+
+    def systems_params
+      params.permit(:name, :details, :visible)
+    end
+
 end

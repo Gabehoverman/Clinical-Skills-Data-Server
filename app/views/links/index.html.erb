@@ -1,0 +1,23 @@
+<md-content ng-controller="LinksController">
+	<md-card>
+		<md-table-container>
+			<table md-table md-row-select ng-model="selected">
+				<thead md-head md-order="query.order">
+					<tr md-row>
+						<th md-column md-order-by="title"><span>Title</span></th>
+						<th md-column md-order-by="link"><span>Link</span></th>
+						<th md-column md-order-by="visible"><span>Visible</span></th>
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row md-select="link" md-select-id="{{link.title}}" md-auto-select ng-repeat="link in links | orderBy: query.order">
+						<td md-cell>{{link.title}}</td>
+						<td md-cell>{{link.link}}</td>
+						<td md-cell>{{link.visible}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{links.length}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+	</md-card>
+</md-content>

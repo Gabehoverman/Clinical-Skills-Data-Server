@@ -10,12 +10,10 @@ class System < ActiveRecord::Base
   end
 
   def as_json(options={})
-    if options[:systems] or options[:detailed]
-      top_level_key = 'system'
-    elsif options[:subsystems]
+    if options[:subsystems]
       top_level_key = 'subsystem'
     else
-      top_level_key = 'data'
+      top_level_key = 'system'
     end
 
     json = {

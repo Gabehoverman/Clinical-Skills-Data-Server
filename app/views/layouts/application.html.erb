@@ -1,14 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>WvusomDataServer</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html ng-app="WVU-SoM-Data-Server">
+  <head>
+    <title>WVU-SoM Data Server</title>
 
-<%= yield %>
+    <%= render :partial => 'shared/dependencies' %>
 
-</body>
+    <%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
+    <%= javascript_include_tag "application", params[:controller] %>
+
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body id="body" layout="row" ng-controller="BodyController">
+
+  <script>console.log(api_base_url);</script>
+
+    <%= render :partial => 'shared/sidebar' %>
+
+    <div layout="column" class="relative" layout-fill role="main">
+      <md-toolbar id="toolbar" class="md-hue-2">
+        <div class="md-toolbar-tools">
+          <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
+            <ng-md-icon icon="menu"></ng-md-icon>
+          </md-button>
+
+          <h1>
+            <%= @toolbar_title %>
+          </h1>
+        </div>
+      </md-toolbar>
+
+      <%= yield %>
+
+    </div>
+
+  </body>
 </html>

@@ -1,0 +1,23 @@
+<md-content ng-controller="SubsystemsController">
+	<md-card>
+		<md-table-container>
+			<table md-table md-row-select ng-model="selected">
+				<thead md-head md-order="query.order">
+					<tr md-row>
+						<th md-column md-order-by="name"><span>Name</span></th>
+						<th md-column md-order-by="details"><span>Details</span></th>
+						<th md-column md-order-by="visible"><span>Visible</span></th>
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row md-select="subsystem" md-select-id="{{subsystem.name}}" md-auto-select ng-repeat="subsystem in subsystems | orderBy: query.order">
+						<td md-cell>{{subsystem.name}}</td>
+						<td md-cell>{{subsystem.details}}</td>
+						<td md-cell>{{subsystem.visible}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<md-table-pagination md-limit="query.limit" md-page="query.page" md-total="{{subsystems.length}}" md-on-paginate="onPaginate" md-page-select></md-table-pagination>
+	</md-card>
+</md-content>

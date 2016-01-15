@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  get 'data/systems'
-  get 'data/subsystems'
-  get 'data/links'
-  get 'data/detailed'
+
+  root :to => "systems#index"
+
+  resources :systems, :only => [:index, :new, :edit]
+  resources :subsystems, :only => [:index, :new, :edit]
+  resources :links, :only => [:index, :new, :edit]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -12,5 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+
+app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSidenav) {
+	
+}]);

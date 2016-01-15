@@ -1,4 +1,4 @@
-class DataController < ApplicationController
+class ApiController < ApplicationController
   def systems
     @systems = System.where(parent: nil)
     respond_to do |format|
