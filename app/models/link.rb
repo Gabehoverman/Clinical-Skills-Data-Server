@@ -10,7 +10,7 @@ class Link < ActiveRecord::Base
     json = {}
     json['link'] = super(
         :only => [
-            :title, :link, :visible
+            :id, :title, :link, :visible
         ]
     )
 

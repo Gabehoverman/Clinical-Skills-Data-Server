@@ -1,10 +1,8 @@
 Rails.application.routes.draw do
-
-  root :to => "systems#index"
-
-  resources :systems, :only => [:index, :new, :edit]
-  resources :subsystems, :only => [:index, :new, :edit]
-  resources :links, :only => [:index, :new, :edit]
+  
+  resources :systems, :only => [:index, :create, :update, :destroy]
+  resources :subsystems, :only => [:index, :create, :update, :destroy]
+  resources :links, :only => [:index, :create, :update, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

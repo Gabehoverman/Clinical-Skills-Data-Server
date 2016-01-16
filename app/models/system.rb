@@ -19,7 +19,7 @@ class System < ActiveRecord::Base
     json = {
         top_level_key => super(
             :only => [
-                :name, :details, :visible
+                :id, :name, :details, :visible
             ]
         )
     }

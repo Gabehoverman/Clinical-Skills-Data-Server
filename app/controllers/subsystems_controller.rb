@@ -9,13 +9,9 @@ class SubsystemsController < ApplicationController
     end
   end
 
-  # def show
-
-  # end
-
-  def new
-    @toolbar_title = 'New Subsystem'
-    @subsystem = System.new(subsystems_params)
+  def create
+    puts(params.inspect)
+    # @subsystem = System.new(subsystems_params)
     # if @subsystem.save
     #   puts 'CREATION SUCCESSFUL'
     # else
@@ -23,13 +19,10 @@ class SubsystemsController < ApplicationController
     # end
   end
 
-  # def create
-
-  # end
-
-  def edit
-    @toolbar_title = 'Edit Subsystem'
-    @subsystem = System.find(params[:id])
+  def update
+    puts(params.inspect)
+    # @toolbar_title = 'Edit Subsystem'
+    # @subsystem = System.find(params[:id])
     # if @subsystem.update(subsystems_params)
     #   puts 'UPDATE SUCCESSFUL'
     # else
@@ -37,17 +30,13 @@ class SubsystemsController < ApplicationController
     # end
   end
 
-  # def update
-
-  # end
-
-  # def destroy
-
-  # end
+  def destroy
+    puts(params.inspect)
+  end
 
   private
 
-    def subsystems_params
+    def subsystem_params
       params.permit(:name, :details, :visible)
     end
     

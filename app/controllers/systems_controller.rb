@@ -3,52 +3,73 @@ class SystemsController < ApplicationController
   def index
     @toolbar_title = 'Systems'
     @systems = System.where(parent: nil)
+
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @systems, status: :ok }
     end
   end
 
-  # def show
+  def create
+    @system = System.new(system_params)
+    add_links
 
-  # end
-
-  def new
-    @toolbar_title = 'New System'
-    @system = System.new(systems_params)
-    # if @system.save
-    #   puts 'CREATION SUCCESSFUL'
-    # else
-    #   puts 'CREATION FAILED'
-    # end
+    respond_to do |format|
+      if @system.save
+        format.js { render json: @system, status: :ok }
+        format.json { render json: @system, status: :ok }
+      else
+        format.js { render json: @system.errors, status: :unprocessable_entity }
+        format.json { render json: @system.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
-  # def create
-
-  # end
-
-  def edit
-    @toolbar_title = 'Edit System'
+  def update
     @system = System.find(params[:id])
-    # if @system.update(systems_params)
-    #   puts 'UPDATE SUCCESSFUL'
-    # else
-    #   puts 'UPDATE FAILED'
-    # end
+    @system.links.clear
+    add_links
+
+    respond_to do |format|
+      if @system.update(system_params)
+        format.js { render json: @system, status: :ok }
+        format.json { render json: @system, status: :ok }
+      else
+        format.js { render json: @system.errors, status: :unprocessable_entity }
+        format.json { render json: @system.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
-  # def update
+  def destroy
+    @system = System.find(params['id'])
 
-  # end
-
-  # def destroy
-
-  # end
+    respond_to do |format|
+      if @system.delete
+        format.js { render json: @system, status: :ok }
+        format.json { render json: @system, status: :ok }
+      else
+        format.js { render json: @system.errors, status: :unprocessable_entity }
+        format.json { render json: @system.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   private
 
-    def systems_params
+    def system_params
       params.permit(:name, :details, :visible)
+    end
+
+    def add_links
+      unless params['links'].nil?
+        params['links'].each do |l|
+          link = Link.find(l['link']['id'])
+          unless @system.links.include?(link)
+            @system.links << link
+          end
+        end
+      end
     end
 
 end

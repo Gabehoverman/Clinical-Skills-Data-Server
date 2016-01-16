@@ -14,5 +14,9 @@
 //= require jquery_ujs
 
 app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSidenav) {
-	
+
+    $scope.toggleSidenav = function (menuID) {
+        $mdSidenav(menuID).toggle();
+    };
+    
 }]);

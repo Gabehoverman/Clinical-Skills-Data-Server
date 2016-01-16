@@ -13,15 +13,13 @@
 
   <body id="body" layout="row" ng-controller="BodyController">
 
-  <script>console.log(api_base_url);</script>
-
     <%= render :partial => 'shared/sidebar' %>
 
     <div layout="column" class="relative" layout-fill role="main">
       <md-toolbar id="toolbar" class="md-hue-2">
         <div class="md-toolbar-tools">
-          <md-button ng-click="toggleSidenav('left')" hide-gt-md aria-label="Menu">
-            <ng-md-icon icon="menu"></ng-md-icon>
+          <md-button class="md-icon-button" ng-click="toggleSidenav('left')" hide-gt-md aria-label="menu">
+            <md-icon class="material-icons">menu</md-icon>
           </md-button>
 
           <h1>

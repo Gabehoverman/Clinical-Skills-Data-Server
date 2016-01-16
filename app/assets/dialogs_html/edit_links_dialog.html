@@ -1,0 +1,54 @@
+<md-dialog>
+
+	<md-toolbar>
+      <div class="md-toolbar-tools">
+        <h1>Links for {{system.name}}</h1>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="hide()" aria-label="close">
+          <md-icon class="material-icons">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-toolbar class="md-table-toolbar md-default">
+  		<div class="md-toolbar-tools">
+  			<md-icon class="material-icons">search</md-icon>
+          	<form flex name="filter.form">
+          		<input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
+          	</form>
+            <md-button class="md-icon-button" ng-click="query.filter = ''" aria-label="clear">
+            	<md-icon class="material-icons">clear_all</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    
+    <md-dialog-content>
+		<md-table-container>
+			<table md-table md-progress="linksPromise">
+				<thead md-head md-order="query.order">
+					<tr md-row>
+						<th md-column md-order-by="id"><span>ID</span></th>
+						<th md-column md-order-by="title"><span>Title</span></th>
+						<th md-column><span>Active</span></th>
+					</tr>
+				</thead>
+				<tbody md-body>
+					<tr md-row md-select="link" md-select-id="{{link.title}}" ng-repeat="link in allLinks | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+						<td md-cell>{{link.id}}</td>
+						<td md-cell>{{link.title}}</td>
+						<td md-cell>
+							<md-checkbox ng-model="link.isUsed" ng-change="toggleActive(link)" ng-disabled="!editing" aria-label="active"></md-checkbox>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+		<md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{allLinks.length}}" md-options="[5, 10]"></md-table-pagination>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+    	<span flex></span>
+    	<md-button class="md-raised md-primary" ng-click="hide()" aria-label="close">Close</md-button>
+	</md-dialog-actions>
+
+</md-dialog>
