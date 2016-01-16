@@ -11,7 +11,7 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile += %w( new_system_dialog_controller.js )
 
-%w(new_system_dialog edit_links_dialog).each do |base|
+%w(new_system_dialog new_subsystem_dialog edit_links_dialog).each do |base|
 	Rails.application.config.assets.precompile += ["#{base}_controller.js"]
 	Rails.application.config.assets.precompile += ["#{base}.html"]
 end
