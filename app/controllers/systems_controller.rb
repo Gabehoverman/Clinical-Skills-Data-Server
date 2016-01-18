@@ -43,7 +43,6 @@ class SystemsController < ApplicationController
 
   def destroy
     @system = System.find(params['id'])
-
     respond_to do |format|
       if @system.delete
         format.js { render json: @system, status: :ok }

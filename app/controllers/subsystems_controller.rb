@@ -3,6 +3,7 @@ class SubsystemsController < ApplicationController
   def index
     @toolbar_title = 'Subsystem'
     @subsystems = System.where.not(parent: nil)
+
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @subsystems.as_json(:subsystems => true), status: :ok }
@@ -10,34 +11,74 @@ class SubsystemsController < ApplicationController
   end
 
   def create
-    puts(params.inspect)
-    # @subsystem = System.new(subsystems_params)
-    # if @subsystem.save
-    #   puts 'CREATION SUCCESSFUL'
-    # else
-    #   puts 'CREATION FAILED'
-    # end
+    @subsystem = System.new(subsystem_params)
+    add_parent
+    add_links
+
+    respond_to do |format|
+      if @subsystem.save
+        format.js { render json: @subsystem.as_json(:subsystems => true), status: :ok }
+        format.json { render json: @subsystem.as_json(:subsystems => true), status: :ok }
+      else
+        format.js { render json: @subsystem.errors, status: :unprocessable_entity }
+        format.json { render json: @subsystem.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
-    puts(params.inspect)
-    # @toolbar_title = 'Edit Subsystem'
-    # @subsystem = System.find(params[:id])
-    # if @subsystem.update(subsystems_params)
-    #   puts 'UPDATE SUCCESSFUL'
-    # else
-    #   puts 'UPDATE FAILED'
-    # end
+    @subsystem = System.find(params[:id])
+    add_parent
+
+    @subsystem.links.clear
+    add_links
+
+    respond_to do |format|
+      if @subsystem.update(subsystem_params)
+        format.js { render json: @subsystem.as_json(:subsystems => true), status: :ok }
+        format.json { render json: @subsystem.as_json(:subsystems => true), status: :ok }
+      else
+        format.js { render json: @subsystem.errors, status: :unprocessable_entity }
+        format.json { render json: @subsystem.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-    puts(params.inspect)
+    @subsystem = System.find(params['id'])
+
+    respond_to do |format|
+      if @subsystem.delete
+        format.js { render json: @subsystem.as_json(:subsystems => true), status: :ok }
+        format.json { render json: @subsystem.as_json(:subsystems => true), status: :ok }
+      else
+        format.js { render json: @subsystem.errors, status: :unprocessable_entity }
+        format.json { render json: @subsystem.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private
 
     def subsystem_params
       params.permit(:name, :details, :visible)
+    end
+
+    def add_parent
+      unless params['parent_name'].nil?
+        @subsystem.parent = System.where(:name => params['parent_name']).first
+      end
+    end
+
+    def add_links
+      unless params['links'].nil?
+        params['links'].each do |l|
+          link = Link.find(l['link']['id'])
+          unless @subsystem.links.include?(link)
+            @subsystem.links << link
+          end
+        end
+      end
     end
     
 end

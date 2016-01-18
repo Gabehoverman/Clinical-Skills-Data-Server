@@ -1,48 +1,76 @@
+<script type="text/javascript" src="<%= asset_path 'new_subsystem_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_links_dialog_controller.js' %>"></script>
+<script>
+	var new_subsystem_dialog_html_path = "<%= asset_path 'new_subsystem_dialog.html' %>";
+	var edit_links_dialog_html_path = "<%= asset_path 'edit_links_dialog.html' %>";
+</script>
 <md-content ng-controller="SubsystemsController">
 	<md-card>
-
-        <md-toolbar class="md-table-toolbar md-accent" ng-hide="!selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{toolbarTitle()}}</span>
-            <div flex></div>
-            <md-button class="md-icon-button" ng-click="delete()">
-            	<md-icon class="material-icons">delete</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-
-        <md-toolbar class="md-table-toolbar md-default">
-          <div class="md-toolbar-tools">
-          	<md-icon class="material-icons">search</md-icon>
-          	<form flex name="filter.form">
-          		<input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
-          	</form>
-            <md-button class="md-icon-button" ng-click="toggleSearching()">
-            	<md-icon class="material-icons">close</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
-
+	    <md-toolbar class="md-table-toolbar md-default">
+	      <div class="md-toolbar-tools">
+	      	<md-icon class="material-icons">search</md-icon>
+	      	<form flex name="filter.form">
+	      		<input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
+	      	</form>
+	        <md-button class="md-icon-button" ng-click="query.filter = ''" aria-label="clear">
+	        	<md-icon class="material-icons">clear_all</md-icon>
+	        </md-button>
+	        <md-button class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
+	        <md-button class="md-raised md-warn end-edit-button" ng-click="cancel()" ng-show="editing" aria-label="cancel">Cancel</md-button>
+	        <md-button class="md-raised md-primary end-edit-button" ng-click="save()" ng-show="editing" aria-label="save">Save</md-button>
+	      </div>
+	    </md-toolbar>
 		<md-table-container>
-			<table md-table ng-model="selected" md-row-select md-progress="subsystemsPromise">
+			<table md-table md-progress="subsystemsPromise">
 				<thead md-head md-order="query.order">
 					<tr md-row>
+						<th md-column md-order-by="id"><span>ID</span></th>
 						<th md-column md-order-by="name"><span>Name</span></th>
 						<th md-column md-order-by="details"><span>Details</span></th>
+						<th md-column md-order-by="parent_name"><span>Parent Name</span></th>
+						<th md-column md-order-by="visible"><span>Links</span></th>
 						<th md-column md-order-by="visible"><span>Visible</span></th>
+						<th md-column ng-hide="!editing"><span>Delete</span></th>
 					</tr>
 				</thead>
 				<tbody md-body>
-					<tr md-row md-select="subsystem" md-select-id="{{subsystem.name}}" ng-repeat="subsystem in subsystems | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-						<td md-cell>{{subsystem.name}}</td>
-						<td md-cell>{{subsystem.details}}</td>
+					<tr md-row md-select="subsystem" md-select-id="{{subsystem.id}}" ng-repeat="subsystem in subsystems | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+						<td md-cell>{{subsystem.id}}</td>
+						<td md-cell ng-click="editName($event, subsystem)">
+							{{subsystem.name}}
+						</td>
+						<td md-cell ng-click="editDetails($event, subsystem)">
+							{{subsystem.details}}
+						</td>
 						<td md-cell>
-							<md-checkbox ng-model="subsystem.visible" ng-disabled="true"></md-checkbox>
+							<md-select ng-model="subsystem.parent_name" ng-change="editParentName($event, subsystem, '{{subsystem.parent_name}}')" ng-disabled="!editing" aria-label="parent">
+								<md-option ng-repeat="possibleParent in possibleParents(subsystem)" value="{{possibleParent.name}}">
+									{{possibleParent.name}}
+								</md-option>
+							</md-select>
+						</td>
+						<td md-cell>
+							<md-button class="md-primary" ng-click="editLinks($event, subsystem)" aria-label="links">
+								{{subsystem.links.length}} {{(subsystem.links.length == 1) ? "Link" : "Links"}}
+							</md-button>
+						</td>
+						<td md-cell>
+							<md-checkbox ng-model="subsystem.visible" ng-change="editVisible(subsystem)" ng-disabled="!editing" aria-label="visible"></md-checkbox>
+						</td>
+						<td md-cell ng-hide="!editing">
+							<md-button class="md-icon-button" ng-click="delete(subsystem)" aria-label="delete">
+	        					<md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
+	        				</md-button>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</md-table-container>
 		<md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{subsystems.length}}"></md-table-pagination>
+
+		<md-button class="md-fab" ng-click="newSubsystem($event)" aria-label="add">
+			<md-icon class="material-icons">add</md-icon>
+		</md-button>
+
 	</md-card>
 </md-content>

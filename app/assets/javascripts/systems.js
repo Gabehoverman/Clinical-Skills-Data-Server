@@ -12,7 +12,7 @@ function indexOfItemWithID(id, collection) {
 	return -1;
 }
 
-app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdEditDialog", "$mdDialog", "$mdMedia", function($scope, $http, $mdToast, $mdEditDialog, $mdDialog, $mdMedia) {
+app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", function($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia) {
 
 	$scope.systems = [];
 	$scope.changes = {
@@ -41,6 +41,10 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdEditDial
 					},
 					data: $scope.buildRequest($scope.changes.updates[i])
 				}).then($scope.ajaxSuccess, $scope.ajaxFailure);
+				var revertsIndex = indexOfItemWithID($scope.changes.updates[i].id, $scope.changes.reverts);
+				if (revertsIndex !== -1) {
+					$scope.changes.reverts.splice(revertsIndex, 1);
+				}
 			}
 		}
 
@@ -136,19 +140,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdEditDial
 		}
 	};
 
-	$scope.editVisible = function(systemToUpdate) {
-		var revertSystem = $.extend(true, {}, systemToUpdate);
-		revertSystem.visible = !revertSystem.visible;
-		if (indexOfItemWithID(systemToUpdate.id, $scope.changes.reverts) === -1) {
-			$scope.changes.reverts.push(revertSystem);
-		}
-		var changesIndex = indexOfItemWithID(systemToUpdate.id, $scope.changes.updates);
-		if (changesIndex !== -1) {
-			$scope.changes.updates.splice(changesIndex, 1);
-		}
-		$scope.changes.updates.push(systemToUpdate);
-	};
-
 	$scope.editLinks = function(event, systemToUpdate) {
 		$mdDialog.show({
 	      controller: EditDialogController,
@@ -178,6 +169,19 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdEditDial
 			}
 			$scope.changes.updates.push(systemToUpdate);
     	});
+	};
+
+	$scope.editVisible = function(systemToUpdate) {
+		var revertSystem = $.extend(true, {}, systemToUpdate);
+		revertSystem.visible = !revertSystem.visible;
+		if (indexOfItemWithID(systemToUpdate.id, $scope.changes.reverts) === -1) {
+			$scope.changes.reverts.push(revertSystem);
+		}
+		var changesIndex = indexOfItemWithID(systemToUpdate.id, $scope.changes.updates);
+		if (changesIndex !== -1) {
+			$scope.changes.updates.splice(changesIndex, 1);
+		}
+		$scope.changes.updates.push(systemToUpdate);
 	};
 
 	$scope.newSystem = function(event) {
