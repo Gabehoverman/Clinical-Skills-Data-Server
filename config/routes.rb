@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  root 'landing#index'
+  get 'landing/index'
+
   resources :systems, :only => [:index, :create, :update, :destroy]
   resources :subsystems, :only => [:index, :create, :update, :destroy]
   resources :links, :only => [:index, :create, :update, :destroy]

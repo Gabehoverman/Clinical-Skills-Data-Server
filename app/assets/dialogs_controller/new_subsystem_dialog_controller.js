@@ -1,4 +1,4 @@
-function NewDialogController($scope, $mdDialog, $http) {
+function NewSubsystemDialogController($scope, $mdDialog, $http) {
 
 	$scope.subsystems = [];
 	$scope.systems = [];

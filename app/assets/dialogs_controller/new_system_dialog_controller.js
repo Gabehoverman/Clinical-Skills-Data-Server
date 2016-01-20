@@ -1,4 +1,4 @@
-function NewDialogController($scope, $mdDialog, $http) {
+function NewSystemDialogController($scope, $mdDialog, $http) {
 
 	$scope.allLinks = [];
 
@@ -8,13 +8,6 @@ function NewDialogController($scope, $mdDialog, $http) {
 		visible: false,
 		links: []
 	};
-
-	$scope.query = {
-	    order: 'id',
-	    limit: 5,
-	    page: 1,
-	    filter: ""
-  	};
 
 	$scope.toggleActive = function(link) {
 		var index = indexOfItemWithID(link.id, $scope.newSystem.links);

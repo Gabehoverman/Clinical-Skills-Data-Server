@@ -1,15 +1,9 @@
+<script type="text/javascript" src="<%= asset_path 'new_link_dialog_controller.js' %>"></script>
+<script>
+	var new_link_dialog_html_path = "<%= asset_path 'new_link_dialog.html' %>";
+</script>
 <md-content ng-controller="LinksController">
 	<md-card>
-
-        <md-toolbar class="md-table-toolbar md-accent" ng-hide="!selected.length">
-          <div class="md-toolbar-tools">
-            <span>{{toolbarTitle()}}</span>
-            <div flex></div>
-            <md-button class="md-icon-button" ng-click="delete()">
-            	<md-icon class="material-icons">delete</md-icon>
-            </md-button>
-          </div>
-        </md-toolbar>
 
         <md-toolbar class="md-table-toolbar md-default">
           <div class="md-toolbar-tools">
@@ -17,27 +11,36 @@
           	<form flex name="filter.form">
           		<input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
           	</form>
-            <md-button class="md-icon-button" ng-click="toggleSearching()">
-            	<md-icon class="material-icons">close</md-icon>
+            <md-button class="md-icon-button" ng-click="query.filter = ''">
+            	<md-icon class="material-icons">clear_all</md-icon>
             </md-button>
+	        <md-button class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
+	        <md-button class="md-raised md-warn end-edit-button" ng-click="cancel()" ng-show="editing" aria-label="cancel">Cancel</md-button>
+	        <md-button class="md-raised md-primary end-edit-button" ng-click="save()" ng-show="editing" aria-label="save">Save</md-button>
           </div>
         </md-toolbar>
 
 		<md-table-container>
-			<table md-table ng-model="selected" md-row-select md-progress="linksPromise">
+			<table md-table md-progress="linksPromise">
 				<thead md-head md-order="query.order">
 					<tr md-row>
 						<th md-column md-order-by="title"><span>Title</span></th>
 						<th md-column md-order-by="link"><span>Link</span></th>
 						<th md-column md-order-by="visible"><span>Visible</span></th>
+						<th md-column ng-hide="!editing"><span>Delete</span></th>
 					</tr>
 				</thead>
 				<tbody md-body>
 					<tr md-row md-select="link" md-select-id="{{link.title}}" ng-repeat="link in links | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-						<td md-cell>{{link.title}}</td>
-						<td md-cell>{{link.link}}</td>
+						<td md-cell ng-click="editTitle($event, link)">{{link.title}}</td>
+						<td md-cell ng-click="editLink($event, link)">{{link.link}}</td>
 						<td md-cell>
-							<md-checkbox ng-model="link.visible" ng-disabled="true"></md-checkbox>
+							<md-checkbox ng-model="link.visible" ng-change="editVisible(link)" ng-disabled="!editing" aria-label="visible"></md-checkbox>
+						</td>
+						<td md-cell ng-hide="!editing">
+							<md-button class="md-icon-button" ng-click="delete(link)" aria-label="delete">
+	        					<md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
+	        				</md-button>
 						</td>
 					</tr>
 				</tbody>
@@ -45,6 +48,10 @@
 		</md-table-container>
 
 		<md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{links.length}}"></md-table-pagination>
+
+		<md-button class="md-fab" ng-click="newLink($event)" aria-label="add">
+			<md-icon class="material-icons">add</md-icon>
+		</md-button>
 
 	</md-card>
 </md-content>

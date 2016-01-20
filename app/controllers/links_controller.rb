@@ -10,27 +10,42 @@ class LinksController < ApplicationController
   end
 
   def create
-    puts(params.inspect)
-    # @link = Link.new(link_params)
-    # if @link.save
-    #   puts 'CREATION SUCCESSFUL'
-    # else
-    #   puts 'CREATION FAILED'
-    # end
+    @link = Link.new(link_params)
+    respond_to do |format|
+      if @link.save
+          format.js { render json: @link, status: :ok }
+          format.json { render json: @link, status: :ok }
+      else
+          format.js { render json: @link.errors, status: :unprocessable_entity }
+          format.json { render json: @link.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
-    puts(params.inspect)
-    # @link = Link.find(params[:id])
-    # if @link.update(link_params)
-    #   puts 'UPDATE SUCCESSFUL'
-    # else
-    #   puts 'UPDATE FAILED'
-    # end
+    @link = Link.find(params[:id])
+    respond_to do |format|
+      if @link.update(link_params)
+          format.js { render json: @link, status: :ok }
+          format.json { render json: @link, status: :ok }
+      else
+          format.js { render json: @link.errors, status: :unprocessable_entity }
+          format.json { render json: @link.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
-    puts(params.inspect)
+    @link = Link.find(params[:id])
+    respond_to do |format|
+      if @link.delete
+        format.js { render json: @link, status: :ok }
+        format.json { render json: @link, status: :ok }
+      else
+        format.js { render json: @link.errors, status: :unprocessable_entity }
+        format.json { render json: @link.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   private

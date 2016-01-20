@@ -80,14 +80,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 		$scope.editing = false;
 	};
 
-	$scope.delete = function(systemToDelete) {
-		if (indexOfItemWithID(systemToDelete.id, $scope.changes.reverts) === -1) {
-			$scope.changes.reverts.push($.extend(true, {}, systemToDelete));
-		}
-		var index = indexOfItemWithID(systemToDelete.id, $scope.systems);
-		$scope.systems.splice(index, 1);
-	};
-
 	$scope.editName = function(event, systemToUpdate) {
 		if ($scope.editing) {
 			$mdEditDialog.small({
@@ -184,9 +176,17 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 		$scope.changes.updates.push(systemToUpdate);
 	};
 
+	$scope.delete = function(systemToDelete) {
+		if (indexOfItemWithID(systemToDelete.id, $scope.changes.reverts) === -1) {
+			$scope.changes.reverts.push($.extend(true, {}, systemToDelete));
+		}
+		var index = indexOfItemWithID(systemToDelete.id, $scope.systems);
+		$scope.systems.splice(index, 1);
+	};
+
 	$scope.newSystem = function(event) {
 		$mdDialog.show({
-	      controller: NewDialogController,
+	      controller: NewSystemDialogController,
 	      templateUrl: new_system_dialog_html_path,
 	      parent: angular.element(document.body),
 	      targetEvent: event,
@@ -246,10 +246,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 				var system = response.data[i].system;
 				$scope.systems.push(system);
 			}
-		}, function error(response) {
-			console.log(response.status + ": " + response.statusText);
-			console.log(response);
-		}
+		}, $scope.ajaxFailure
 	);
 
 }]);

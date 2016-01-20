@@ -215,7 +215,7 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 
 	$scope.newSubsystem = function(event) {
 		$mdDialog.show({
-	      controller: NewDialogController,
+	      controller: NewSubsystemDialogController,
 	      templateUrl: new_subsystem_dialog_html_path,
 	      parent: angular.element(document.body),
 	      targetEvent: event,
@@ -282,13 +282,11 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 	);
 
 	$scope.subsystemsPromise = $http.get(subsystems_base_json_url).then(function success(response) {
-		for (var i = 0; i < response.data.length; i++) {
-			var subsystem = response.data[i].subsystem;
-			$scope.subsystems.push(subsystem);
-		}
-	}, function error(response) {
-		console.log(response.status + ": " + response.statusText);
-		console.log(response);
-	});
+			for (var i = 0; i < response.data.length; i++) {
+				var subsystem = response.data[i].subsystem;
+				$scope.subsystems.push(subsystem);
+			}
+		}, $scope.ajaxFailure
+	);
 
 }]);
