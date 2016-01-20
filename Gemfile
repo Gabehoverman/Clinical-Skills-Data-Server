@@ -34,10 +34,16 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Enable enhanced Heroku features
+gem 'rails_12factor'
+
+# Use Puma webserver as recommended by Heroku
 gem 'puma'
 
+# Manages Ruby Gems
 gem 'bundler'
 
+# Fixes an issue with AngularJS and CSRF Tokens
 gem 'angular_csrf'
 
 group :development, :test do
