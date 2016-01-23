@@ -203,7 +203,7 @@ app.controller("LinksController", ["$scope", "$http", "$mdToast", "$mdDialog", "
 		$mdToast.show($mdToast.simple().textContent(text).capsule(true).hideDelay(2000).position('top right'));
 	};
 
-	$scope.linksPromise = $http.get('http://localhost:3000/links.json').then(function success(response) {
+	$scope.linksPromise = $http.get(links_base_json_url).then(function success(response) {
 			for (var i = 0; i < response.data.length; i++) {
 				var link = response.data[i].link;
 				$scope.links.push(link);
