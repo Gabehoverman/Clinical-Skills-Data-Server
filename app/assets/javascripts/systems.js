@@ -23,7 +23,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 	$scope.editing = false;
 
 	$scope.query = {
-	    order: 'id',
+	    order: 'name',
 	    limit: 10,
 	    page: 1,
 	    filter: ""

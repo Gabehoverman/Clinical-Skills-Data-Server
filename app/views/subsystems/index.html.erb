@@ -24,7 +24,6 @@
 			<table md-table md-progress="subsystemsPromise">
 				<thead md-head md-order="query.order">
 					<tr md-row>
-						<th md-column md-order-by="id"><span>ID</span></th>
 						<th md-column md-order-by="name"><span>Name</span></th>
 						<th md-column md-order-by="details"><span>Details</span></th>
 						<th md-column md-order-by="parent_name"><span>Parent Name</span></th>
@@ -35,7 +34,6 @@
 				</thead>
 				<tbody md-body>
 					<tr md-row md-select="subsystem" md-select-id="{{subsystem.id}}" ng-repeat="subsystem in subsystems | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-						<td md-cell>{{subsystem.id}}</td>
 						<td md-cell ng-click="editName($event, subsystem)">
 							{{subsystem.name}}
 						</td>

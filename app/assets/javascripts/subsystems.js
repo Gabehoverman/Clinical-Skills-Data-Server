@@ -26,7 +26,7 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 	$scope.editing = false;
 
 	$scope.query = {
-	    order: 'id',
+	    order: 'name',
 	    limit: 10,
 	    page: 1,
 	    filter: ""

@@ -24,7 +24,6 @@
 			<table md-table md-progress="systemsPromise">
 				<thead md-head md-order="query.order">
 					<tr md-row>
-						<th md-column md-order-by="id"><span>ID</span></th>
 						<th md-column md-order-by="name"><span>Name</span></th>
 						<th md-column md-order-by="details"><span>Details</span></th>
 						<th md-column md-order-by="visible"><span>Links</span></th>
@@ -34,7 +33,6 @@
 				</thead>
 				<tbody md-body>
 					<tr md-row md-select="system" md-select-id="{{system.id}}" ng-repeat="system in systems | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-						<td md-cell>{{system.id}}</td>
 						<td md-cell ng-click="editName($event, system)">
 							{{system.name}}
 						</td>
