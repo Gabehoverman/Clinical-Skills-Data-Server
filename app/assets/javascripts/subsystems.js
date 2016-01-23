@@ -1,23 +1,10 @@
-function indexOfItemWithID(id, collection) {
-	for (var i = 0; i < collection.length; i++) {
-		if (collection[i].id === undefined) {
-			if (id === collection[i].link.id) {
-				return i;
-			}
-		}
-		if (id === collection[i].id) {
-			return i;
-		}
-	}
-	return -1;
-}
-
 app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", function($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia) {
 
 	$scope.subsystems = [];
 	$scope.systems = [];
 	$scope.changes = {
 		updates: [],
+		deletes: [],
 		reverts: []
 	};
 
@@ -42,15 +29,8 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 	$scope.save = function() {
 		if ($scope.changes.updates.length !== 0) {
 			for (var i = 0; i < $scope.changes.updates.length; i++) {
-				$http({
-					method: 'PATCH',
-					url: subsystems_base_url + "/" + $scope.changes.updates[i].id,
-					dataType: 'json',
-					headers: {
-						'Content-type': 'application/json'
-					},
-					data: $scope.buildRequest($scope.changes.updates[i])
-				}).then($scope.ajaxSuccess, $scope.ajaxFailure);
+				$http.patch(subsystems_base_url + "/" + $scope.changes.updates[i].id, buildRequest($scope.changes.updates[i])).then($scope.ajaxSuccess, $scope.ajaxFailure);
+
 				var revertsIndex = indexOfItemWithID($scope.changes.updates[i].id, $scope.changes.reverts);
 				if (revertsIndex !== -1) {
 					$scope.changes.reverts.splice(revertsIndex, 1);
@@ -58,20 +38,22 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 			}
 		}
 
-		if ($scope.changes.reverts.length !== 0) {
-			for (var j = 0; j < $scope.changes.reverts.length; j++) {
+		if ($scope.changes.deletes.length !== 0) {
+			for (var j = 0; j < $scope.changes.deletes.length; j++) {
 				$http({
 					method: 'DELETE',
-					url: subsystems_base_url + "/" + $scope.changes.reverts[j].id,
+					url: subsystems_base_url + "/" + $scope.changes.deletes[j].id,
 					dataType: 'json',
 					headers: {
 						'Content-type': 'application/json'
 					},
-					data: $scope.buildRequest($scope.changes.reverts[j])
+					data: buildRequest($scope.changes.deletes[j])
 				}).then($scope.ajaxSuccess, $scope.ajaxFailure);
 			}
 		}
 
+		$scope.changes.updates = [];
+		$scope.changes.deletes = [];
 		$scope.changes.reverts = [];
 		$scope.editing = false;
 	};
@@ -86,11 +68,14 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 				$scope.subsystems[index] = subsystemBeforeUpdate;
 			}
 		}
+		$scope.changes.updates = [];
+		$scope.changes.deletes = [];
 		$scope.changes.reverts = [];
 		$scope.editing = false;
 	};
 
 	$scope.delete = function(subsystemToDelete) {
+		$scope.changes.deletes.push(subsystemToDelete);
 		if (indexOfItemWithID(subsystemToDelete.id, $scope.changes.reverts) === -1) {
 			$scope.changes.reverts.push($.extend(true, {}, subsystemToDelete));
 		}
@@ -223,30 +208,8 @@ app.controller("SubsystemsController", ["$scope", "$http", "$mdToast", "$mdDialo
 	      escapeToClose: false,
 	      fullscreen: $mdMedia('xs') || $mdMedia('sm')
     	}).then(function(newSubsystem) {
-    		$http({
-    			method: 'POST',
-    			url: subsystems_base_url,
-    			dataType: 'json',
-    			headers: {
-    				'Content-type': 'application/json'
-    			},
-    			data: $scope.buildRequest(newSubsystem)
-    		}).then($scope.ajaxSuccess, $scope.ajaxFailure);
+    		$http.post(subsystems_base_url, buildRequest(newSubsystem)).then($scope.ajaxSuccess, $scope.ajaxFailure);
 		});
-	};
-
-	$scope.buildRequest = function(subsystem) {
-		var params = {
-			'format': 'js'
-		};
-
-		for (var key in subsystem) {
-			if (key[0] !== '$') {
-				params[key] = subsystem[key];
-			}
-		}
-
-		return params;
 	};
 
 	$scope.ajaxSuccess = function(response) {

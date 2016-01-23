@@ -20,3 +20,31 @@ app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSi
     };
     
 }]);
+
+function buildRequest(fromObject) {
+	var params = {
+		'format': 'json'
+	};
+
+	for (var key in fromObject) {
+		if (key[0] !== '$') {
+			params[key] = fromObject[key];
+		}
+	}
+
+	return params;
+}
+
+function indexOfItemWithID(id, collection) {
+	for (var i = 0; i < collection.length; i++) {
+		if (collection[i].id === undefined) {
+			if (id === collection[i].link.id) {
+				return i;
+			}
+		}
+		if (id === collection[i].id) {
+			return i;
+		}
+	}
+	return -1;
+}

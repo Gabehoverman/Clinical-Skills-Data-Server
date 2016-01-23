@@ -1,22 +1,9 @@
-function indexOfItemWithID(id, collection) {
-	for (var i = 0; i < collection.length; i++) {
-		if (collection[i].id === undefined) {
-			if (id === collection[i].link.id) {
-				return i;
-			}
-		}
-		if (id === collection[i].id) {
-			return i;
-		}
-	}
-	return -1;
-}
-
 app.controller("LinksController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", function($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia) {
 
 	$scope.links = [];
 	$scope.changes = {
 		updates: [],
+		deletes: [],
 		reverts: []
 	};
 
@@ -32,36 +19,26 @@ app.controller("LinksController", ["$scope", "$http", "$mdToast", "$mdDialog", "
   	$scope.save = function() {
 		if ($scope.changes.updates.length !== 0) {
 			for (var i = 0; i < $scope.changes.updates.length; i++) {
-				$http({
-					method: 'PATCH',
-					url: links_base_url + "/" + $scope.changes.updates[i].id,
-					dataType: 'json',
-					headers: {
-						'Content-type': 'application/json'
-					},
-					data: $scope.buildRequest($scope.changes.updates[i])
-				}).then($scope.ajaxSuccess, $scope.ajaxFailure);
-				var revertsIndex = indexOfItemWithID($scope.changes.updates[i].id, $scope.changes.reverts);
-				if (revertsIndex !== -1) {
-					$scope.changes.reverts.splice(revertsIndex, 1);
-				}
+				$http.patch(links_base_url + "/" + $scope.changes.updates[i].id, buildRequest($scope.changes.updates[i])).then($scope.ajaxSuccess, $scope.ajaxFailure);
 			}
 		}
 
-		if ($scope.changes.reverts.length !== 0) {
-			for (var j = 0; j < $scope.changes.reverts.length; j++) {
+		if ($scope.changes.deletes.length !== 0) {
+			for (var j = 0; j < $scope.changes.deletes.length; j++) {
 				$http({
 					method: 'DELETE',
-					url: links_base_url + "/" + $scope.changes.reverts[j].id,
+					url: links_base_url + "/" + $scope.changes.deletes[j].id,
 					dataType: 'json',
 					headers: {
 						'Content-type': 'application/json'
 					},
-					data: $scope.buildRequest($scope.changes.reverts[j])
+					data: buildRequest($scope.changes.deletes[j])
 				}).then($scope.ajaxSuccess, $scope.ajaxFailure);
 			}
 		}
 
+		$scope.changes.updates = [];
+		$scope.changes.deletes = [];
 		$scope.changes.reverts = [];
 		$scope.editing = false;
   	};
@@ -76,6 +53,8 @@ app.controller("LinksController", ["$scope", "$http", "$mdToast", "$mdDialog", "
 				$scope.links[index] = linkBeforeUpdate;
 			}
 		}
+		$scope.changes.updates = [];
+		$scope.changes.deletes = [];
 		$scope.changes.reverts = [];
 		$scope.editing = false;
   	};
@@ -140,6 +119,7 @@ app.controller("LinksController", ["$scope", "$http", "$mdToast", "$mdDialog", "
   	};
 
   	$scope.delete = function(linkToDelete) {
+  		$scope.changes.deletes.push(linkToDelete);
 		if (indexOfItemWithID(linkToDelete.id, $scope.changes.reverts) === -1) {
 			$scope.changes.reverts.push($.extend(true, {}, linkToDelete));
 		}
@@ -157,31 +137,9 @@ app.controller("LinksController", ["$scope", "$http", "$mdToast", "$mdDialog", "
 	      escapeToClose: false,
 	      fullscreen: $mdMedia('xs') || $mdMedia('sm')
     	}).then(function(newLink) {
-    		$http({
-    			method: 'POST',
-    			url: links_base_url,
-    			dataType: 'json',
-    			headers: {
-    				'Content-type': 'application/json'
-    			},
-    			data: $scope.buildRequest(newLink)
-    		}).then($scope.ajaxSuccess, $scope.ajaxFailure);
+    		$http.post(links_base_url, buildRequest(newLink)).then($scope.ajaxSuccess, $scope.ajaxFailure);
 		});
   	};
-
-	$scope.buildRequest = function(link) {
-		var params = {
-			'format': 'js'
-		};
-
-		for (var key in link) {
-			if (key[0] !== '$') {
-				params[key] = link[key];
-			}
-		}
-
-		return params;
-	};
 
 	$scope.ajaxSuccess = function(response) {
 		var text = "";
