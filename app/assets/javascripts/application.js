@@ -32,6 +32,8 @@ function buildRequest(fromObject) {
 		}
 	}
 
+	console.log(params);
+
 	return params;
 }
 

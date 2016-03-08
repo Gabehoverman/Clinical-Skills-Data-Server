@@ -1,5 +1,7 @@
 class SystemsController < ApplicationController
 
+  skip_before_action :verify_authenticity_token, :only => :create
+
   def index
     @toolbar_title = 'Systems'
     @systems = System.where(parent: nil)
@@ -57,7 +59,7 @@ class SystemsController < ApplicationController
   private
 
     def system_params
-      params.permit(:name, :details, :visible)
+      params.permit(:id, :name, :details, :visible)
     end
 
     def add_links

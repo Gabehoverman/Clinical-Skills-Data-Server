@@ -11,31 +11,68 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151220060943) do
+ActiveRecord::Schema.define(version: 20160308031129) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "links", force: :cascade do |t|
-    t.string   "title"
-    t.string   "link"
-    t.boolean  "visible"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "basic_exam_techniques", force: :cascade do |t|
+    t.integer "component_id"
+    t.string  "name"
+    t.text    "notes"
   end
 
-  create_table "links_systems", force: :cascade do |t|
+  create_table "components", force: :cascade do |t|
     t.integer "system_id"
-    t.integer "link_id"
+    t.string  "name"
+    t.text    "inspection"
+    t.text    "notes"
+  end
+
+  create_table "image_links", force: :cascade do |t|
+    t.integer "basic_exam_technique_id"
+    t.integer "special_test_id"
+    t.string  "title"
+    t.string  "link"
+  end
+
+  create_table "muscles", force: :cascade do |t|
+    t.integer "component_id"
+    t.string  "name"
+  end
+
+  create_table "palpations", force: :cascade do |t|
+    t.integer "component_id"
+    t.string  "structure"
+    t.text    "details"
+    t.text    "notes"
+  end
+
+  create_table "range_of_motions", force: :cascade do |t|
+    t.integer "component_id"
+    t.string  "motion"
+    t.string  "degrees"
+    t.text    "notes"
+  end
+
+  create_table "special_tests", force: :cascade do |t|
+    t.integer "component_id"
+    t.string  "name"
+    t.string  "positive_sign"
+    t.string  "indication"
+    t.text    "notes"
   end
 
   create_table "systems", force: :cascade do |t|
-    t.integer  "parent_id"
-    t.string   "name"
-    t.string   "details"
-    t.boolean  "visible"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "name"
+    t.text   "details"
+  end
+
+  create_table "video_links", force: :cascade do |t|
+    t.integer "basic_exam_technique_id"
+    t.integer "special_test_id"
+    t.string  "title"
+    t.string  "link"
   end
 
 end

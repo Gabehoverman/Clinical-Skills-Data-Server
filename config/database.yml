@@ -11,21 +11,15 @@ default: &default
 
 development:
   <<: *default
-  database: wvusom_dev
-  username: wvusom
-  password: wvusom
+  database: wvsom_dev
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: wvusom_test
-  username: wvusom
-  password: wvusom
+  database: wvsom_test
 
 production:
   <<: *default
-  database: wvusom_pro
-  username: wvusom
-  password: wvusom
+  database: wvsom_pro
