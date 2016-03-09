@@ -4,11 +4,19 @@ class SystemsController < ApplicationController
 
   def index
     @toolbar_title = 'Systems'
-    @systems = System.where(parent: nil)
+    @systems = System.all
+
+    json = []
+
+    @systems.each do |system|
+      json.push({
+        :system => system.as_json
+      })
+    end
 
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @systems, status: :ok }
+      format.json { render json: json, status: :ok }
     end
   end
 

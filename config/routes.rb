@@ -4,8 +4,7 @@ Rails.application.routes.draw do
   get 'landing/index'
 
   resources :systems, :only => [:index, :create, :update, :destroy]
-  resources :subsystems, :only => [:index, :create, :update, :destroy]
-  resources :links, :only => [:index, :create, :update, :destroy]
+  resources :components, :only => [:index, :create, :update, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
