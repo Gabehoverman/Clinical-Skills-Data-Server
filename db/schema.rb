@@ -11,15 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308031129) do
+ActiveRecord::Schema.define(version: 20160312004606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "basic_exam_techniques", force: :cascade do |t|
-    t.integer "component_id"
+    t.integer "system_id"
     t.string  "name"
     t.text    "notes"
+  end
+
+  create_table "basic_exam_techniques_image_links", id: false, force: :cascade do |t|
+    t.integer "basic_exam_technique_id"
+    t.integer "image_link_id"
+  end
+
+  create_table "basic_exam_techniques_video_links", id: false, force: :cascade do |t|
+    t.integer "basic_exam_technique_id"
+    t.integer "video_link_id"
   end
 
   create_table "components", force: :cascade do |t|
@@ -34,6 +44,11 @@ ActiveRecord::Schema.define(version: 20160308031129) do
     t.integer "special_test_id"
     t.string  "title"
     t.string  "link"
+  end
+
+  create_table "image_links_special_tests", id: false, force: :cascade do |t|
+    t.integer "special_test_id"
+    t.integer "image_link_id"
   end
 
   create_table "muscles", force: :cascade do |t|
@@ -63,16 +78,19 @@ ActiveRecord::Schema.define(version: 20160308031129) do
     t.text    "notes"
   end
 
+  create_table "special_tests_video_links", id: false, force: :cascade do |t|
+    t.integer "special_test_id"
+    t.integer "video_link_id"
+  end
+
   create_table "systems", force: :cascade do |t|
     t.string "name"
     t.text   "details"
   end
 
   create_table "video_links", force: :cascade do |t|
-    t.integer "basic_exam_technique_id"
-    t.integer "special_test_id"
-    t.string  "title"
-    t.string  "link"
+    t.string "title"
+    t.string "link"
   end
 
 end

@@ -1,6 +1,6 @@
 class VideoLink < ActiveRecord::Base
 
-  belongs_to :basic_exam_technique
-  belongs_to :special_test
+  has_and_belongs_to_many :basic_exam_techniques
+  has_and_belongs_to_many :special_tests
 
 end
