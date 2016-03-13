@@ -76,7 +76,6 @@ VideoLink.create(special_tests: [straight_leg_raising], title: 'Straight Leg Rai
 VideoLink.create(special_tests: [femoral_stretch_test], title: 'Femoral Stretch Test', link: 'https://www.youtube.com/watch?v=baMKfLssJ3Y')
 
 # Image Link
-
-ImageLink.create(basic_exam_techniques: [confrontation_test], title: 'Confrontation Test', link: 'https://www.google.com/')
-
-ImageLink.create(special_tests: [femoral_stretch_test], title: 'Femoral Stretch Test', link: 'https://www.reddit.com/')
+ImageLink.create(special_tests: [spurling_test], title: 'Spurling\'s Test', link: Cloudinary::Api.resource('musculoskeletal/spurling_test')['secure_url'])
+ImageLink.create(special_tests: [compression_distraction], title: 'Compression Test', link: Cloudinary::Api.resource('musculoskeletal/compression_test')['secure_url'])
+ImageLink.create(special_tests: [compression_distraction], title: 'Distraction Test', link: Cloudinary::Api.resource('musculoskeletal/distraction_test')['secure_url'])

@@ -22,10 +22,4 @@ class ComponentsController < ApplicationController
 
   end
 
-  private
-
-  def components_params
-    params.permit(:system)
-  end
-
 end

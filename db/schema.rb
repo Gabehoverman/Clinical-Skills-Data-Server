@@ -40,10 +40,8 @@ ActiveRecord::Schema.define(version: 20160312004606) do
   end
 
   create_table "image_links", force: :cascade do |t|
-    t.integer "basic_exam_technique_id"
-    t.integer "special_test_id"
-    t.string  "title"
-    t.string  "link"
+    t.string "title"
+    t.string "link"
   end
 
   create_table "image_links_special_tests", id: false, force: :cascade do |t|

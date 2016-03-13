@@ -1,14 +1,14 @@
-class VideoLinksController < ApplicationController
+class ImageLinksController < ApplicationController
 
   def index
     json = []
     unless params[:special_test].nil?
       @special_test = SpecialTest.where('lower(name) = ?', params[:special_test].downcase).first
       unless @special_test.nil?
-        @video_links = @special_test.video_links
-        @video_links.each do |video_link|
+        @image_links = @special_test.image_links
+        @image_links.each do |image_link|
           json.push({
-            :video_link => video_link
+            :image_link => image_link
           })
         end
       end

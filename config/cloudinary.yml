@@ -1,0 +1,19 @@
+---
+development:
+  cloud_name: wvsom
+  api_key: '221726424829997'
+  api_secret: 30OpgUURVYhONyiRErxQlKlmzHw
+  enhance_image_tag: true
+  static_image_support: false
+production:
+  cloud_name: wvsom
+  api_key: '221726424829997'
+  api_secret: 30OpgUURVYhONyiRErxQlKlmzHw
+  enhance_image_tag: true
+  static_image_support: true
+test:
+  cloud_name: wvsom
+  api_key: '221726424829997'
+  api_secret: 30OpgUURVYhONyiRErxQlKlmzHw
+  enhance_image_tag: true
+  static_image_support: false
