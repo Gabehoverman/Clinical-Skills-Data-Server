@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  
+
   root 'landing#index'
+
   get 'landing/index'
 
   resources :systems, :only => [:index, :create, :update, :destroy]
   resources :components, :only => [:index, :create, :update, :destroy]
   resources :ranges_of_motion, :only => [:index, :create, :update, :destroy]
+  resources :muscles, :only => [:index, :create, :update, :destroy]
   resources :special_tests, :only => [:index, :create, :update, :destroy]
   resources :image_links, :only => [:index, :create, :update, :destroy]
   resources :video_links, :only => [:index, :create, :update, :destroy]
