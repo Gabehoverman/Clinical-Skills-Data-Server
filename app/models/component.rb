@@ -9,4 +9,6 @@ class Component < ActiveRecord::Base
   has_one :basic_exam_technique
   has_many :special_tests
 
+  validates :name, :uniqueness => true
+
 end

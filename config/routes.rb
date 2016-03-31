@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   resources :systems, :only => [:index, :create, :update, :destroy]
   resources :components, :only => [:index, :create, :update, :destroy]
+  resources :palpations, :only => [:index, :create, :update, :destroy]
   resources :ranges_of_motion, :only => [:index, :create, :update, :destroy]
   resources :muscles, :only => [:index, :create, :update, :destroy]
   resources :special_tests, :only => [:index, :create, :update, :destroy]
