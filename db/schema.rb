@@ -11,32 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160312004606) do
+ActiveRecord::Schema.define(version: 20160406074501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "basic_exam_techniques", force: :cascade do |t|
-    t.integer "system_id"
-    t.string  "name"
-    t.text    "notes"
-  end
-
-  create_table "basic_exam_techniques_image_links", id: false, force: :cascade do |t|
-    t.integer "basic_exam_technique_id"
-    t.integer "image_link_id"
-  end
-
-  create_table "basic_exam_techniques_video_links", id: false, force: :cascade do |t|
-    t.integer "basic_exam_technique_id"
-    t.integer "video_link_id"
-  end
 
   create_table "components", force: :cascade do |t|
     t.integer "system_id"
     t.string  "name"
     t.text    "inspection"
     t.text    "notes"
+  end
+
+  create_table "exam_techniques", force: :cascade do |t|
+    t.integer "system_id"
+    t.string  "name"
+    t.string  "details"
+  end
+
+  create_table "exam_techniques_image_links", id: false, force: :cascade do |t|
+    t.integer "exam_technique_id"
+    t.integer "image_link_id"
+  end
+
+  create_table "exam_techniques_video_links", id: false, force: :cascade do |t|
+    t.integer "exam_technique_id"
+    t.integer "video_link_id"
   end
 
   create_table "image_links", force: :cascade do |t|

@@ -61,13 +61,14 @@ compression_distraction = SpecialTest.create(component: cervical_spine, name: 'C
 straight_leg_raising = SpecialTest.create(component: lumbar_spine, name: 'Straight Leg Raising Test', positive_sign: 'Radiating pain below the knee', indication: 'Nerve root irritation or lumbar disc herniation', notes:'Have the patient lie supine with the neck slightly flexed. Lift the leg upward by supporting the foot around the calcaneus. The knee should remain straight as you do this. No pain should be felt below the knee with leg raising. Many people may experience pain during this, but is it sciatic nerve pain or hamstring tightness? Sciatic nerve pain will extend down the whole leg, whereas hamstring tightness will involve only the posterior thigh. Flexion of the knee often eliminates the pain with leg raising (due to hamstring tightness). Repeat the procedure on the unaffected leg. Crossover pain in the affected leg with this maneuver is more supportive of the finding of tension on the nerve roots.')
 femoral_stretch_test = SpecialTest.create(component: lumbar_spine, name: 'Femoral Stretch Test', positive_sign: 'Pain', indication: 'Nerve root compression at L1-L3')
 
-# Basic Exam Technique
+# Exam Technique
 
-confrontation_test = BasicExamTechnique.create(system: eye, name: 'Confrontation (Peripheral Vision) Test', notes: '')
+far_visual_activity = ExamTechnique.create(system: eye, name: 'Far Visual Activity', details: 'Snellen Chart')
+near_visual_activity = ExamTechnique.create(system: eye, name: 'Near Visual Activity', details: 'Rosenbaum Chart')
 
 # Video Link
 
-VideoLink.create(basic_exam_techniques: [confrontation_test], title: 'Confrontation Test', link: 'https://www.youtube.com/watch?v=kqPVVsVN4b8')
+VideoLink.create(exam_techniques: [near_visual_activity], title: 'Visual Acuity Test Cranial Nerve II', link: 'https://www.youtube.com/watch?v=wl1hWJAnaYc')
 
 VideoLink.create(special_tests: [spurling_test], title: 'Spurling Test', link: 'https://www.youtube.com/watch?v=VYENa1Dre10')
 VideoLink.create(special_tests: [compression_distraction], title: 'Compression and Distraction Test', link: 'https://www.youtube.com/watch?v=TnoJySUENAk')
