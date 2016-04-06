@@ -14,6 +14,18 @@ class VideoLinksController < ApplicationController
       end
     end
 
+    unless params[:exam_technique].nil?
+      @exam_technique = ExamTechnique.where('lower(name) = ?', params[:exam_technique].downcase).first
+      unless @exam_technique.nil?
+        @video_links = @exam_technique.video_links
+        @video_links.each do |video_link|
+          json.push({
+            :video_link => video_link
+          })
+        end
+      end
+    end
+
     respond_to do |format|
       format.html { render :index }
       format.json { render json: json, status: :ok }
