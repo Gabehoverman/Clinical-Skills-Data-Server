@@ -69,6 +69,8 @@ near_visual_activity = ExamTechnique.create(system: eye, name: 'Near Visual Acti
 # Video Link
 
 VideoLink.create(exam_techniques: [near_visual_activity], title: 'Visual Acuity Test Cranial Nerve II', link: 'https://www.youtube.com/watch?v=wl1hWJAnaYc')
+VideoLink.create(exam_techniques: [near_visual_activity], title: 'Visual Acuity Test Cranial Nerve III', link: 'https://www.google.com')
+VideoLink.create(exam_techniques: [near_visual_activity], title: 'Visual Acuity Test Cranial Nerve IV', link: 'https://www.reddit.com')
 
 VideoLink.create(special_tests: [spurling_test], title: 'Spurling Test', link: 'https://www.youtube.com/watch?v=VYENa1Dre10')
 VideoLink.create(special_tests: [compression_distraction], title: 'Compression and Distraction Test', link: 'https://www.youtube.com/watch?v=TnoJySUENAk')
