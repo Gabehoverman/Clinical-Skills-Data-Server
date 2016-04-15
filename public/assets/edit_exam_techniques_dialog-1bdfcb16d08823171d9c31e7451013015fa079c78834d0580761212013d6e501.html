@@ -1,7 +1,7 @@
 <md-dialog flex="50">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h1>Components for {{system.name}}</h1>
+            <h1>Exam Techniques for {{system.name}}</h1>
             <span flex></span>
             <md-button class="md-icon-button" ng-click="hide()" aria-label="close">
                 <md-icon class="material-icons">close</md-icon>
@@ -29,12 +29,12 @@
             </tr>
             </thead>
             <tbody md-body>
-            <tr md-row md-select="component" md-select-id="{{component.id}}" ng-repeat="component in components | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+            <tr md-row md-select="exam_technique" md-select-id="{{exam_technique.id}}" ng-repeat="exam_technique in exam_techniques | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                 <td md-cell>
-                    {{component.name}}
+                    {{exam_technique.name}}
                 </td>
                 <td md-cell ng-hide="!editing">
-                    <md-button class="md-icon-button" ng-click="remove(component)" aria-label="use">
+                    <md-button class="md-icon-button" ng-click="remove(exam_technique)" aria-label="use">
                         <md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
                     </md-button>
                 </td>
@@ -42,20 +42,18 @@
             </tbody>
         </table>
     </md-table-container>
-    <md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{components.length}}"></md-table-pagination>
-
-    <div flex></div>
+    <md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{exam_techniques.length}}"></md-table-pagination>
 
     <md-dialog-actions layout="row">
         <md-button class="md-raised md-warn" ng-click="cancel()" aria-label="cancel">Cancel</md-button>
         <span flex></span>
-        <md-select ng-model="componentToAdd" placeholder="Add Component" ng-show="editing">
-            <md-option ng-value="component" ng-repeat="component in unusedComponents | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                {{component.name}}
+        <md-select ng-model="examTechniqueToAdd" placeholder="Add Exam Technique">
+            <md-option ng-value="exam_technique" ng-repeat="exam_technique in unusedExamTechniques | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                {{exam_technique.name}}
             </md-option>
         </md-select>
-        <md-button class="md-raised md-primary md-hue-2" ng-click="addComponent()" ng-show="editing" aria-label="add">Add Component</md-button>
         <span flex></span>
+        <md-button class="md-raised md-primary md-hue-2" ng-click="addExamTechnique()" aria-label="add">Add Exam Technique</md-button>
         <md-button class="md-raised md-primary" ng-click="save()" aria-label="save">Save</md-button>
     </md-dialog-actions>
 </md-dialog>

@@ -7,6 +7,8 @@ class SystemsController < ApplicationController
     js :systems_url => url_for(:action => :all)
     js :system_post_url => url_for(:action => :create)
     js :system_patch_url => systems_url
+    js :components_url => url_for(:controller => 'components', :action => 'all')
+    js :exam_techniques_url => url_for(:controller => 'exam_techniques', :action => 'all')
     js :new_system_dialog_template_url => ActionController::Base.helpers.asset_path('new_system_dialog.html')
     js :edit_components_dialog_template_url => ActionController::Base.helpers.asset_path('edit_components_dialog.html')
     js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('edit_exam_techniques_dialog.html')

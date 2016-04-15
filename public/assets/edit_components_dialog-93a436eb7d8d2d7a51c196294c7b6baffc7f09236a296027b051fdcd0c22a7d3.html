@@ -44,18 +44,19 @@
     </md-table-container>
     <md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{components.length}}"></md-table-pagination>
 
-    <div flex></div>
-
     <md-dialog-actions layout="row">
         <md-button class="md-raised md-warn" ng-click="cancel()" aria-label="cancel">Cancel</md-button>
         <span flex></span>
-        <md-select ng-model="componentToAdd" placeholder="Add Component" ng-show="editing">
-            <md-option ng-value="component" ng-repeat="component in unusedComponents | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                {{component.name}}
-            </md-option>
-        </md-select>
-        <md-button class="md-raised md-primary md-hue-2" ng-click="addComponent()" ng-show="editing" aria-label="add">Add Component</md-button>
+        <md-input-container>
+            <label>Add Component</label>
+            <md-select ng-model="componentToAdd">
+                <md-option ng-value="component" ng-repeat="component in allComponents | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    {{component.name}}
+                </md-option>
+            </md-select>
+        </md-input-container>
         <span flex></span>
+        <md-button class="md-raised md-primary md-hue-2" ng-click="addComponent($event)" aria-label="add">Add Component</md-button>
         <md-button class="md-raised md-primary" ng-click="save()" aria-label="save">Save</md-button>
     </md-dialog-actions>
 </md-dialog>

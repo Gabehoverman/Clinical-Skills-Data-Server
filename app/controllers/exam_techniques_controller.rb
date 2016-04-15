@@ -22,4 +22,19 @@ class ExamTechniquesController < ApplicationController
 
   end
 
+  def all
+    @exam_techniques = ExamTechnique.all
+    json = []
+
+    @exam_techniques.each do |exam_technique|
+      json.push({
+        :exam_technique => exam_technique
+      })
+    end
+
+    respond_to do |format|
+      format.all { render json: json, status: :ok }
+    end
+  end
+
 end

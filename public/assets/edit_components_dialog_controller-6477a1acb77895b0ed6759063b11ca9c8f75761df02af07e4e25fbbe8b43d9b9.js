@@ -14,14 +14,24 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     };
 
     $scope.filterComponents = function () {
+        //console.log($scope.allComponents);
         for (var i = 0; i < $scope.allComponents.length; i++) {
             var component = $scope.allComponents[i];
-            if (indexOfItemWithID(component.id, $scope.components) == -1) {
-                if (indexOfItemWithID(component.id, $scope.unusedComponents) == -1) {
-                    $scope.unusedComponents.push(component);
-                }
+            //console.log(component);
+            var index = indexOfItemWithID(component.id, $scope.components);
+            console.log(index);
+            if (index == -1) {
+                $scope.unusedComponents.push(component);
+                //console.log($scope.unusedComponents);
             }
         }
+        //for (var i = 0; i < allComponents.length; i++) {
+        //    var component = allComponents[i];
+        //    var index = indexOfItemWithID(component.id, $scope.components);
+        //    if (index == -1) {
+        //        $scope.allComponents.push(component);
+        //    }
+        //}
     };
 
     $scope.remove = function(componentToRemove) {
@@ -35,8 +45,6 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     $scope.addComponent = function () {
         if($scope.componentToAdd) {
             $scope.components.push($scope.componentToAdd);
-            var index = indexOfItemWithID($scope.componentToAdd.id, $scope.unusedComponents);
-            $scope.unusedComponents.splice(index, 1);
             $scope.componentToAdd = null;
             $scope.filterComponents();
         }

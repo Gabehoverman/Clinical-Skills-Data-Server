@@ -3,7 +3,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 
     $scope.systems = [];
     $scope.allComponents = [];
-    $scope.allExamTechniques = [];
 
     $scope.editing = false;
 
@@ -19,7 +18,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
         $scope.system_patch_url = this.params.system_patch_url;
         $scope.system_post_url = this.params.system_post_url;
         $scope.components_url = this.params.components_url;
-        $scope.exam_techniques_url = this.params.exam_techniques_url;
         $scope.new_system_dialog_template_url = this.params.new_system_dialog_template_url;
         $scope.edit_components_dialog_template_url = this.params.edit_components_dialog_template_url;
         $scope.edit_exam_techniques_dialog_template_url = this.params.edit_exam_techniques_dialog_template_url;
@@ -38,15 +36,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
                 for (var i = 0; i < response.data.length; i++) {
                     var component = response.data[i].component;
                     $scope.allComponents.push(component);
-                }
-            }, $scope.ajaxFailure
-        );
-
-        $scope.examTechniquesPromise = $http.get($scope.exam_techniques_url, {'format': 'json'}).then(
-            function success(response) {
-                for (var i = 0; i < response.data.length; i++) {
-                    var exam_technique = response.data[i].exam_technique;
-                    $scope.allExamTechniques.push(exam_technique);
                 }
             }, $scope.ajaxFailure
         );
@@ -132,7 +121,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
             locals: {
                 system: systemToUpdate,
                 exam_techniques: systemToUpdate.exam_techniques,
-                allExamTechniques: $scope.allExamTechniques,
                 editing: $scope.editing
             },
             fullscreen: $mdMedia('xs') || $mdMedia('sm')
