@@ -7,6 +7,7 @@ namespace :seed do
       folder_name = File.basename(File.dirname(path))
       image_name = File.basename(path, '.png')
       Cloudinary::Uploader.upload(path, :public_id => "#{folder_name}/#{image_name}")
+      puts("Uploading #{image_name}...")
     end
 
   end
