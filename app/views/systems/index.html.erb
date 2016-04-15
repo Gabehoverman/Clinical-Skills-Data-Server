@@ -1,8 +1,10 @@
 <script type="text/javascript" src="<%= asset_path 'new_system_dialog_controller.js' %>"></script>
-<script type="text/javascript" src="<%= asset_path 'edit_links_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_components_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_exam_techniques_dialog_controller.js' %>"></script>
 <script>
 	var new_system_dialog_html_path = "<%= asset_path 'new_system_dialog.html' %>";
-	var edit_links_dialog_html_path = "<%= asset_path 'edit_links_dialog.html' %>";
+	var edit_links_dialog_html_path = "<%= asset_path 'edit_components_dialog.html' %>";
+	var edit_links_dialog_html_path = "<%= asset_path 'edit_exam_techniques_dialog.html' %>";
 </script>
 <md-content ng-controller="SystemsController">
 	<md-card>
@@ -16,8 +18,7 @@
 	        	<md-icon class="material-icons">clear_all</md-icon>
 	        </md-button>
 	        <md-button class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
-	        <md-button class="md-raised md-warn end-edit-button" ng-click="cancel()" ng-show="editing" aria-label="cancel">Cancel</md-button>
-	        <md-button class="md-raised md-primary end-edit-button" ng-click="save()" ng-show="editing" aria-label="save">Save</md-button>
+	        <md-button class="md-raised md-primary end-edit-button" ng-click="done()" ng-show="editing" aria-label="save">Done</md-button>
 	      </div>
 	    </md-toolbar>
 		<md-table-container>
@@ -26,8 +27,8 @@
 					<tr md-row>
 						<th md-column md-order-by="name"><span>Name</span></th>
 						<th md-column md-order-by="details"><span>Details</span></th>
-						<th md-column md-order-by="visible"><span>Links</span></th>
-						<th md-column md-order-by="visible"><span>Visible</span></th>
+						<th md-column md-order-by="components"><span>Components</span></th>
+						<th md-column md-order-by="exam_techniques"><span>Exam Techniques</span></th>
 						<th md-column ng-hide="!editing"><span>Delete</span></th>
 					</tr>
 				</thead>
@@ -40,13 +41,15 @@
 							{{system.details}}
 						</td>
 						<td md-cell>
-							<md-button class="md-primary" ng-click="editLinks($event, system)" aria-label="links">
-								{{system.links.length}} {{(system.links.length == 1) ? "Link" : "Links"}}
+							<md-button class="md-primary" ng-click="editComponents($event, system)" aria-label="components">
+								{{system.components.length}} {{(system.components.length == 1) ? "Component" : "Components"}}
 							</md-button>
 						</td>
-						<td md-cell>
-							<md-checkbox ng-model="system.visible" ng-change="editVisible(system)" ng-disabled="!editing" aria-label="visible"></md-checkbox>
-						</td>
+            <td md-cell>
+              <md-button class="md-primary" ng-click="editExamTechniques($event, system)" aria-label="links">
+                {{system.exam_techniques.length}} {{(system.exam_techniques.length == 1) ? "Exam Technique" : "Exam Techniques"}}
+              </md-button>
+            </td>
 						<td md-cell ng-hide="!editing">
 							<md-button class="md-icon-button" ng-click="delete(system)" aria-label="delete">
 	        					<md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>

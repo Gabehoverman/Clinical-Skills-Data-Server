@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require paloma
 
 app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSidenav) {
 

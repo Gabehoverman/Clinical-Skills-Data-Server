@@ -1,0 +1,17 @@
+/* line 5, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/links.scss */
+.search-bar {
+  width: 100%;
+  margin: 0;
+  border: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+/* line 12, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/links.scss */
+.search-bar:focus {
+  outline: none;
+}
+
+/* line 16, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/links.scss */
+.md-toolbar-tools > span {
+  font-size: 13pt;
+}

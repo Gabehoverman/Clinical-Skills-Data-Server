@@ -1,4 +1,4 @@
-function EditDialogController($scope, $mdDialog, $http, system, editing) {
+function EditDialogController($scope, $mdDialog, $http, links_url, system, editing) {
 
 	$scope.system = system;
 
@@ -16,9 +16,12 @@ function EditDialogController($scope, $mdDialog, $http, system, editing) {
   	};
 
 	$scope.parseSystemLinks = function(system) {
-		for (var x = 0; x < system.links.length; x++) {
-			$scope.systemLinks.push(system.links[x].link);
-		}
+        console.log(system);
+        if (system.links) {
+            for (var x = 0; x < system.links.length; x++) {
+                $scope.systemLinks.push(system.links[x].link);
+            }
+        }
 	};
 
 	$scope.systemUsesLink = function(link) {
@@ -53,7 +56,7 @@ function EditDialogController($scope, $mdDialog, $http, system, editing) {
 		$mdDialog.hide($scope.systemLinks);
 	};
 
-	$scope.linksPromise = $http.get(links_base_json_url).then(
+	$scope.linksPromise = $http.get(links_url).then(
 		function success(response) {
 			$scope.parseSystemLinks($scope.system);
 			for (var i = 0; i < response.data.length; i++) {

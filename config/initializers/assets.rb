@@ -10,7 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-%w(new_system_dialog new_subsystem_dialog new_link_dialog edit_links_dialog).each do |base|
+%w(new_system_dialog new_subsystem_dialog edit_components_dialog edit_exam_techniques_dialog).each do |base|
 	Rails.application.config.assets.precompile += ["#{base}_controller.js"]
 	Rails.application.config.assets.precompile += ["#{base}.html"]
 end
