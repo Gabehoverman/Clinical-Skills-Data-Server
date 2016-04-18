@@ -6,8 +6,6 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     $scope.unusedComponents = [];
     $scope.editing = editing;
 
-    $scope.isInitialFilter = true;
-
     $scope.query = {
         order: 'name',
         limit: 10,
@@ -18,30 +16,29 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     $scope.filterComponents = function () {
         for (var i = 0; i < $scope.allComponents.length; i++) {
             var component = $scope.allComponents[i];
-            if (($scope.isInitialFilter) ? indexOfItemWithID(component.id, $scope.system.components) == -1 : indexOfItemWithID(component.id, $scope.usedComponents) == -1) {
+            if (indexOfItemWithID(component.id, $scope.system.components) == -1) {
                 if (indexOfItemWithID(component.id, $scope.unusedComponents) == -1) {
                     $scope.unusedComponents.push(component);
                 }
             } else {
-                if (indexOfItemWithID(component.id, $scope.usedComponents) == -1) {
-                    $scope.usedComponents.push(component);
-                }
+                $scope.usedComponents.push(component);
             }
         }
-        $scope.isInitialFilter = false;
+
+        console.log($scope.usedComponents);
     };
 
     $scope.remove = function(componentToRemove) {
-        var index = indexOfItemWithID(componentToRemove.id, $scope.usedComponents);
+        var index = indexOfItemWithID(componentToRemove.id, $scope.components);
         if (index != -1) {
-            $scope.usedComponents.splice(index, 1);
+            $scope.components.splice(index, 1);
             $scope.filterComponents();
         }
     };
 
     $scope.addComponent = function () {
         if($scope.componentToAdd) {
-            $scope.usedComponents.push($scope.componentToAdd);
+            $scope.components.push($scope.componentToAdd);
             var index = indexOfItemWithID($scope.componentToAdd.id, $scope.unusedComponents);
             $scope.unusedComponents.splice(index, 1);
             $scope.componentToAdd = null;
@@ -50,7 +47,7 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     };
 
     $scope.save = function() {
-        $mdDialog.hide($scope.usedComponents);
+        $mdDialog.hide($scope.components);
     };
 
     $scope.cancel = function() {

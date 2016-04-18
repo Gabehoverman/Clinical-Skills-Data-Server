@@ -33,6 +33,7 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
 
     $scope.remove = function(componentToRemove) {
         var index = indexOfItemWithID(componentToRemove.id, $scope.usedComponents);
+        console.log(index);
         if (index != -1) {
             $scope.usedComponents.splice(index, 1);
             $scope.filterComponents();

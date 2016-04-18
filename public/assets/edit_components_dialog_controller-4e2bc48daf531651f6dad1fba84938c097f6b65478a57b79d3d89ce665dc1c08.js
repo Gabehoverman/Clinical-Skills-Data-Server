@@ -6,7 +6,7 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     $scope.unusedComponents = [];
     $scope.editing = editing;
 
-    $scope.isInitialFilter = true;
+    $scope.isInitial = true;
 
     $scope.query = {
         order: 'name',
@@ -18,7 +18,7 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     $scope.filterComponents = function () {
         for (var i = 0; i < $scope.allComponents.length; i++) {
             var component = $scope.allComponents[i];
-            if (($scope.isInitialFilter) ? indexOfItemWithID(component.id, $scope.system.components) == -1 : indexOfItemWithID(component.id, $scope.usedComponents) == -1) {
+            if (($scope.isInitial) ? indexOfItemWithID(component.id, $scope.system.components) == -1 : indexOfItemWithID(component.id, $scope.usedComponents) == -1) {
                 if (indexOfItemWithID(component.id, $scope.unusedComponents) == -1) {
                     $scope.unusedComponents.push(component);
                 }
@@ -28,11 +28,12 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
                 }
             }
         }
-        $scope.isInitialFilter = false;
+        $scope.isInitial = false;
     };
 
     $scope.remove = function(componentToRemove) {
         var index = indexOfItemWithID(componentToRemove.id, $scope.usedComponents);
+        console.log(index);
         if (index != -1) {
             $scope.usedComponents.splice(index, 1);
             $scope.filterComponents();

@@ -29,7 +29,13 @@
             </tr>
             </thead>
             <tbody md-body>
+            <script>
+                console.log($scope.usedComponents);
+            </script>
             <tr md-row md-select="component" md-select-id="{{component.id}}" ng-repeat="component in usedComponents | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <script>
+                    console.log($scope.usedComponents);
+                </script>
                 <td md-cell>
                     {{component.name}}
                 </td>
