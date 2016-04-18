@@ -14,6 +14,10 @@
 //= require jquery_ujs
 //= require paloma
 
+$(document).ready(function(){
+  Paloma.start();
+});
+
 app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSidenav) {
 
     $scope.toggleSidenav = function (menuID) {

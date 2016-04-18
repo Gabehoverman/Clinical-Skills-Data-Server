@@ -12,8 +12,6 @@ class SystemsController < ApplicationController
     js :new_system_dialog_template_url => ActionController::Base.helpers.asset_path('new_system_dialog.html')
     js :edit_components_dialog_template_url => ActionController::Base.helpers.asset_path('edit_components_dialog.html')
     js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('edit_exam_techniques_dialog.html')
-    # js :edit_links_dialog_template_url => ActionController::Base.helpers.asset_path('edit_links_dialog.html')
-    # js :new_link_dialog_template_url => ActionController::Base.helpers.asset_path('new_link_dialog.html')
   end
 
   def all
