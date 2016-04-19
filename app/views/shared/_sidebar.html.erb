@@ -1,9 +1,9 @@
-<md-sidenav id="sidebar" layout="column" class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+<md-sidenav id="sidebar" layout="column" class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" ng-cloak>
   <md-toolbar id="sidebar-header" class="md-tall">
     <span flex></span>
     <div layout="column" class="md-toolbar-tools-bottom inset">
       <div>Clinical Skills</div>
-      <div>West Virginia University</div>
+      <div>West Virginia</div>
       <div>School of Osteopathic Medicine</div>
     </div>
   </md-toolbar>
@@ -12,5 +12,6 @@
   <md-divider></md-divider>
   <md-button type="button" href="<%= root_url %>systems" style="text-align: left; color: white">Systems</md-button>
   <md-divider></md-divider>
+  <md-button type="button" href="<%= root_url %>components" style="text-align: left; color: white">Components</md-button>
   <md-divider></md-divider>
 </md-sidenav>

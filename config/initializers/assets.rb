@@ -15,7 +15,7 @@ Rails.application.config.assets.version = '1.0'
 	Rails.application.config.assets.precompile += ["#{base}.html"]
 end
 
-%w(application systems subsystems links landing).each do |controller|
+%w(application systems components landing).each do |controller|
   Rails.application.config.assets.precompile += ["#{controller}.js"]
   Rails.application.config.assets.precompile += ["#{controller}.scss"]
 end

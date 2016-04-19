@@ -23,6 +23,23 @@ app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSi
     $scope.toggleSidenav = function (menuID) {
         $mdSidenav(menuID).toggle();
     };
+
+    $scope.ajaxSuccess = function (response) {
+        var text = "";
+
+        if (response.status === 200) {
+            text = "Success!";
+        } else {
+            text = response.status + ": " + response.statusText;
+        }
+
+        $mdToast.show($mdToast.simple().textContent(text).capsule(true).hideDelay(2000).position('top right'));
+    };
+
+    $scope.ajaxFailure = function (response) {
+        var text = response.status + ": " + response.statusText;
+        $mdToast.show($mdToast.simple().textContent(text).capsule(true).hideDelay(2000).position('top right'));
+    };
     
 }]);
 
@@ -36,8 +53,6 @@ function buildRequest(fromObject) {
 			params[key] = fromObject[key];
 		}
 	}
-
-	console.log(params);
 
 	return params;
 }

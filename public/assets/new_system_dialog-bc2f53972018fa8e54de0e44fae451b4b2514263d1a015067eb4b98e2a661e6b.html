@@ -15,7 +15,7 @@
 
     		<div layout="row">
     			<div flex>
-	    			<md-input-container flex>
+	    			<md-input-container>
 		    			<label>Name</label>
 	    				<input type="text" name="name" ng-model="newSystem.name" required>
 	    				<div ng-messages="newSystemForm.name.$error">
@@ -25,10 +25,10 @@
     			</div>
     		</div>
 
-    		<div layout="row">
-    			<md-input-container class="md-block" flex>
+    		<div layout="row" flex>
+    			<md-input-container class="md-block">
     				<label>Details</label>
-	    			<textarea name="details" ng-model="newSystem.details" rows="5" required></textarea>
+	    			<textarea name="details" ng-model="newSystem.details" rows="3" required></textarea>
     				<div ng-messages="newSystemForm.details.$error">
   						<div ng-message="required">Details is a required field</div>
 					</div>
