@@ -6,8 +6,6 @@ function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_tech
     $scope.unusedExamTechniques = [];
     $scope.editing = editing;
 
-    $scope.isInitialFilter = true;
-
     $scope.query = {
         order: 'name',
         limit: 10,
@@ -18,7 +16,7 @@ function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_tech
     $scope.filterExamTechniques = function () {
         for (var i = 0; i < $scope.allExamTechniques.length; i++) {
             var examTechnique = $scope.allExamTechniques[i];
-            if (($scope.isInitialFilter) ? indexOfItemWithID(examTechnique.id, $scope.system.exam_techniques) == -1 : indexOfItemWithID(examTechnique.id, $scope.usedExamTechniques) == -1) {
+            if (indexOfItemWithID(examTechnique.id, $scope.system.exam_techniques) == -1) {
                 if (indexOfItemWithID(examTechnique.id, $scope.unusedExamTechniques) == -1) {
                     $scope.unusedExamTechniques.push(examTechnique);
                 }
@@ -28,7 +26,6 @@ function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_tech
                 }
             }
         }
-        $scope.isInitialFilter = false;
     };
 
     $scope.remove = function(examTechniqueToRemove) {
