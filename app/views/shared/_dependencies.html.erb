@@ -17,12 +17,21 @@
 
 <!-- Initialize AngularJS App -->
 <script>
-  var app = angular.module('WVU-SoM-Data-Server', [
-    'ngMaterial',
-    'ngAnimate',
-    'ngMessages',
-    'md.data.table'
-  ]).config(['$mdThemingProvider', function ($mdThemingProvider) {
-    	$mdThemingProvider.theme('default').primaryPalette("blue");
-	}]);
+	var app = angular.module('WVU-SoM-Data-Server', [
+		'ngMaterial',
+		'ngAnimate',
+		'ngMessages',
+		'md.data.table'
+	]).config(['$mdThemingProvider', function ($mdThemingProvider) {
+			$mdThemingProvider.theme('default').primaryPalette("blue");
+		}
+	]);
+
+	app.service('apiService', function() {
+		this.root_url = "http://localhost:3000/";
+		// this.root_url = "https://wvsom-clinical-skills.herokuapp.com";
+		this.systems_url = this.root_url + "systems/";
+		this.components_url = this.root_url + "components/";
+		this.exam_techniques_url = this.root_url + "exam_techniques/";
+	});
 </script>

@@ -42,12 +42,12 @@
 						</td>
 						<td md-cell>
 							<md-button class="md-primary" ng-click="editComponents($event, system)" aria-label="components">
-								{{system.components.length}} {{(system.components.length == 1) ? "Component" : "Components"}}
+								{{(system.components.length) ? system.components.length : 0}} {{(system.components.length == 1) ? "Component" : "Components"}}
 							</md-button>
 						</td>
             <td md-cell>
               <md-button class="md-primary" ng-click="editExamTechniques($event, system)" aria-label="links">
-                {{system.exam_techniques.length}} {{(system.exam_techniques.length == 1) ? "Exam Technique" : "Exam Techniques"}}
+                {{(system.exam_techniques.length) ? system.exam_techniques.length : 0}} {{(system.exam_techniques.length == 1) ? "Exam Technique" : "Exam Techniques"}}
               </md-button>
             </td>
 						<td md-cell ng-hide="!editing">

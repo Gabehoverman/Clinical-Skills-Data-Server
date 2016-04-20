@@ -58,14 +58,16 @@ function buildRequest(fromObject) {
 }
 
 function indexOfItemWithID(id, collection) {
-	for (var i = 0; i < collection.length; i++) {
-		if (collection[i].id === undefined) {
-			if (id === collection[i].link.id) {
+	if (collection) {
+		for (var i = 0; i < collection.length; i++) {
+			if (collection[i].id === undefined) {
+				if (id === collection[i].link.id) {
+					return i;
+				}
+			}
+			if (id === collection[i].id) {
 				return i;
 			}
-		}
-		if (id === collection[i].id) {
-			return i;
 		}
 	}
 	return -1;

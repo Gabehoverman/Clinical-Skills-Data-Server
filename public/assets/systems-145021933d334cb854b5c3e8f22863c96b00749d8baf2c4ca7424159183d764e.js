@@ -15,11 +15,21 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
     };
 
     SystemsController.prototype.index = function () {
+        // $scope.systems_url = this.params.systems_url;
+        // $scope.system_patch_url = this.params.system_patch_url;
+        // $scope.system_post_url = this.params.system_post_url;
+        // $scope.components_url = this.params.components_url;
+        // $scope.exam_techniques_url = this.params.exam_techniques_url;
+        $scope.systems_url = apiService.systems_url;
+        $scope.system_post_url = apiService.system_post_url;
+        $scope.components_url = apiService.components_url;
+        $scope.exam_techniques_url = apiService.exam_techniques_url;
+
         $scope.new_system_dialog_template_url = this.params.new_system_dialog_template_url;
         $scope.edit_components_dialog_template_url = this.params.edit_components_dialog_template_url;
         $scope.edit_exam_techniques_dialog_template_url = this.params.edit_exam_techniques_dialog_template_url;
 
-        $scope.systemsPromise = $http.get(apiService.systems_url, { 'params' : { 'format': 'json' } }).then(
+        $scope.systemsPromise = $http.get($scope.systems_url, {'format': 'json'}).then(
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
                     var system = response.data[i].system;
@@ -30,7 +40,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
             }, $scope.ajaxFailure
         );
 
-        $scope.componentsPromise = $http.get(apiService.components_url, { 'params' : { 'format': 'json' } }).then(
+        $scope.componentsPromise = $http.get($scope.components_url, {'format': 'json'}).then(
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
                     var component = response.data[i].component;
@@ -39,7 +49,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
             }, $scope.ajaxFailure
         );
 
-        $scope.examTechniquesPromise = $http.get(apiService.exam_techniques_url, { 'params' : { 'format': 'json' } }).then(
+        $scope.examTechniquesPromise = $http.get($scope.exam_techniques_url, {'format': 'json'}).then(
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
                     var exam_technique = response.data[i].exam_technique;
@@ -66,7 +76,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
                     if (index != -1) {
                         var system = $scope.systems[index];
                         system.name = input.$modelValue;
-                        $http.patch(apiService.systems_url + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                        $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                     }
                 }
             });
@@ -84,7 +94,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
                     if (index != -1) {
                         var system = $scope.systems[index];
                         system.details = input.$modelValue;
-                        $http.patch(apiService.systems_url + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                        $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                     }
                 }
             });
@@ -112,7 +122,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
                 if (index != -1) {
                     $scope.systems[index].components = components;
                     var system = $scope.systems[index];
-                    $http.patch(apiService.systems_url + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                    $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                 }
             }
         });
@@ -139,7 +149,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
                 if (index != -1) {
                     $scope.systems[index].exam_techniques = examTechniques;
                     var system = $scope.systems[index];
-                    $http.patch(apiService.systems_url + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                    $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                 }
             }
         });
@@ -149,7 +159,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
         var index = indexOfItemWithID(systemToDelete.id, $scope.systems);
         if (index != -1) {
             $scope.systems.splice(index, 1);
-            $http.delete(apiService.systems_url + systemToDelete.id).then($scope.ajaxSuccess, $scope.ajaxFailure);
+            $http.delete($scope.system_patch_url + "/" + systemToDelete.id + ".json").then($scope.ajaxSuccess, $scope.ajaxFailure);
         }
     };
 
@@ -163,7 +173,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
             escapeToClose: false,
             fullscreen: $mdMedia('xs') || $mdMedia('sm')
         }).then(function (newSystem) {
-            $http.post(apiService.systems_url, buildRequest(newSystem)).then(function(response) {
+            $http.post($scope.system_post_url, buildRequest(newSystem)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {
                     $scope.systems.push(response.data.system);
                 }
