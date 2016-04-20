@@ -26,16 +26,16 @@
         </thead>
         <tbody md-body>
         <tr md-row md-select="component" md-select-id="{{component.id}}" ng-repeat="component in components | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell ng-click="editName($event, component)">
+          <td md-cell ng-click="editName($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.name}}
           </td>
-          <td md-cell ng-click="editInspection($event, component)">
+          <td md-cell>
             {{component.system.name}}
           </td>
-          <td md-cell ng-click="editInspection($event, component)">
+          <td md-cell ng-click="editInspection($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.inspection}}
           </td>
-          <td md-cell ng-click="editNotes($event, component)">
+          <td md-cell ng-click="editNotes($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.notes}}
           </td>
           <td md-cell ng-hide="!editing">

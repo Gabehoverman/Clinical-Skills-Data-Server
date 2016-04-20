@@ -34,10 +34,10 @@
 				</thead>
 				<tbody md-body>
 					<tr md-row md-select="system" md-select-id="{{system.id}}" ng-repeat="system in systems | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-						<td md-cell ng-click="editName($event, system)">
+						<td md-cell ng-click="editName($event, system)" ng-class="(editing == true) ? 'cell-editing' : ''">
 							{{system.name}}
 						</td>
-						<td md-cell ng-click="editDetails($event, system)">
+						<td md-cell ng-click="editDetails($event, system)" ng-class="(editing == true) ? 'cell-editing' : ''">
 							{{system.details}}
 						</td>
 						<td md-cell>
@@ -66,4 +66,5 @@
 		</md-button>
 
 	</md-card>
+
 </md-content>

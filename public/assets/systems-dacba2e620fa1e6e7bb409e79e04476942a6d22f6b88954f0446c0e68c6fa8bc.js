@@ -57,19 +57,10 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 
     $scope.editName = function (event, systemToUpdate) {
         if ($scope.editing) {
-            $mdEditDialog.large({
+            $mdEditDialog.small({
                 modelValue: systemToUpdate.name,
                 placeholder: "Name",
-                clickOutsideToClose: false,
-                escToClose: false,
                 targetEvent: event,
-                title: 'Edit System Name',
-                validators: {
-                    'required': true
-                },
-                messages: {
-                    'required': 'Name is required'
-                },
                 save: function (input) {
                     var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
                     if (index != -1) {
@@ -84,13 +75,10 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
 
     $scope.editDetails = function (event, systemToUpdate) {
         if ($scope.editing) {
-            $mdEditDialog.large({
+            $mdEditDialog.small({
                 modelValue: systemToUpdate.details,
                 placeholder: "Details",
-                clickOutsideToClose: false,
-                escToClose: false,
                 targetEvent: event,
-                title: 'Edit System Details',
                 save: function (input) {
                     var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
                     if (index != -1) {
