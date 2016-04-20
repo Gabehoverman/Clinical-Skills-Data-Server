@@ -9,7 +9,6 @@ class SystemsController < ApplicationController
     js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('edit_exam_techniques_dialog.html')
 
     respond_to do |format|
-      format.js { render  json: System.api_all }
       format.json { render  json: System.api_all }
       format.html { render :index }
     end
@@ -32,10 +31,8 @@ class SystemsController < ApplicationController
     end
     respond_to do |format|
       if @system.save
-        format.js { render json: { :system => @system.as_json }, status: :ok }
         format.json { render json: { :system => @system.as_json }, status: :ok }
       else
-        format.js { render json: @system.errors, status: :unprocessable_entity }
         format.json { render json: @system.errors, status: :unprocessable_entity }
       end
     end
@@ -63,10 +60,8 @@ class SystemsController < ApplicationController
     end
     respond_to do |format|
       if @system.update(system_params)
-        format.js { render json: @system, status: :ok }
         format.json { render json: @system, status: :ok }
       else
-        format.js { render json: @system.errors, status: :unprocessable_entity }
         format.json { render json: @system.errors, status: :unprocessable_entity }
       end
     end
@@ -76,10 +71,8 @@ class SystemsController < ApplicationController
     @system = System.find(params[:id])
     respond_to do |format|
       if @system.delete
-        format.js { render json: @system, status: :ok }
         format.json { render json: @system, status: :ok }
       else
-        format.js { render json: @system.errors, status: :unprocessable_entity }
         format.json { render json: @system.errors, status: :unprocessable_entity }
       end
     end

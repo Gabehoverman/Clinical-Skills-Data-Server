@@ -12,17 +12,32 @@ class ComponentsController < ApplicationController
     end
   end
 
-  def destroy
+  def update
     @component = Component.find(params[:id])
     respond_to do |format|
-      if @component.delete
-        format.js { render json: @component, status: :ok }
+      if @component.update(components_params)
         format.json { render json: @component, status: :ok }
       else
-        format.js { render json: @component.errors, status: :unprocessable_entity }
         format.json { render json: @component.errors, status: :unprocessable_entity }
       end
     end
   end
+
+  def destroy
+    @component = Component.find(params[:id])
+    respond_to do |format|
+      if @component.delete
+        format.json { render json: @component, status: :ok }
+      else
+        format.json { render json: @component.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+
+    def components_params
+      params.permit(:id, :name, :inspection, :notes)
+    end
 
 end
