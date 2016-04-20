@@ -4,4 +4,28 @@ class Muscle < ActiveRecord::Base
 
   validates :name, :uniqueness => true
 
+	def self.api_all
+		json = []
+		Muscle.all.each do |muscle|
+			json.push({
+				:muscle => muscle.as_json
+			})
+		end
+		return json
+	end
+
+	def self.api_for_component_name(component_name)
+		json = []
+		component = Component.where('lower(name) = ?', component_name.downcase).first
+		unless component.nil?
+			muscles = component.muscles
+			muscles.each do |muscle|
+			json.push({
+				:muscle => muscle.as_json
+			})
+			end
+		end
+		return json
+	end
+
 end

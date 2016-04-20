@@ -19,7 +19,7 @@ class ExamTechnique < ActiveRecord::Base
 
 	def self.api_for_system_name(system_name)
 		json = []
-		system = System.where(:name => system_name).first
+		system = System.where('lower(name) = ?', system_name.downcase).first
 		unless system.nil?
 			exam_techniques = system.exam_techniques
 			exam_techniques.each do |exam_technique|

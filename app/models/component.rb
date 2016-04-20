@@ -22,7 +22,7 @@ class Component < ActiveRecord::Base
 
 	def self.api_for_system_name(system_name)
 		json = []
-		system = System.where(:name => system_name).first
+		system = System.where('lower(name) = ?', system_name.downcase).first
 		unless system.nil?
 			components = system.components
 			components.each do |component|
