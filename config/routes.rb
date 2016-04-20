@@ -4,9 +4,21 @@ Rails.application.routes.draw do
 
   get 'landing/index'
 
-  resources :systems, :only => [:index, :create, :update, :destroy]
-  resources :exam_techniques, :only => [:index, :create, :update, :destroy]
-  resources :components, :only => [:index, :create, :update, :destroy]
+  resources :systems do
+    collection do
+      get 'all'
+    end
+  end
+  resources :components do
+    collection do
+      get 'all'
+    end
+  end
+  resources :exam_techniques do
+    collection do
+      get 'all'
+    end
+  end
   resources :palpations, :only => [:index, :create, :update, :destroy]
   resources :ranges_of_motion, :only => [:index, :create, :update, :destroy]
   resources :muscles, :only => [:index, :create, :update, :destroy]

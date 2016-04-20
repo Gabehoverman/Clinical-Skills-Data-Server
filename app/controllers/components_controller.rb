@@ -1,25 +1,23 @@
 class ComponentsController < ApplicationController
 
   def index
+    @toolbar_title = 'Components'
+    js :components_url => url_for(:action => :all)
+  end
+
+  def all
+    @components = Component.all
     json = []
 
-    unless params[:system].nil?
-      @system = System.where('lower(name) = ?', params[:system].downcase).first
-      unless @system.nil?
-        @components = @system.components
-        @components.each do |component|
-          json.push({
-              :component => component
-          })
-        end
-      end
+    @components.each do |component|
+      json.push({
+        :component => component
+      })
     end
 
     respond_to do |format|
-      format.html { render :index }
-      format.json { render json: json, status: :ok }
+      format.all { render json: json, status: :ok }
     end
-
   end
 
 end

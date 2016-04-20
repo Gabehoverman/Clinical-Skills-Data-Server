@@ -1,33 +1,40 @@
 class SystemsController < ApplicationController
 
-  skip_before_action :verify_authenticity_token, :only => :create
+  # skip_before_action :verify_authenticity_token, :only => :create
 
   def index
     @toolbar_title = 'Systems'
-    @systems = System.all
+    js :systems_url => url_for(:action => :all)
+    js :system_post_url => url_for(:action => :create)
+    js :system_patch_url => systems_url
+    js :components_url => url_for(:controller => 'components', :action => 'all')
+    js :exam_techniques_url => url_for(:controller => 'exam_techniques', :action => 'all')
+    js :new_system_dialog_template_url => ActionController::Base.helpers.asset_path('new_system_dialog.html')
+    js :edit_components_dialog_template_url => ActionController::Base.helpers.asset_path('edit_components_dialog.html')
+    js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('edit_exam_techniques_dialog.html')
+  end
 
+  def all
+    @systems = System.all
     json = []
 
     @systems.each do |system|
       json.push({
-        :system => system.as_json
+        :system => system.as_json(:include => [:components, :exam_techniques])
       })
     end
 
     respond_to do |format|
-      format.html { render :index }
-      format.json { render json: json, status: :ok }
+      format.all { render json: json, status: :ok }
     end
   end
 
   def create
     @system = System.new(system_params)
-    add_links
-
     respond_to do |format|
       if @system.save
-        format.js { render json: @system, status: :ok }
-        format.json { render json: @system, status: :ok }
+        format.js { render json: { :system => @system.as_json }, status: :ok }
+        format.json { render json: { :system => @system.as_json }, status: :ok }
       else
         format.js { render json: @system.errors, status: :unprocessable_entity }
         format.json { render json: @system.errors, status: :unprocessable_entity }
@@ -37,9 +44,24 @@ class SystemsController < ApplicationController
 
   def update
     @system = System.find(params[:id])
-    @system.links.clear
-    add_links
-
+    @system.components.clear
+    unless params['components'].nil?
+      params['components'].each do |c|
+        component = Component.find(c['id'])
+        unless @system.components.include?(component)
+          @system.components << component
+        end
+      end
+    end
+    @system.exam_techniques.clear
+    unless params['exam_techniques'].nil?
+      params['exam_techniques'].each do |e|
+        exam_technique = ExamTechnique.find(e['id'])
+        unless @system.exam_techniques.include?(exam_technique)
+          @system.exam_techniques << exam_technique
+        end
+      end
+    end
     respond_to do |format|
       if @system.update(system_params)
         format.js { render json: @system, status: :ok }
@@ -67,18 +89,7 @@ class SystemsController < ApplicationController
   private
 
     def system_params
-      params.permit(:id, :name, :details, :visible)
-    end
-
-    def add_links
-      unless params['links'].nil?
-        params['links'].each do |l|
-          link = Link.find(l['link']['id'])
-          unless @system.links.include?(link)
-            @system.links << link
-          end
-        end
-      end
+      params.permit(:id, :name, :details)
     end
 
 end

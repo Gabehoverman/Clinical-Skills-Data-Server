@@ -26,3 +26,27 @@
 	text-align: left;
 	color: white
 }
+
+.edit-dialog {
+  min-height: 50%;
+  max-height: 75%;
+}
+
+.search-bar {
+  width: 100%;
+  margin: 0;
+  border: none;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.search-bar:focus {
+  outline: none;
+}
+
+.md-toolbar-tools > span {
+  font-size: 13pt;
+}
+
+.end-edit-button > * {
+  color: white;
+}

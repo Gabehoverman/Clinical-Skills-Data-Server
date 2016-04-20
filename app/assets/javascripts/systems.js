@@ -1,215 +1,180 @@
-app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", function($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia) {
+var SystemsController = Paloma.controller("Systems");
+app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", function ($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia) {
 
-	$scope.systems = [];
-	$scope.changes = {
-		updates: [],
-		deletes: [],
-		reverts: []
-	};
+    $scope.systems = [];
+    $scope.allComponents = [];
+    $scope.allExamTechniques = [];
 
-	$scope.editing = false;
+    $scope.editing = false;
 
-	$scope.query = {
-	    order: 'name',
-	    limit: 10,
-	    page: 1,
-	    filter: ""
-  	};
+    $scope.query = {
+        order: 'name',
+        limit: 10,
+        page: 1,
+        filter: ""
+    };
 
-	$scope.save = function() {
-		if ($scope.changes.updates.length !== 0) {
-			for (var i = 0; i < $scope.changes.updates.length; i++) {
-				$http.patch(systems_base_url + "/" + $scope.changes.updates[i].id, buildRequest($scope.changes.updates[i])).then($scope.ajaxSuccess, $scope.ajaxFailure);
+    SystemsController.prototype.index = function () {
+        $scope.systems_url = this.params.systems_url;
+        $scope.system_patch_url = this.params.system_patch_url;
+        $scope.system_post_url = this.params.system_post_url;
+        $scope.components_url = this.params.components_url;
+        $scope.exam_techniques_url = this.params.exam_techniques_url;
+        $scope.new_system_dialog_template_url = this.params.new_system_dialog_template_url;
+        $scope.edit_components_dialog_template_url = this.params.edit_components_dialog_template_url;
+        $scope.edit_exam_techniques_dialog_template_url = this.params.edit_exam_techniques_dialog_template_url;
 
-				var revertsIndex = indexOfItemWithID($scope.changes.updates[i].id, $scope.changes.reverts);
-				if (revertsIndex !== -1) {
-					$scope.changes.reverts.splice(revertsIndex, 1);
-				}
-			}
-		}
+        $scope.systemsPromise = $http.get($scope.systems_url, {'format': 'json'}).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var system = response.data[i].system;
+                    if (indexOfItemWithID(system.id, $scope.systems) == -1) {
+                        $scope.systems.push(system);
+                    }
+                }
+            }, $scope.ajaxFailure
+        );
 
-		if ($scope.changes.deletes.length !== 0) {
-			for (var j = 0; j < $scope.changes.deletes.length; j++) {
-				$http({
-					method: 'DELETE',
-					url: systems_base_url + "/" + $scope.changes.deletes[j].id,
-					dataType: 'json',
-					headers: {
-						'Content-type': 'application/json'
-					},
-					data: buildRequest($scope.changes.deletes[j])
-				}).then($scope.ajaxSuccess, $scope.ajaxFailure);
-			}
-		}
+        $scope.componentsPromise = $http.get($scope.components_url, {'format': 'json'}).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var component = response.data[i].component;
+                    $scope.allComponents.push(component);
+                }
+            }, $scope.ajaxFailure
+        );
 
-		$scope.changes.updates = [];
-		$scope.changes.deletes = [];
-		$scope.changes.reverts = [];
-		$scope.editing = false;
-	};
+        $scope.examTechniquesPromise = $http.get($scope.exam_techniques_url, {'format': 'json'}).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var exam_technique = response.data[i].exam_technique;
+                    $scope.allExamTechniques.push(exam_technique);
+                }
+            }, $scope.ajaxFailure
+        );
 
-	$scope.cancel = function() {
-		for (var i = 0; i < $scope.changes.reverts.length; i++) {
-			var systemBeforeUpdate = $scope.changes.reverts[i];
-			var index = indexOfItemWithID(systemBeforeUpdate.id, $scope.systems);
-			if (index === -1) {
-				$scope.systems.push(systemBeforeUpdate);
-			} else {
-				$scope.systems[index] = systemBeforeUpdate;
-			}
-		}
-		$scope.changes.updates = [];
-		$scope.changes.deletes = [];
-		$scope.changes.reverts = [];
-		$scope.editing = false;
-	};
+        $scope.$apply();
+    };
 
-	$scope.editName = function(event, systemToUpdate) {
-		if ($scope.editing) {
-			$mdEditDialog.small({
-				modelValue: systemToUpdate.name,
-				placeholder: "Name",
-				save: function(input) {
-					if (indexOfItemWithID(systemToUpdate.id, $scope.changes.reverts) === -1) {
-						$scope.changes.reverts.push($.extend(true, {}, systemToUpdate));
-					}
-					var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
-					$scope.systems[index].name = input.$modelValue;
+    $scope.done = function () {
+        $scope.editing = !$scope.editing;
+    };
 
-					var changesIndex = indexOfItemWithID(systemToUpdate.id, $scope.changes.updates);
-					if (changesIndex !== -1) {
-						$scope.changes.updates.splice(changesIndex, 1);
-					}
-					$scope.changes.updates.push($scope.systems[index]);
-				},
-				targetEvent: event,
-				validators: {
-					"md-maxlength": 15
-				}
-			});
-		}
-	};
+    $scope.editName = function (event, systemToUpdate) {
+        if ($scope.editing) {
+            $mdEditDialog.small({
+                modelValue: systemToUpdate.name,
+                placeholder: "Name",
+                targetEvent: event,
+                save: function (input) {
+                    var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
+                    if (index != -1) {
+                        var system = $scope.systems[index];
+                        system.name = input.$modelValue;
+                        $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                    }
+                }
+            });
+        }
+    };
 
-	$scope.editDetails = function(event, systemToUpdate) {
-		if ($scope.editing) {
-			$mdEditDialog.small({
-				modelValue: systemToUpdate.details,
-				placeholder: "Details",
-				save: function(input) {
-					if (indexOfItemWithID(systemToUpdate.id, $scope.changes.reverts) === -1) {
-						$scope.changes.reverts.push($.extend(true, {}, systemToUpdate));
-					}
-					var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
-					$scope.systems[index].details = input.$modelValue;
-					
-					var changesIndex = indexOfItemWithID(systemToUpdate.id, $scope.changes.updates);
-					if (changesIndex !== -1) {
-						$scope.changes.updates.splice(changesIndex, 1);
-					}
-					$scope.changes.updates.push($scope.systems[index]);
-				},
-				targetEvent: event,
-				validators: {
-					"md-maxlength": 500
-				}
-			});
-		}
-	};
+    $scope.editDetails = function (event, systemToUpdate) {
+        if ($scope.editing) {
+            $mdEditDialog.small({
+                modelValue: systemToUpdate.details,
+                placeholder: "Details",
+                targetEvent: event,
+                save: function (input) {
+                    var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
+                    if (index != -1) {
+                        var system = $scope.systems[index];
+                        system.details = input.$modelValue;
+                        $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                    }
+                }
+            });
+        }
+    };
 
-	$scope.editLinks = function(event, systemToUpdate) {
-		$mdDialog.show({
-	      controller: EditDialogController,
-	      templateUrl: edit_links_dialog_html_path,
-	      parent: angular.element(document.body),
-	      targetEvent: event,
-	      clickOutsideToClose: false,
-	      escapeToClose: false,
-	      locals: {
-	      	system: systemToUpdate,
-	      	editing: $scope.editing
-	      },
-	      fullscreen: $mdMedia('xs') || $mdMedia('sm')
-    	}).then(function(links) {
-    		if (indexOfItemWithID(systemToUpdate.id, $scope.changes.reverts) === -1) {
-				$scope.changes.reverts.push($.extend(true, {}, systemToUpdate));
-			}
-    		for (var i = 0; i < links.length; i++) {
-    			links[i] = {
-    				"link": links[i]
-    			};
-    		}
-    		systemToUpdate.links = links;
-			var changesIndex = indexOfItemWithID(systemToUpdate.id, $scope.changes.updates);
-			if (changesIndex !== -1) {
-				$scope.changes.updates.splice(changesIndex, 1);
-			}
-			$scope.changes.updates.push(systemToUpdate);
-    	});
-	};
+    $scope.editComponents = function (event, systemToUpdate) {
+        $mdDialog.show({
+            controller: EditComponentsController,
+            templateUrl: $scope.edit_components_dialog_template_url,
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            locals: {
+                system: systemToUpdate,
+                components: systemToUpdate.components,
+                allComponents: $scope.allComponents,
+                editing: $scope.editing
+            },
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+        }).then(function (components) {
+            if (components) {
+                var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
+                if (index != -1) {
+                    $scope.systems[index].components = components;
+                    var system = $scope.systems[index];
+                    $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                }
+            }
+        });
+    };
 
-	$scope.editVisible = function(systemToUpdate) {
-		var revertSystem = $.extend(true, {}, systemToUpdate);
-		revertSystem.visible = !revertSystem.visible;
-		if (indexOfItemWithID(systemToUpdate.id, $scope.changes.reverts) === -1) {
-			$scope.changes.reverts.push(revertSystem);
-		}
-		var changesIndex = indexOfItemWithID(systemToUpdate.id, $scope.changes.updates);
-		if (changesIndex !== -1) {
-			$scope.changes.updates.splice(changesIndex, 1);
-		}
-		$scope.changes.updates.push(systemToUpdate);
-	};
+    $scope.editExamTechniques = function (event, systemToUpdate) {
+        $mdDialog.show({
+            controller: EditExamTechniquesDialogController,
+            templateUrl: $scope.edit_exam_techniques_dialog_template_url,
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            locals: {
+                system: systemToUpdate,
+                exam_techniques: systemToUpdate.exam_techniques,
+                allExamTechniques: $scope.allExamTechniques,
+                editing: $scope.editing
+            },
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+        }).then(function (examTechniques) {
+            if (examTechniques) {
+                var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
+                if (index != -1) {
+                    $scope.systems[index].exam_techniques = examTechniques;
+                    var system = $scope.systems[index];
+                    $http.patch($scope.system_patch_url + "/" + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                }
+            }
+        });
+    };
 
-	$scope.delete = function(systemToDelete) {
-		$scope.changes.deletes.push(systemToDelete);
-		if (indexOfItemWithID(systemToDelete.id, $scope.changes.reverts) === -1) {
-			$scope.changes.reverts.push($.extend(true, {}, systemToDelete));
-		}
-		var index = indexOfItemWithID(systemToDelete.id, $scope.systems);
-		$scope.systems.splice(index, 1);
-	};
+    $scope.delete = function (systemToDelete) {
+        var index = indexOfItemWithID(systemToDelete.id, $scope.systems);
+        if (index != -1) {
+            $scope.systems.splice(index, 1);
+            $http.delete($scope.system_patch_url + "/" + systemToDelete.id + ".json").then($scope.ajaxSuccess, $scope.ajaxFailure);
+        }
+    };
 
-	$scope.newSystem = function(event) {
-		$mdDialog.show({
-	      controller: NewSystemDialogController,
-	      templateUrl: new_system_dialog_html_path,
-	      parent: angular.element(document.body),
-	      targetEvent: event,
-	      clickOutsideToClose: false,
-	      escapeToClose: false,
-	      fullscreen: $mdMedia('xs') || $mdMedia('sm')
-    	}).then(function(newSystem) {
-    		$http.post(systems_base_url, buildRequest(newSystem)).then($scope.ajaxSuccess, $scope.ajaxFailure);
-		});
-	};
-
-	$scope.ajaxSuccess = function(response) {
-		var text = "";
-		if (response.config.method === 'POST' && response.status === 200) {
-			$scope.systems.push(response.data.system);
-		}
-
-		if (response.status === 200) {
-			text = "Success!";
-		} else {
-			text = response.status + ": " + response.statusText;
-		}
-
-		$mdToast.show($mdToast.simple().textContent(text).capsule(true).hideDelay(2000).position('top right'));
-	};
-
-	$scope.ajaxFailure = function(response) {
-		var text = response.status + ": " + response.statusText;
-		$mdToast.show($mdToast.simple().textContent(text).capsule(true).hideDelay(2000).position('top right'));
-	};
-
-  	$scope.systemsPromise = $http.get(systems_base_json_url).then(
-		function success(response) {
-			for (var i = 0; i < response.data.length; i++) {
-				var system = response.data[i].system;
-				$scope.systems.push(system);
-			}
-		}, $scope.ajaxFailure
-	);
+    $scope.newSystem = function (event) {
+        $mdDialog.show({
+            controller: NewSystemDialogController,
+            templateUrl: $scope.new_system_dialog_template_url,
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+        }).then(function (newSystem) {
+            $http.post($scope.system_post_url, buildRequest(newSystem)).then(function(response) {
+                if (response.config.method === 'POST' && response.status === 200) {
+                    $scope.systems.push(response.data.system);
+                }
+                $scope.ajaxSuccess(response);
+            }, $scope.ajaxFailure);
+        });
+    };
 
 }]);
