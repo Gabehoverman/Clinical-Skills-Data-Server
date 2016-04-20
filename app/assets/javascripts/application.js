@@ -18,7 +18,7 @@ $(document).ready(function(){
   Paloma.start();
 });
 
-app.controller("BodyController", ['$scope', '$mdSidenav', function($scope, $mdSidenav) {
+app.controller("BodyController", ['$scope', '$mdSidenav', '$mdToast', function($scope, $mdSidenav, $mdToast) {
 
     $scope.toggleSidenav = function (menuID) {
         $mdSidenav(menuID).toggle();

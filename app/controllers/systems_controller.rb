@@ -33,8 +33,8 @@ class SystemsController < ApplicationController
     @system = System.new(system_params)
     respond_to do |format|
       if @system.save
-        format.js { render json: @system, status: :ok }
-        format.json { render json: @system, status: :ok }
+        format.js { render json: { :system => @system.as_json }, status: :ok }
+        format.json { render json: { :system => @system.as_json }, status: :ok }
       else
         format.js { render json: @system.errors, status: :unprocessable_entity }
         format.json { render json: @system.errors, status: :unprocessable_entity }

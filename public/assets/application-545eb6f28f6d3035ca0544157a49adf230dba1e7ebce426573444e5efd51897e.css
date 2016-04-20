@@ -10,28 +10,31 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
+
  */
-
+/* line 17, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .md-sidenav-left {
-	background-color: #2196F3;
+  background-color: #2196F3;
 }
 
+/* line 21, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 #sidebar-header {
-	background-color: #2196F3;
-	color: white
+  background-color: #2196F3;
+  color: white;
 }
 
+/* line 26, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .sidebar-button {
-	text-align: left;
-	color: white
+  text-align: left;
+  color: white;
 }
 
+/* line 31, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .edit-dialog {
   min-height: 50%;
-  max-height: 75%;
 }
 
+/* line 35, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .search-bar {
   width: 100%;
   margin: 0;
@@ -39,14 +42,17 @@
   color: rgba(0, 0, 0, 0.87);
 }
 
+/* line 42, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .search-bar:focus {
   outline: none;
 }
 
+/* line 46, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .md-toolbar-tools > span {
   font-size: 13pt;
 }
 
+/* line 50, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/application.scss */
 .end-edit-button > * {
   color: white;
 }

@@ -10,7 +10,7 @@
       </div>
     </md-toolbar>
 
-    <md-content style="padding-left: 5%; padding-right: 5%;">
+    <md-dialog-content style="padding-left: 5%; padding-right: 5%;">
     	<form name="newSystemForm">
 
     		<div layout="row">
@@ -28,7 +28,7 @@
     		<div layout="row">
     			<md-input-container class="md-block" flex>
     				<label>Details</label>
-	    			<textarea name="details" ng-model="newSystem.details" rows="5" required></textarea>
+	    			<textarea name="details" ng-model="newSystem.details" rows="3" required></textarea>
     				<div ng-messages="newSystemForm.details.$error">
   						<div ng-message="required">Details is a required field</div>
 					</div>
@@ -36,9 +36,7 @@
     		</div>
 
     	</form>
-    </md-content>
-
-    <div flex></div>
+    </md-dialog-content>
 
     <md-dialog-actions layout="row">
     	<span flex></span>
