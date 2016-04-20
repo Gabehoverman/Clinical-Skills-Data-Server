@@ -1,5 +1,5 @@
 <md-content ng-controller="ComponentsController">
-  <md-card>
+  <md-card ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
         <md-icon class="material-icons">search</md-icon>
@@ -18,6 +18,7 @@
         <thead md-head md-order="query.order">
         <tr md-row>
           <th md-column md-order-by="name"><span>Name</span></th>
+          <th md-column md-order-by="system"><span>System</span></th>
           <th md-column md-order-by="details"><span>Inspection</span></th>
           <th md-column md-order-by="notes"><span>Notes</span></th>
           <th md-column ng-hide="!editing"><span>Delete</span></th>
@@ -27,6 +28,9 @@
         <tr md-row md-select="component" md-select-id="{{component.id}}" ng-repeat="component in components | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
           <td md-cell ng-click="editName($event, component)">
             {{component.name}}
+          </td>
+          <td md-cell ng-click="editInspection($event, component)">
+            {{component.system.name}}
           </td>
           <td md-cell ng-click="editInspection($event, component)">
             {{component.inspection}}

@@ -17,7 +17,6 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
                     var component = response.data[i].component;
-                    console.log(component);
                     $scope.components.push(component);
                 }
             }, $scope.ajaxFailure
@@ -28,14 +27,6 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
 
     $scope.done = function () {
         $scope.editing = !$scope.editing;
-    };
-
-    $scope.delete = function (componentToDelete) {
-        var index = indexOfItemWithID(componentToDelete.id, $scope.components);
-        if (index != -1) {
-            $scope.components.splice(index, 1);
-            $http.delete(apiService.components_url + componentToDelete.id, { 'params' : { 'format': 'json' } }).then($scope.ajaxSuccess, $scope.ajaxFailure);
-        }
     };
 
 }]);

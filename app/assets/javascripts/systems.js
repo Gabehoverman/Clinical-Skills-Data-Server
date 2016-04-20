@@ -149,7 +149,7 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
         var index = indexOfItemWithID(systemToDelete.id, $scope.systems);
         if (index != -1) {
             $scope.systems.splice(index, 1);
-            $http.delete(apiService.systems_url + systemToDelete.id).then($scope.ajaxSuccess, $scope.ajaxFailure);
+            $http.delete(apiService.systems_url + systemToDelete.id, { 'params' : { 'format': 'json' } }).then($scope.ajaxSuccess, $scope.ajaxFailure);
         }
     };
 

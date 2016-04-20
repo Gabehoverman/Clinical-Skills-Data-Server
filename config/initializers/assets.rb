@@ -10,12 +10,30 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
 
-%w(new_system_dialog new_subsystem_dialog edit_components_dialog edit_exam_techniques_dialog).each do |base|
-	Rails.application.config.assets.precompile += ["#{base}_controller.js"]
-	Rails.application.config.assets.precompile += ["#{base}.html"]
+Dir.glob("#{Rails.root}/app/assets/dialog_controllers/**/").each do |path|
+	Rails.application.config.assets.paths << path
+	Dir.glob(path + '*').each do |file|
+		Rails.application.config.assets.precompile += [File.basename(file)]
+	end
 end
 
-%w(application systems components landing).each do |controller|
-  Rails.application.config.assets.precompile += ["#{controller}.js"]
-  Rails.application.config.assets.precompile += ["#{controller}.scss"]
+Dir.glob("#{Rails.root}/app/assets/dialog_htmls/**/").each do |path|
+	Rails.application.config.assets.paths << path
+	Dir.glob(path + '*').each do |file|
+		Rails.application.config.assets.precompile += [File.basename(file)]
+	end
+end
+
+Dir.glob("#{Rails.root}/app/assets/javascripts/*").each do |path|
+	Rails.application.config.assets.paths << path
+	Dir.glob(path + '*').each do |file|
+		Rails.application.config.assets.precompile += [File.basename(file)]
+	end
+end
+
+Dir.glob("#{Rails.root}/app/assets/stylesheets/*").each do |path|
+	Rails.application.config.assets.paths << path
+	Dir.glob(path + '*').each do |file|
+		Rails.application.config.assets.precompile += [File.basename(file)]
+	end
 end

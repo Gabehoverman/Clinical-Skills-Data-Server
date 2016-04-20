@@ -14,7 +14,7 @@ class Component < ActiveRecord::Base
 		json = []
 		Component.all.each do |component|
 			json.push({
-				:component => component.as_json
+				:component => component.as_json(:include => { :system => { :only => :name} })
 			})
 		end
 		return json
@@ -27,7 +27,7 @@ class Component < ActiveRecord::Base
 			components = system.components
 			components.each do |component|
 			json.push({
-				:component => component.as_json
+				:component => component.as_json(:include => { :system => { :only => :name} })
 			})
 			end
 		end
