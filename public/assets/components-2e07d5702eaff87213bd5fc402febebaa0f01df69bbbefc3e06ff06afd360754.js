@@ -17,7 +17,6 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
                     var component = response.data[i].component;
-                    console.log(component);
                     $scope.components.push(component);
                 }
             }, $scope.ajaxFailure
@@ -50,7 +49,7 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
                     if (index != -1) {
                         var component = $scope.components[index];
                         component.name = input.$modelValue;
-                        $http.patch(apiService.systems_url + component.id, buildRequest(component)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                        $http.patch(apiService.components_url + component.id, buildRequest(component)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                     }
                 }
             });
@@ -71,7 +70,7 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
                     if (index != -1) {
                         var component = $scope.components[index];
                         component.inspection = input.$modelValue;
-                        $http.patch(apiService.systems_url + component.id, buildRequest(component)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                        $http.patch(apiService.components_url + component.id, buildRequest(component)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                     }
                 }
             });
@@ -92,7 +91,7 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
                     if (index != -1) {
                         var component = $scope.components[index];
                         component.notes = input.$modelValue;
-                        $http.patch(apiService.systems_url + component.id, buildRequest(component)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                        $http.patch(apiService.components_url + component.id, buildRequest(component)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                     }
                 }
             });
