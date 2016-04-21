@@ -9,9 +9,13 @@ class System < ActiveRecord::Base
     json = []
 
     System.all.each do |system|
-      json.push({
-        :system => system.as_json(:include => [:components, :exam_techniques])
-      })
+      json.push(
+        system.as_json(root: true, include: {
+            components: { only: [:id, :name] },
+            exam_techniques: { only: [:id, :name] }
+          }
+        )
+      )
     end
 
     return json

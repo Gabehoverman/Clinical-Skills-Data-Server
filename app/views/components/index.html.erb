@@ -25,6 +25,7 @@
           <th md-column md-order-by="muscles"><span>Muscles</span></th>
           <th md-column md-order-by="palpations"><span>Palpations</span></th>
           <th md-column md-order-by="ranges-of-motion"><span>Ranges Of Motion</span></th>
+          <th md-column md-order-by="special-test"><span>Special Tests</span></th>
           <th md-column ng-hide="!editing"><span>Delete</span></th>
         </tr>
         </thead>
@@ -57,8 +58,13 @@
             </md-button>
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="" aria-label="ranges-of-motion">
-              {{(component.range_of_motons.length) ? component.range_of_motons.length : 0}} {{(component.range_of_motons.length == 1) ? "Range of Motion" : "Ranges of Motion"}}
+            <md-button class="md-primary" ng-click="" aria-label="range-of-motions">
+              {{(component.range_of_motions.length) ? component.range_of_motions.length : 0}} {{(component.range_of_motions.length == 1) ? "Range of Motion" : "Ranges of Motion"}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="" aria-label="special-tests">
+              {{(component.special_tests.length) ? component.special_tests.length : 0}} {{(component.special_tests.length == 1) ? "Special Test" : "Special Tests"}}
             </md-button>
           </td>
           <td md-cell ng-hide="!editing">

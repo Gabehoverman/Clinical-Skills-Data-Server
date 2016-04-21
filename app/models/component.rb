@@ -13,9 +13,16 @@ class Component < ActiveRecord::Base
 	def self.api_all
 		json = []
 		Component.all.each do |component|
-			json.push({
-				:component => component.as_json(:include => [:system, :palpations, :muscles, :range_of_motions] )
-			})
+			json.push(
+				component.as_json(root: true, include: {
+						system: { only: [:id, :name] },
+						palpations: { only: [:id, :structure] },
+						muscles: { only: [:id, :name] },
+						range_of_motions: { only: [:id, :motion] },
+						special_tests: { only: [:id, :name] }
+					}
+				)
+			)
 		end
 		return json
 	end
@@ -26,9 +33,16 @@ class Component < ActiveRecord::Base
 		unless system.nil?
 			components = system.components
 			components.each do |component|
-			json.push({
-				:component => component.as_json(:include => { :system => { :only => :name} })
-			})
+			json.push(
+				component.as_json(root: true, include: {
+						system: { only: [:id, :name] },
+						palpations: { only: [:id, :structure] },
+						muscles: { only: [:id, :name] },
+						range_of_motions: { only: [:id, :motion] },
+						special_tests: { only: [:id, :name] }
+					}
+				)
+			)
 			end
 		end
 		return json

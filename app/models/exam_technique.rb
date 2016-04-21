@@ -10,9 +10,9 @@ class ExamTechnique < ActiveRecord::Base
 	def self.api_all
 		json = []
 		ExamTechnique.all.each do |exam_technique|
-			json.push({
-				:exam_technique => exam_technique.as_json
-			})
+			json.push(
+				exam_technique.as_json(root: true)
+			)
 		end
 		return json
 	end
@@ -23,9 +23,9 @@ class ExamTechnique < ActiveRecord::Base
 		unless system.nil?
 			exam_techniques = system.exam_techniques
 			exam_techniques.each do |exam_technique|
-				json.push({
-					:exam_technique => exam_technique.as_json
-				})
+				json.push(
+					exam_technique.as_json(root: true)
+				)
 			end
 		end
 		return json
