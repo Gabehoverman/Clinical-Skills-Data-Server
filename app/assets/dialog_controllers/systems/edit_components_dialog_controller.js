@@ -20,7 +20,9 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
             var component = $scope.allComponents[i];
             if (($scope.isInitialFilter) ? indexOfItemWithID(component.id, $scope.system.components) == -1 : indexOfItemWithID(component.id, $scope.usedComponents) == -1) {
                 if (indexOfItemWithID(component.id, $scope.unusedComponents) == -1) {
-                    $scope.unusedComponents.push(component);
+                    if (!component.system) {
+                        $scope.unusedComponents.push(component);
+                    }
                 }
             } else {
                 if (indexOfItemWithID(component.id, $scope.usedComponents) == -1) {
@@ -34,6 +36,10 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
     $scope.remove = function(componentToRemove) {
         var index = indexOfItemWithID(componentToRemove.id, $scope.usedComponents);
         if (index != -1) {
+            var allIndex = indexOfItemWithID(componentToRemove.id, $scope.allComponents);
+            if (allIndex != -1) {
+                $scope.allComponents[allIndex].system = null;
+            }
             $scope.usedComponents.splice(index, 1);
             $scope.filterComponents();
         }
@@ -44,6 +50,10 @@ function EditComponentsController($scope, $mdDialog, system, components, allComp
             $scope.usedComponents.push($scope.componentToAdd);
             var index = indexOfItemWithID($scope.componentToAdd.id, $scope.unusedComponents);
             $scope.unusedComponents.splice(index, 1);
+            var allIndex = indexOfItemWithID($scope.componentToAdd.id, $scope.allComponents);
+            if (allIndex != -1) {
+                $scope.allComponents[allIndex].system = { "name": $scope.system.name };
+            }
             $scope.componentToAdd = null;
             $scope.filterComponents();
         }

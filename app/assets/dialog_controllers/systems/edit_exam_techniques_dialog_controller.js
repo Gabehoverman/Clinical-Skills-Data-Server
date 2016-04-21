@@ -20,7 +20,9 @@ function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_tech
             var examTechnique = $scope.allExamTechniques[i];
             if (($scope.isInitialFilter) ? indexOfItemWithID(examTechnique.id, $scope.system.exam_techniques) == -1 : indexOfItemWithID(examTechnique.id, $scope.usedExamTechniques) == -1) {
                 if (indexOfItemWithID(examTechnique.id, $scope.unusedExamTechniques) == -1) {
-                    $scope.unusedExamTechniques.push(examTechnique);
+                    if (!examTechnique.system) {
+                        $scope.unusedExamTechniques.push(examTechnique);
+                    }
                 }
             } else {
                 if (indexOfItemWithID(examTechnique.id, $scope.usedExamTechniques) == -1) {
@@ -34,6 +36,10 @@ function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_tech
     $scope.remove = function(examTechniqueToRemove) {
         var index = indexOfItemWithID(examTechniqueToRemove.id, $scope.usedExamTechniques);
         if (index != -1) {
+            var allIndex = indexOfItemWithID(examTechniqueToRemove.id, $scope.allExamTechniques);
+            if (allIndex != -1) {
+                $scope.allExamTechniques[allIndex].system = null;
+            }
             $scope.usedExamTechniques.splice(index, 1);
             $scope.filterExamTechniques();
         }
@@ -44,6 +50,10 @@ function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_tech
             $scope.usedExamTechniques.push($scope.examTechniqueToAdd);
             var index = indexOfItemWithID($scope.examTechniqueToAdd.id, $scope.unusedExamTechniques);
             $scope.unusedExamTechniques.splice(index, 1);
+            var allIndex = indexOfItemWithID($scope.examTechniqueToAdd.id, $scope.allExamTechniques);
+            if (allIndex != -1) {
+                $scope.allExamTechniques[allIndex].system = { "name": $scope.system.name };
+            }
             $scope.examTechniqueToAdd = null;
             $scope.filterExamTechniques();
         }
