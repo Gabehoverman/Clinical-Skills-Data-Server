@@ -14,7 +14,7 @@ class Component < ActiveRecord::Base
 		json = []
 		Component.all.each do |component|
 			json.push({
-				:component => component.as_json(:include => { :system => { :only => :name} })
+				:component => component.as_json(:include => [:system, :palpations, :muscles, :range_of_motions] )
 			})
 		end
 		return json

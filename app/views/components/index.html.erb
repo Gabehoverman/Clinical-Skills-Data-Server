@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<%= asset_path 'new_component_dialog_controller.js' %>"></script>
 <md-content ng-controller="ComponentsController">
   <md-card ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
@@ -21,6 +22,9 @@
           <th md-column md-order-by="system"><span>System</span></th>
           <th md-column md-order-by="details"><span>Inspection</span></th>
           <th md-column md-order-by="notes"><span>Notes</span></th>
+          <th md-column md-order-by="muscles"><span>Muscles</span></th>
+          <th md-column md-order-by="palpations"><span>Palpations</span></th>
+          <th md-column md-order-by="ranges-of-motion"><span>Ranges Of Motion</span></th>
           <th md-column ng-hide="!editing"><span>Delete</span></th>
         </tr>
         </thead>
@@ -30,13 +34,32 @@
             {{component.name}}
           </td>
           <td md-cell>
-            {{component.system.name}}
+            <md-select placeholder="System" ng-model="component.system.name" md-on-close="editSystem(component)" ng-disabled="!editing">
+              <md-option ng-value="system.name" ng-repeat="system in allSystems | orderBy: 'name'">
+                {{system.name}}
+              </md-option>
+            </md-select>
           </td>
           <td md-cell ng-click="editInspection($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.inspection}}
           </td>
           <td md-cell ng-click="editNotes($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.notes}}
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="" aria-label="muscles">
+              {{(component.muscles.length) ? component.muscles.length : 0}} {{(component.muscles.length == 1) ? "Muscle" : "Muscles"}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="" aria-label="palpations">
+              {{(component.palpations.length) ? component.palpations.length : 0}} {{(component.palpations.length == 1) ? "Palpation" : "Palpations"}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="" aria-label="ranges-of-motion">
+              {{(component.range_of_motons.length) ? component.range_of_motons.length : 0}} {{(component.range_of_motons.length == 1) ? "Range of Motion" : "Ranges of Motion"}}
+            </md-button>
           </td>
           <td md-cell ng-hide="!editing">
             <md-button class="md-icon-button" ng-click="delete(component)" aria-label="delete">

@@ -2,6 +2,7 @@ class ComponentsController < ApplicationController
 
   def index
     @toolbar_title = 'Components'
+    js :new_component_dialog_template_url => ActionController::Base.helpers.asset_path('new_component_dialog.html')
     respond_to do |format|
       if params['system'].nil?
         format.json { render json: Component.api_all, status: :ok }
@@ -12,8 +13,22 @@ class ComponentsController < ApplicationController
     end
   end
 
+  def create
+    @component = Component.new(components_params)
+    respond_to do |format|
+      if @component.save
+        format.json { render json: { :component => @component.as_json }, status: :ok }
+      else
+        format.json { render json: @component.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def update
     @component = Component.find(params[:id])
+    unless params['system'].nil?
+      @component.system = System.where(name: params['system']['name']).first
+    end
     respond_to do |format|
       if @component.update(components_params)
         format.json { render json: @component, status: :ok }

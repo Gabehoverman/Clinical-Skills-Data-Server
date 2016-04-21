@@ -123,10 +123,7 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
             targetEvent: event,
             clickOutsideToClose: false,
             escapeToClose: false,
-            fullscreen: $mdMedia('xs') || $mdMedia('sm'),
-            locals: {
-                allSystems: $scope.allSystems
-            }
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
         }).then(function (newComponent) {
             $http.post(apiService.components_url, buildRequest(newComponent)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {

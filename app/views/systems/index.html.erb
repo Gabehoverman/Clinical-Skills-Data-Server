@@ -1,11 +1,6 @@
 <script type="text/javascript" src="<%= asset_path 'new_system_dialog_controller.js' %>"></script>
 <script type="text/javascript" src="<%= asset_path 'edit_components_dialog_controller.js' %>"></script>
 <script type="text/javascript" src="<%= asset_path 'edit_exam_techniques_dialog_controller.js' %>"></script>
-<script>
-	var new_system_dialog_html_path = "<%= asset_path 'new_system_dialog.html' %>";
-	var edit_links_dialog_html_path = "<%= asset_path 'edit_components_dialog.html' %>";
-	var edit_links_dialog_html_path = "<%= asset_path 'edit_exam_techniques_dialog.html' %>";
-</script>
 <md-content ng-controller="SystemsController">
 	<md-card ng-cloak>
 	    <md-toolbar class="md-table-toolbar md-default">
@@ -45,11 +40,11 @@
 								{{(system.components.length) ? system.components.length : 0}} {{(system.components.length == 1) ? "Component" : "Components"}}
 							</md-button>
 						</td>
-            <td md-cell>
-              <md-button class="md-primary" ng-click="editExamTechniques($event, system)" aria-label="links">
-                {{(system.exam_techniques.length) ? system.exam_techniques.length : 0}} {{(system.exam_techniques.length == 1) ? "Exam Technique" : "Exam Techniques"}}
-              </md-button>
-            </td>
+			            <td md-cell>
+			              <md-button class="md-primary" ng-click="editExamTechniques($event, system)" aria-label="links">
+			                {{(system.exam_techniques.length) ? system.exam_techniques.length : 0}} {{(system.exam_techniques.length == 1) ? "Exam Technique" : "Exam Techniques"}}
+			              </md-button>
+			            </td>
 						<td md-cell ng-hide="!editing">
 							<md-button class="md-icon-button" ng-click="delete(system)" aria-label="delete">
 	        					<md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>

@@ -2,6 +2,7 @@ var ComponentsController = Paloma.controller('Components');
 app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", 'apiService', function ($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia, apiService) {
 
     $scope.components = [];
+    $scope.allSystems = [];
 
     $scope.editing = false;
 
@@ -13,11 +14,23 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
     };
 
     ComponentsController.prototype.index = function () {
+        $scope.new_component_dialog_template_url = this.params.new_component_dialog_template_url;
         $scope.componentsPromise = $http.get(apiService.components_url, { 'params' : { 'format': 'json' } }).then(
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
                     var component = response.data[i].component;
                     $scope.components.push(component);
+                }
+            }, $scope.ajaxFailure
+        );
+
+        $scope.systemsPromise = $http.get(apiService.systems_url, { 'params' : { 'format': 'json' } }).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var system = response.data[i].system;
+                    if (indexOfItemWithID(system.id, $scope.allSystems) == -1) {
+                        $scope.allSystems.push(system);
+                    }
                 }
             }, $scope.ajaxFailure
         );
@@ -96,6 +109,29 @@ app.controller("ComponentsController", ["$scope", "$http", "$mdToast", "$mdDialo
                 }
             });
         }
+    };
+
+    $scope.editSystem = function() {
+        console.log($scope.component.system.name);
+    };
+
+    $scope.newComponent = function(event) {
+        $mdDialog.show({
+            controller: NewComponentDialogController,
+            templateUrl: $scope.new_component_dialog_template_url,
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+        }).then(function (newComponent) {
+            $http.post(apiService.components_url, buildRequest(newComponent)).then(function(response) {
+                if (response.config.method === 'POST' && response.status === 200) {
+                    $scope.components.push(response.data.component);
+                }
+                $scope.ajaxSuccess(response);
+            }, $scope.ajaxFailure);
+        });
     };
 
     $scope.delete = function (componentToDelete) {
