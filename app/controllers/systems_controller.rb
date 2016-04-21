@@ -9,7 +9,7 @@ class SystemsController < ApplicationController
     js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('edit_exam_techniques_dialog.html')
 
     respond_to do |format|
-      format.json { render  json: System.api_all }
+      format.json { render  json: System.api_all_associations }
       format.html { render :index }
     end
 

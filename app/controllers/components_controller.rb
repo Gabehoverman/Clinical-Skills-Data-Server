@@ -5,7 +5,7 @@ class ComponentsController < ApplicationController
     js :new_component_dialog_template_url => ActionController::Base.helpers.asset_path('new_component_dialog.html')
     respond_to do |format|
       if params['system'].nil?
-        format.json { render json: Component.api_all, status: :ok }
+        format.json { render json: Component.api_all_associations, status: :ok }
       else
         format.json { render json: Component.api_for_system_name(params['system']), status: :ok }
       end

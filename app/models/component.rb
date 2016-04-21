@@ -10,7 +10,17 @@ class Component < ActiveRecord::Base
 
   validates :name, :uniqueness => true
 
-	def self.api_all
+  	def self.api_all
+		json = []
+		Component.all.each do |component|
+			json.push(
+				component.as_json(root: true)
+			)
+		end
+		return json
+	end
+
+	def self.api_all_associations
 		json = []
 		Component.all.each do |component|
 			json.push(
@@ -35,11 +45,7 @@ class Component < ActiveRecord::Base
 			components.each do |component|
 			json.push(
 				component.as_json(root: true, include: {
-						system: { only: [:id, :name] },
-						palpations: { only: [:id, :structure] },
-						muscles: { only: [:id, :name] },
-						range_of_motions: { only: [:id, :motion] },
-						special_tests: { only: [:id, :name] }
+						system: { only: [:id, :name] }
 					}
 				)
 			)
