@@ -113,7 +113,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
             escapeToClose: false,
             locals: {
                 system: systemToUpdate,
-                components: systemToUpdate.components,
                 allComponents: $scope.allComponents,
                 editing: $scope.editing
             },
@@ -140,7 +139,6 @@ app.controller("SystemsController", ["$scope", "$http", "$mdToast", "$mdDialog",
             escapeToClose: false,
             locals: {
                 system: systemToUpdate,
-                exam_techniques: systemToUpdate.exam_techniques,
                 allExamTechniques: $scope.allExamTechniques,
                 editing: $scope.editing
             },

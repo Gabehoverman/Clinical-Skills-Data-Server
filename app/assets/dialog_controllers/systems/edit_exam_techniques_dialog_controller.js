@@ -1,4 +1,4 @@
-function EditExamTechniquesDialogController($scope, $mdDialog, system, exam_techniques, allExamTechniques, editing) {
+function EditExamTechniquesDialogController($scope, $mdDialog, system, allExamTechniques, editing) {
 
     $scope.system = system;
     $scope.allExamTechniques = allExamTechniques;

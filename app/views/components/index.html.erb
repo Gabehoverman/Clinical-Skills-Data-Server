@@ -1,4 +1,8 @@
 <script type="text/javascript" src="<%= asset_path 'new_component_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_muscles_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_palpations_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_ranges_of_motion_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_special_tests_dialog_controller.js' %>"></script>
 <md-content ng-controller="ComponentsController">
   <md-card ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
@@ -48,23 +52,23 @@
             {{component.notes}}
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="" aria-label="muscles">
-              {{(component.muscles.length) ? component.muscles.length : 0}} {{(component.muscles.length == 1) ? "Muscle" : "Muscles"}}
+            <md-button class="md-primary" ng-click="editMuscles($event, component)" aria-label="muscles">
+              {{(component.muscles.length) ? component.muscles.length : 0}}
             </md-button>
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="" aria-label="palpations">
-              {{(component.palpations.length) ? component.palpations.length : 0}} {{(component.palpations.length == 1) ? "Palpation" : "Palpations"}}
+            <md-button class="md-primary" ng-click="editPalpations($event, component)" aria-label="palpations">
+              {{(component.palpations.length) ? component.palpations.length : 0}}
             </md-button>
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="" aria-label="range-of-motions">
-              {{(component.range_of_motions.length) ? component.range_of_motions.length : 0}} {{(component.range_of_motions.length == 1) ? "Range of Motion" : "Ranges of Motion"}}
+            <md-button class="md-primary" ng-click="editRangesOfMotion($event, component)" aria-label="range-of-motions">
+              {{(component.range_of_motions.length) ? component.range_of_motions.length : 0}}
             </md-button>
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="" aria-label="special-tests">
-              {{(component.special_tests.length) ? component.special_tests.length : 0}} {{(component.special_tests.length == 1) ? "Special Test" : "Special Tests"}}
+            <md-button class="md-primary" ng-click="editSpecialTests($event, component)" aria-label="special-tests">
+              {{(component.special_tests.length) ? component.special_tests.length : 0}}
             </md-button>
           </td>
           <td md-cell ng-hide="!editing">

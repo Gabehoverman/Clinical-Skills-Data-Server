@@ -4,27 +4,17 @@ Rails.application.routes.draw do
 
   get 'landing/index'
 
-  resources :systems do
-    collection do
-      get 'all'
-    end
-  end
-  resources :components do
-    collection do
-      get 'all'
-    end
-  end
-  resources :exam_techniques do
-    collection do
-      get 'all'
-    end
-  end
+  resources :systems, :only => [:index, :create, :update, :destroy]
+  resources :components, :only => [:index, :create, :update, :destroy]
+  resources :exam_techniques, :only => [:index, :create, :update, :destroy]
   resources :palpations, :only => [:index, :create, :update, :destroy]
   resources :ranges_of_motion, :only => [:index, :create, :update, :destroy]
   resources :muscles, :only => [:index, :create, :update, :destroy]
   resources :special_tests, :only => [:index, :create, :update, :destroy]
   resources :image_links, :only => [:index, :create, :update, :destroy]
   resources :video_links, :only => [:index, :create, :update, :destroy]
+  resources :personnel_acknowledgements, :only => [:index, :create, :update, :destroy]
+  resources :software_acknowledgements, :only => [:index, :create, :update, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

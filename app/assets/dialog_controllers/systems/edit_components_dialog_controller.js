@@ -1,4 +1,4 @@
-function EditComponentsController($scope, $mdDialog, system, components, allComponents, editing) {
+function EditComponentsController($scope, $mdDialog, system, allComponents, editing) {
 
     $scope.system = system;
     $scope.allComponents = allComponents;

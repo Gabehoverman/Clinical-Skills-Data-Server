@@ -6,8 +6,34 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+# Personnel Acknowledgements
+print 'Seeding Personnel Acknowledgements...'
+
+PersonnelAcknowledgement.create(name: 'Nicholas Alexander', role: 'Developer', notes: 'Under the supervision of Dr. Paulus Wahjudi, Ph.D. at Marshall University')
+PersonnelAcknowledgement.create(name: 'Shaun Raganyi, OMS-III', role: 'Creator', notes: 'Clinical Sciences Graduate Teaching Assistant at West Virginia School of Osteopathic Medicine. Under supervision of Dr. Gail Swarm, D.O.')
+PersonnelAcknowledgement.create(name: 'Dr. Kathleen Martin, M.D.', role: 'Contributor', notes: '')
+PersonnelAcknowledgement.create(name: 'Dr. Jill Cochran, Ph.D., C-FNP', role: 'Contributor', notes: '')
+PersonnelAcknowledgement.create(name: 'Dr. Thomas Steele, D.O.', role: 'Contributor', notes: '')
+PersonnelAcknowledgement.create(name: 'Dr. Craig Boisvert, D.O.', role: 'Contributor', notes: '')
+PersonnelAcknowledgement.create(name: 'Dr. Kristina McGraw, D.O.', role: 'Contributor', notes: '')
+PersonnelAcknowledgement.create(name: 'All Clinical Sciences Faculty', role: '', notes: 'West Virginia School of Osteopathic Medicine')
+PersonnelAcknowledgement.create(name: 'Dr. Daryn Straley, D.O.', role: 'In Memorial', notes: '')
+
+puts 'Done'
+
+# Software Acknowledgements
+print 'Seeding Software Acknowledgements...'
+
+SoftwareAcknowledgement.create(name: 'SwiftyJSON', link: 'https://github.com/SwiftyJSON/SwiftyJSON')
+SoftwareAcknowledgement.create(name: 'NYTPhotoViewer', link: 'https://github.com/NYTimes/NYTPhotoViewer')
+SoftwareAcknowledgement.create(name: 'Async', link: 'https://github.com/duemunk/Async')
+SoftwareAcknowledgement.create(name: 'Icons8', link: 'https://icons8.com')
+
+puts 'Done'
+
 # Systems
 print 'Seeding Systems...'
+
 musculoskeletal          = System.create(name: 'Musculoskeletal', details: 'The complete musculoskeletal exam contains 5 parts, which must be applied to each joint/region that you are examining')
 eye                      = System.create(name: 'Eye', details: '')
 cardiovascular           = System.create(name: 'Cardiovascular', details: '')
@@ -15,10 +41,12 @@ heent                    = System.create(name: 'Head, Ear, Eyes, Nose, Throat', 
 respiratory              = System.create(name: 'Respiratory', details: '')
 neurological             = System.create(name: 'Neurological', details: 'Some common chief complaints in which a full neurological exam should be performed include headache (eye exam should be considered), fatigue, weakness, sudden visual change (eye exam should be considered), eye pain (eye exam should be considered), any cognitive complaints, behavioral issues, psychiatric complaints, etc.  There should be a very low threshold present in order to perform a full neurological exam')
 abdomen                  = System.create(name: 'Abdomen', details: 'Always remember to perform auscultation prior to percussion and/or palpation (this is an easy thing to forget and this is simply a reminder')
+
 puts 'Done'
 
 # Components
 print 'Seeding Components...'
+
 cervical_spine           = Component.create(system: musculoskeletal, name: 'Cervical Spine', inspection: 'Begin inspection as the patient enters the examining room. Does the patient’s head move naturally with their body movements? If they hold their head stiffly to one side it could be to protect an area of pain. The neck region should then be inspected for any abnormalities such as blisters, scars and discoloration.', notes: '')
 lumbar_spine             = Component.create(system: musculoskeletal, name: 'Lumbar Spine', inspection: 'Anterior, posterior, lateral aspects of patient’s posture, ability to stand erect, symmetry, lordosis, discoloration, swelling, masses, muscular hypertrophy, atrophy, or spasms.', notes: '')
 shoulder                 = Component.create(system: musculoskeletal, name: 'Shoulder', inspection: 'Notice any deformity, swelling, and asymmetry.  Remember to inspect the clavicle, the deltoids, and the scapula.  Notice whether the spine is straight, while looking for a lateral curvature (scoliosis).  Remember that this is considered a ball-and-socket joint.', notes: '')
@@ -31,10 +59,12 @@ cardiovascular_component = Component.create(system: cardiovascular, name: 'Cardi
 respiratory_component    = Component.create(system: respiratory, name: 'Respiratory', inspection: '', notes: '')
 neurological_component   = Component.create(system: neurological, name: 'Neurological', inspection: '', notes: '')
 abdomen_component        = Component.create(system: abdomen, name: 'Abdomen', inspection: '', notes: '')
+
 puts 'Done'
 
 # Palpations
 print 'Seeding Palpations...'
+
 Palpation.create(component: cervical_spine, structure: 'Hyoid Bone', details: 'C3 Vertebra', notes: 'Anterior')
 Palpation.create(component: cervical_spine, structure: 'Thyroid Cartilage', details: 'C4-C5 Vertebrae', notes: 'Anterior')
 Palpation.create(component: cervical_spine, structure: 'First Cricoid Ring', details: 'C6 Vertebra', notes: 'Anterior')
@@ -118,10 +148,12 @@ Palpation.create(component: ankle_foot, structure: 'March fracture', details: 'T
 Palpation.create(component: ankle_foot, structure: 'Dorsalis pedis artery', details: 'Located over medial aspect of the dorsum of foot', notes: '')
 Palpation.create(component: ankle_foot, structure: 'Posterior tibial artery', details: 'Located posteriorly and inferiorly below the medial malleolus', notes: '')
 Palpation.create(component: ankle_foot, structure: 'Insertion of Achilles tendon', details: 'Combined with tendon of the gastrocnemius and the soleus muscles', notes: '')
+
 puts 'Done'
 
 # Ranges of Motion
 print 'Seeding Ranges Of Motion...'
+
 RangeOfMotion.create(component: cervical_spine, motion: 'Flexion', degrees: '50', notes: 'Touch chin to chest')
 RangeOfMotion.create(component: cervical_spine, motion: 'Extension', degrees: '60', notes: 'Look at ceiling directly above')
 RangeOfMotion.create(component: cervical_spine, motion: 'Side Bending', degrees: '45', notes: 'Touch ear to shoulder without moving shoulder')
@@ -176,10 +208,12 @@ RangeOfMotion.create(component: knee, motion: 'Subtalar inversion', degrees: '30
 RangeOfMotion.create(component: knee, motion: 'Subtalar eversion', degrees: '20', notes: '')
 RangeOfMotion.create(component: knee, motion: 'Forefoot abduction', degrees: '10', notes: 'Stabilization required')
 RangeOfMotion.create(component: knee, motion: 'Forefoot adduction', degrees: '20', notes: 'Stabilization required')
+
 puts 'Done'
 
 # Muscles
 print 'Seeding Muscles...'
+
 Muscle.create(component: cervical_spine, name: 'Sternocleidomastoid')
 Muscle.create(component: cervical_spine, name: 'Trapezius')
 Muscle.create(component: cervical_spine, name: 'Flexors')
@@ -219,10 +253,12 @@ Muscle.create(component: knee, name: 'Inversion')
 Muscle.create(component: knee, name: 'Eversion')
 Muscle.create(component: knee, name: 'Flexion of toes')
 Muscle.create(component: knee, name: 'Extension of toes')
+
 puts 'Done'
 
 # Special Tests
 print 'Seeding Special Tests...'
+
 spurling_test                = SpecialTest.create(component: cervical_spine, name: 'Spurling\'s Test', positive_sign: 'Radiating pain', indication: 'Nerve root impingement')
 compression_distraction_test = SpecialTest.create(component: cervical_spine, name: 'Compression and Distraction Tests', positive_sign: 'Reproduction of pain and relief of pain', indication: 'Issue with the cervical spine that warrants further investigation')
 
@@ -300,10 +336,12 @@ markles_sign_test          = SpecialTest.create(component: abdomen_component, na
 mcburneys_point_test       = SpecialTest.create(component: abdomen_component, name: 'McBurney’s Point Test', positive_sign: 'Rebound tenderness and sharp pain when McBurney’s point is palpated', indication: 'Appendicitis', notes: '')
 rovsings_sign_test         = SpecialTest.create(component: abdomen_component, name: 'Rovsing’s Sign Test', positive_sign: 'RLQ pain intensified by LLQ palpation', indication: 'Peritoneal irritation or appendicitis', notes: '')
 howship_rombergs_sign_test = SpecialTest.create(component: abdomen_component, name: 'Howship-Romberg Sign Test', positive_sign: 'Pain down medial aspect of the thigh to the knee', indication: 'Strangulated obturator hernia', notes: '')
+
 puts 'Done'
 
 # Exam Techniques
 print 'Seeding Exam Techniques...'
+
 systolic_murmur            = ExamTechnique.create(system: cardiovascular, name: 'Systolic Murmurs', details: 'No maneuver distinguishes this murmur, the diagnosis can be made by exclusion, clinical presentation, and physical exam')
 mitral_regurgitation       = ExamTechnique.create(system: cardiovascular, name: 'Mitral Regurgitation', details: 'Hand grip enhances murmur')
 aortic_regurgitation       = ExamTechnique.create(system: cardiovascular, name: 'Aortic Regurgitation', details: 'Accentuated by having the patient sit and lean forward')
@@ -354,10 +392,12 @@ extraocular_muscle_movement_test = ExamTechnique.create(system: eye, name: 'Extr
 corneal_light_reflex_test        = ExamTechnique.create(system: eye, name: 'Corneal Light Reflex', details: '')
 cover_uncover_test               = ExamTechnique.create(system: eye, name: 'Cover-Uncover Test', details: '')
 ophthalmoscopic_exam             = ExamTechnique.create(system: eye, name: 'Ophthalmoscopic Exam', details: '')
+
 puts 'Done'
 
 # Video Links | Special Tests
 print 'Seeding Video Links for Special Tests...'
+
 VideoLink.create(special_tests: [spurling_test], title: 'Spurling\'s Test', link: 'https://www.youtube.com/watch?v=VYENa1Dre10')
 VideoLink.create(special_tests: [compression_distraction_test], title: 'Cervical Compression and Distraction Test', link: 'https://www.youtube.com/watch?v=TnoJySUENAk')
 VideoLink.create(special_tests: [straight_leg_raising_test], title: 'Straight Leg Raising Test', link: 'https://www.youtube.com/watch?v=aL85pm7J6Io')
@@ -403,10 +443,12 @@ VideoLink.create(special_tests: [murphys_sign], title: 'Murphy\'s Sign', link: '
 VideoLink.create(special_tests: [rebound_tenderness_test], title: 'Rebound Tenderness', link: 'https://www.youtube.com/watch?v=YYIoxjiBAV0')
 VideoLink.create(special_tests: [iliopsoas_muscle_test], title: 'Iliopsoas Muscle Test', link: 'https://www.youtube.com/watch?v=-azrl9gRUMU')
 VideoLink.create(special_tests: [obturator_muscle_test], title: 'Obturator Muscle Test', link: 'https://www.youtube.com/watch?v=k6Pznq4VYoE')
+
 puts 'Done'
 
 # Video Links | Exam Techniques
 print 'Seeding Video Links for Exam Techniques...'
+
 VideoLink.create(exam_techniques: [aortic_regurgitation], title: 'Aortic Regurgitation', link: 'https://www.youtube.com/watch?v=aMRYU5hY03Y')
 VideoLink.create(exam_techniques: [mitral_stenosis], title: 'Mitral Stenosis', link: 'https://www.youtube.com/watch?v=g60XNtXx-G0')
 VideoLink.create(exam_techniques: [tracheal_alignment], title: 'Tracheal Palpation', link: 'https://www.youtube.com/watch?v=YMufMulGnFE')
@@ -448,10 +490,12 @@ VideoLink.create(exam_techniques: [extraocular_muscle_movement_test], title: 'Ex
 VideoLink.create(exam_techniques: [corneal_light_reflex_test], title: 'Corneal Light Reflex Test', link: 'https://www.youtube.com/watch?v=pBJcvahjn1E')
 VideoLink.create(exam_techniques: [cover_uncover_test], title: 'Cover Uncover Test', link: 'https://www.youtube.com/watch?v=BAnPhkd_E2Y')
 VideoLink.create(exam_techniques: [ophthalmoscopic_exam], title: 'Ophtalmic Exam Co axial', link: 'https://www.youtube.com/watch?v=95kz2PbF6zE')
+
 puts 'Done'
 
 # Image Links
 print 'Seeding Image Links...'
+
 ImageLink.create(special_tests: [spurling_test], title: 'Spurling\'s Test', link: Cloudinary::Api.resource('musculoskeletal/spurling_test')['secure_url'])
 
 ImageLink.create(special_tests: [compression_distraction_test], title: 'Compression Test', link: Cloudinary::Api.resource('musculoskeletal/compression_test')['secure_url'])
@@ -519,4 +563,5 @@ ImageLink.create(special_tests: [thompson_doherty_squeeze_test], title: 'Thompso
 ImageLink.create(special_tests: [homans_sign_test], title: 'Homan\'s Test', link: Cloudinary::Api.resource('musculoskeletal/homans_sign_test')['secure_url'])
 
 ImageLink.create(special_tests: [ankle_drawer_sign_test], title: 'Ankle Drawer Sign Test', link: Cloudinary::Api.resource('musculoskeletal/ankle_drawer_sign_test')['secure_url'])
+
 puts 'Done'

@@ -8,7 +8,7 @@ class Muscle < ActiveRecord::Base
 		json = []
 		Muscle.all.each do |muscle|
 			json.push({
-				:muscle => muscle.as_json
+				:muscle => muscle.as_json(include: { component: { only: [:id, :name] } })
 			})
 		end
 		return json
