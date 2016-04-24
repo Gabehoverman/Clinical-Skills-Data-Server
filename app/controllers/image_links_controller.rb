@@ -1,24 +1,15 @@
 class ImageLinksController < ApplicationController
 
   def index
-    json = []
-    unless params[:special_test].nil?
-      @special_test = SpecialTest.where('lower(name) = ?', params[:special_test].downcase).first
-      unless @special_test.nil?
-        @image_links = @special_test.image_links
-        @image_links.each do |image_link|
-          json.push({
-            :image_link => image_link
-          })
-        end
-      end
-    end
-
+    @toolbar_title = 'Image Links'
     respond_to do |format|
-      format.html { render :index }
-      format.json { render json: json, status: :ok }
+      if params['special_test'].nil?
+        format.json { render json: ImageLink.api_all, status: :ok }
+      else
+        format.json { render json: ImageLink.api_for_special_test_name(params['special_test']), status: :ok }
+      end
+      format.html { render :index, status: :ok }
     end
-
   end
 
 end

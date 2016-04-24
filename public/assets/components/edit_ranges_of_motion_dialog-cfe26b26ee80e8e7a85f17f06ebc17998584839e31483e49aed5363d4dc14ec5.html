@@ -1,0 +1,63 @@
+<md-dialog class="edit-dialog" flex="50">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1>Ranges Of Motion for {{component.name}}</h1>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="hide()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon class="material-icons">search</md-icon>
+            <form flex motion="filter.form">
+                <input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
+            </form>
+            <md-button class="md-icon-button" ng-click="query.filter = ''" aria-label="clear">
+                <md-icon class="material-icons">clear_all</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-table-container>
+        <table md-table>
+            <thead md-head md-order="query.order">
+            <tr md-row>
+                <th md-column md-order-by="motion"><span>Motion</span></th>
+                <th md-column ng-hide="!editing"><span>Remove</span></th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row md-select="rangeOfMotion" md-select-id="{{rangeOfMotion.id}}" ng-repeat="rangeOfMotion in usedRangesOfMotion | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <td md-cell>
+                    {{rangeOfMotion.motion}}
+                </td>
+                <td md-cell ng-hide="!editing">
+                    <md-button class="md-icon-button" ng-click="remove(rangeOfMotion)" aria-label="use">
+                        <md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+    <div flex></div>
+
+    <md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{usedRangesOfMotion.length}}"></md-table-pagination>
+
+    <md-dialog-actions layout="row">
+        <md-button class="md-raised md-warn" ng-click="cancel()" ng-show="editing" aria-label="cancel">Cancel</md-button>
+        <span flex></span>
+        <md-select ng-model="rangeOfMotionToAdd" placeholder="Add Range Of Motion" ng-show="editing">
+            <md-option ng-value="rangeOfMotion" ng-repeat="rangeOfMotion in unusedRangesOfMotion | orderBy: 'motion'">
+                {{rangeOfMotion.motion}}
+            </md-option>
+        </md-select>
+        <md-button class="md-raised md-primary md-hue-2" ng-click="addRangeOfMotion()" ng-show="editing" aria-label="add">Add Range Of Motion</md-button>
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="save()" ng-show="editing" aria-label="save">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="cancel()" ng-show="!editing" aria-label="close">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>

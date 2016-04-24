@@ -1,25 +1,15 @@
 class MusclesController < ApplicationController
 
   def index
-    json = []
-
-    unless params[:component].nil?
-      @component = Component.where('lower(name) = ?', params[:component].downcase).first
-      unless @component.nil?
-        @muscles = @component.muscles
-        @muscles.each do |muscle|
-          json.push({
-            :muscle => muscle
-          })
-        end
-      end
-    end
-
+    @toolbar_title = 'Muscles'
     respond_to do |format|
-      format.html { render :index }
-      format.json { render json: json, status: :ok }
+      if params['component'].nil?
+        format.json { render json: Muscle.api_all, status: :ok }
+      else
+        format.json { render json: Muscle.api_for_component_name(params['component']), status: :ok }
+      end
+      format.html { render :index, status: :ok }
     end
-
   end
 
 end

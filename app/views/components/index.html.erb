@@ -1,5 +1,10 @@
+<script type="text/javascript" src="<%= asset_path 'new_component_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_muscles_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_palpations_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_ranges_of_motion_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'edit_special_tests_dialog_controller.js' %>"></script>
 <md-content ng-controller="ComponentsController">
-  <md-card>
+  <md-card ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
         <md-icon class="material-icons">search</md-icon>
@@ -18,21 +23,53 @@
         <thead md-head md-order="query.order">
         <tr md-row>
           <th md-column md-order-by="name"><span>Name</span></th>
+          <th md-column md-order-by="system"><span>System</span></th>
           <th md-column md-order-by="details"><span>Inspection</span></th>
           <th md-column md-order-by="notes"><span>Notes</span></th>
+          <th md-column md-order-by="muscles"><span>Muscles</span></th>
+          <th md-column md-order-by="palpations"><span>Palpations</span></th>
+          <th md-column md-order-by="ranges-of-motion"><span>Ranges Of Motion</span></th>
+          <th md-column md-order-by="special-test"><span>Special Tests</span></th>
           <th md-column ng-hide="!editing"><span>Delete</span></th>
         </tr>
         </thead>
         <tbody md-body>
         <tr md-row md-select="component" md-select-id="{{component.id}}" ng-repeat="component in components | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell ng-click="editName($event, component)">
+          <td md-cell ng-click="editName($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.name}}
           </td>
-          <td md-cell ng-click="editInspection($event, component)">
+          <td md-cell>
+            <md-select placeholder="System" ng-model="component.system.name" md-on-close="editSystem(component)" ng-disabled="!editing">
+              <md-option ng-value="system.name" ng-repeat="system in allSystems | orderBy: 'name'">
+                {{system.name}}
+              </md-option>
+            </md-select>
+          </td>
+          <td md-cell ng-click="editInspection($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.inspection}}
           </td>
-          <td md-cell ng-click="editNotes($event, component)">
+          <td md-cell ng-click="editNotes($event, component)" ng-class="(editing == true) ? 'cell-editing' : '' ">
             {{component.notes}}
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="editMuscles($event, component)" aria-label="muscles">
+              {{(component.muscles.length) ? component.muscles.length : 0}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="editPalpations($event, component)" aria-label="palpations">
+              {{(component.palpations.length) ? component.palpations.length : 0}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="editRangesOfMotion($event, component)" aria-label="range-of-motions">
+              {{(component.range_of_motions.length) ? component.range_of_motions.length : 0}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="editSpecialTests($event, component)" aria-label="special-tests">
+              {{(component.special_tests.length) ? component.special_tests.length : 0}}
+            </md-button>
           </td>
           <td md-cell ng-hide="!editing">
             <md-button class="md-icon-button" ng-click="delete(component)" aria-label="delete">

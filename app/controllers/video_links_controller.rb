@@ -1,36 +1,17 @@
 class VideoLinksController < ApplicationController
 
   def index
-    json = []
-    unless params[:special_test].nil?
-      @special_test = SpecialTest.where('lower(name) = ?', params[:special_test].downcase).first
-      unless @special_test.nil?
-        @video_links = @special_test.video_links
-        @video_links.each do |video_link|
-          json.push({
-            :video_link => video_link
-          })
-        end
-      end
-    end
-
-    unless params[:exam_technique].nil?
-      @exam_technique = ExamTechnique.where('lower(name) = ?', params[:exam_technique].downcase).first
-      unless @exam_technique.nil?
-        @video_links = @exam_technique.video_links
-        @video_links.each do |video_link|
-          json.push({
-            :video_link => video_link
-          })
-        end
-      end
-    end
-
+    @toolbar_title = 'Video Links'
     respond_to do |format|
-      format.html { render :index }
-      format.json { render json: json, status: :ok }
+      if not params['special_test'].nil?
+        format.json { render json: VideoLink.api_for_special_test_name(params['special_test']), status: :ok }
+      elsif not params['exam_technique'].nil?
+        format.json { render json: VideoLink.api_for_exam_technique_name(params['exam_technique']), status: :ok }
+      else
+        format.json { render json: VideoLink.api_all, status: :ok }
+      end
+      format.html { render :index, status: :ok }
     end
-
   end
 
 end
