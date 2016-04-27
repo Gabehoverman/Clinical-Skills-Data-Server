@@ -1,7 +1,5 @@
 class SystemsController < ApplicationController
 
-  # skip_before_action :verify_authenticity_token, :only => :create
-
   def index
     @toolbar_title = 'Systems'
     js :new_system_dialog_template_url => ActionController::Base.helpers.asset_path('new_system_dialog.html')

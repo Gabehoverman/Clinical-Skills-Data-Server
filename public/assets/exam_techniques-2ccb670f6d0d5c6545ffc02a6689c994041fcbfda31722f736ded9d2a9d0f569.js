@@ -7,13 +7,12 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
 
     $scope.query = {
         order: 'name',
-        limit: 15,
+        limit: 10,
         page: 1,
         filter: ""
     };
 
     ExamTechniquesController.prototype.index = function () {
-        $scope.new_exam_technique_dialog_template_url = this.params.new_exam_technique_dialog_template_url;
         $scope.examTechniquesPromise = $http.get(apiService.exam_techniques_url, { 'params' : { 'format': 'json' } }).then(
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
@@ -78,6 +77,32 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
         }
     };
 
+    //$scope.editExamTechniques = function (event, systemToUpdate) {
+    //    $mdDialog.show({
+    //        controller: EditExamTechniquesDialogController,
+    //        templateUrl: $scope.edit_exam_techniques_dialog_template_url,
+    //        parent: angular.element(document.body),
+    //        targetEvent: event,
+    //        clickOutsideToClose: false,
+    //        escapeToClose: false,
+    //        locals: {
+    //            system: systemToUpdate,
+    //            allExamTechniques: $scope.allExamTechniques,
+    //            editing: $scope.editing
+    //        },
+    //        fullscreen: $mdMedia('xs') || $mdMedia('sm')
+    //    }).then(function (examTechniques) {
+    //        if (examTechniques) {
+    //            var index = indexOfItemWithID(systemToUpdate.id, $scope.systems);
+    //            if (index != -1) {
+    //                $scope.systems[index].exam_techniques = examTechniques;
+    //                var system = $scope.systems[index];
+    //                $http.patch(apiService.systems_url + system.id, buildRequest(system)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+    //            }
+    //        }
+    //    });
+    //};
+
     $scope.delete = function (examTechniqueToDelete) {
         var index = indexOfItemWithID(examTechniqueToDelete.id, $scope.examTechniques);
         if (index != -1) {
@@ -86,28 +111,23 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
         }
     };
 
-    $scope.newExamTechnique = function (event) {
-        $mdDialog.show({
-            controller: NewExamTechniqueDialogController,
-            templateUrl: $scope.new_exam_technique_dialog_template_url,
-            parent: angular.element(document.body),
-            targetEvent: event,
-            clickOutsideToClose: false,
-            escapeToClose: false,
-            fullscreen: $mdMedia('xs') || $mdMedia('sm')
-        }).then(function (newExamTechnique) {
-            $http.post(apiService.exam_techniques_url, buildRequest(newExamTechnique)).then(function(response) {
-                if (response.config.method === 'POST' && response.status === 200) {
-                    $scope.examTechniques.push(response.data.exam_technique);
-                }
-                $scope.ajaxSuccess(response);
-            }, $scope.ajaxFailure);
-        });
-    };
-
-    $scope.limitOptions = [10, 15, 20, {
-        label: 'All',
-        value: $scope.examTechniques.length
-    }];
+    //$scope.newExamTechnique = function (event) {
+    //    $mdDialog.show({
+    //        controller: NewSystemDialogController,
+    //        templateUrl: $scope.new_system_dialog_template_url,
+    //        parent: angular.element(document.body),
+    //        targetEvent: event,
+    //        clickOutsideToClose: false,
+    //        escapeToClose: false,
+    //        fullscreen: $mdMedia('xs') || $mdMedia('sm')
+    //    }).then(function (newSystem) {
+    //        $http.post(apiService.systems_url, buildRequest(newSystem)).then(function(response) {
+    //            if (response.config.method === 'POST' && response.status === 200) {
+    //                $scope.systems.push(response.data.system);
+    //            }
+    //            $scope.ajaxSuccess(response);
+    //        }, $scope.ajaxFailure);
+    //    });
+    //};
 
 }]);

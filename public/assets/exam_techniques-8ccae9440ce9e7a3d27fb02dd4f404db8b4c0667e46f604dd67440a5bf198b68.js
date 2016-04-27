@@ -7,7 +7,7 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
 
     $scope.query = {
         order: 'name',
-        limit: 15,
+        limit: 13,
         page: 1,
         filter: ""
     };
@@ -104,8 +104,8 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
             }, $scope.ajaxFailure);
         });
     };
-
-    $scope.limitOptions = [10, 15, 20, {
+    
+    $scope.limitOptions = [10, 15, {
         label: 'All',
         value: $scope.examTechniques.length
     }];

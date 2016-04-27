@@ -7,7 +7,7 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
 
     $scope.query = {
         order: 'name',
-        limit: 15,
+        limit: 13,
         page: 1,
         filter: ""
     };
@@ -105,9 +105,22 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
         });
     };
 
-    $scope.limitOptions = [10, 15, 20, {
-        label: 'All',
-        value: $scope.examTechniques.length
-    }];
+    //$scope.limitOptions = [10, 15, {
+    //    label: 'All',
+    //    value: $scope.examTechniques.length
+    //}];
+
+    $scope.limitOptions = function () {
+        var options = [];
+        var increment = 5;
+        while (($scope.examTechniques / increment) >= 1) {
+            options.push({
+                label: '' + increment,
+                value: increment
+            });
+            increment += 5;
+        }
+        return options;
+    }
 
 }]);

@@ -1,8 +1,8 @@
 <script type="text/javascript" src="<%= asset_path 'new_system_dialog_controller.js' %>"></script>
 <script type="text/javascript" src="<%= asset_path 'edit_components_dialog_controller.js' %>"></script>
 <script type="text/javascript" src="<%= asset_path 'edit_exam_techniques_dialog_controller.js' %>"></script>
-<md-content ng-controller="SystemsController">
-	<md-card ng-cloak>
+<md-content layout="row" flex ng-controller="SystemsController">
+	<md-card flex ng-cloak>
 	    <md-toolbar class="md-table-toolbar md-default">
 	      <div class="md-toolbar-tools">
 	      	<md-icon class="material-icons">search</md-icon>
@@ -12,11 +12,12 @@
 	        <md-button class="md-icon-button" ng-click="query.filter = ''" aria-label="clear">
 	        	<md-icon class="material-icons">clear_all</md-icon>
 	        </md-button>
-	        <md-button class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
-	        <md-button class="md-raised md-primary end-edit-button" ng-click="done()" ng-show="editing" aria-label="save">Done</md-button>
+          <md-button ng-cloak class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
+          <md-button ng-cloak class="md-raised md-primary md-hue-2 primary-button" ng-click="done()" ng-show="editing" aria-label="save">Done</md-button>
+          <md-button class="md-raised md-primary primary-button" ng-click="newSystem($event)" aria-label="add">Add</md-button>
 	      </div>
 	    </md-toolbar>
-		<md-table-container>
+		<md-table-container flex>
 			<table md-table md-progress="systemsPromise">
 				<thead md-head md-order="query.order">
 					<tr md-row>
@@ -54,11 +55,8 @@
 				</tbody>
 			</table>
 		</md-table-container>
-		<md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{systems.length}}"></md-table-pagination>
 
-		<md-button class="md-fab" ng-click="newSystem($event)" aria-label="add">
-			<md-icon class="material-icons">add</md-icon>
-		</md-button>
+    <md-table-pagination md-page-select md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{systems.length}}"></md-table-pagination>
 
 	</md-card>
 
