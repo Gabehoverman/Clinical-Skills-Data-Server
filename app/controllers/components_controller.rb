@@ -18,7 +18,7 @@ class ComponentsController < ApplicationController
   end
 
   def create
-    @component = Component.new(components_params)
+    @component = Component.new(component_params)
     unless params['system'].nil?
       @component.system = System.where(name: params['system']['name']).first
     end
@@ -73,7 +73,7 @@ class ComponentsController < ApplicationController
       end
     end
     respond_to do |format|
-      if @component.update(components_params)
+      if @component.update(component_params)
         format.json { render json: @component, status: :ok }
       else
         format.json { render json: @component.errors, status: :unprocessable_entity }
@@ -94,7 +94,7 @@ class ComponentsController < ApplicationController
 
   private
 
-    def components_params
+    def component_params
       params.permit(:id, :name, :inspection, :notes)
     end
 
