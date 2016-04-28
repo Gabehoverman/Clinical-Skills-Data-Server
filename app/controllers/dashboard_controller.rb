@@ -1,5 +1,6 @@
 class DashboardController < ApplicationController
   def index
+    @hide_toolbar = true
   	@toolbar_title = 'Overview'
     js :resources => [
       { name: 'Systems', count: System.count, link: url_for(controller: 'systems', action: 'index')},
