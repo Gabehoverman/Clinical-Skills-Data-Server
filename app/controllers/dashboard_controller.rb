@@ -1,4 +1,4 @@
-class LandingController < ApplicationController
+class DashboardController < ApplicationController
   def index
   	@toolbar_title = 'Overview'
     js :resources => [
