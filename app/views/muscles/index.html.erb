@@ -1,2 +1,53 @@
-<h1>Muscles#index</h1>
-<p>Find me in app/views/muscles/index.html.erb</p>
+<script type="text/javascript" src="<%= asset_path 'new_muscle_dialog_controller.js' %>"></script>
+<md-content layout="row" flex ng-controller="MusclesController">
+  <md-card flex ng-cloak>
+    <md-toolbar class="md-table-toolbar md-default">
+      <div class="md-toolbar-tools">
+        <md-icon class="material-icons">search</md-icon>
+        <form flex name="filter.form">
+          <input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
+        </form>
+        <md-button class="md-icon-button" ng-click="query.filter = ''" aria-label="clear">
+          <md-icon class="material-icons">clear_all</md-icon>
+        </md-button>
+        <md-button ng-cloak class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
+        <md-button ng-cloak class="md-raised md-primary md-hue-2 primary-button" ng-click="done()" ng-show="editing" aria-label="save">Done</md-button>
+        <md-button class="md-raised md-primary primary-button" ng-click="newMuscle($event)" aria-label="add">Add</md-button>
+      </div>
+    </md-toolbar>
+    <md-table-container flex>
+      <table md-table md-progress="musclesPromise">
+        <thead md-head md-order="query.order">
+        <tr md-row>
+          <th md-column md-order-by="name"><span>Name</span></th>
+          <th md-column md-order-by="component"><span>Component</span></th>
+          <th md-column ng-hide="!editing"><span>Delete</span></th>
+        </tr>
+        </thead>
+        <tbody md-body>
+        <tr md-row md-select="muscle" md-select-id="{{muscle.id}}" ng-repeat="muscle in muscles | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+          <td md-cell ng-click="editName($event, muscle)" ng-class="(editing == true) ? 'cell-editing' : ''">
+            {{muscle.name}}
+          </td>
+          <td md-cell>
+            <md-select placeholder="Component" ng-model="muscle.component.name" md-on-close="editComponent(muscle)" ng-disabled="!editing">
+              <md-option ng-value="component.name" ng-repeat="component in allComponents | orderBy: 'name'">
+                {{component.name}}
+              </md-option>
+            </md-select>
+          </td>
+          <td md-cell ng-hide="!editing">
+            <md-button class="md-icon-button" ng-click="delete(muscle)" aria-label="delete">
+              <md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
+            </md-button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-page-select md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{muscles.length}}"></md-table-pagination>
+
+  </md-card>
+
+</md-content>

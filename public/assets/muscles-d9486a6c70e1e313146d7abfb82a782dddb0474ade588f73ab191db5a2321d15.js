@@ -70,10 +70,6 @@ app.controller("MusclesController", ["$scope", "$http", "$mdToast", "$mdDialog",
         }
     };
 
-    $scope.editComponent = function(muscleToUpdate) {
-        $http.patch(apiService.muscles_url + muscleToUpdate.id, buildRequest(muscleToUpdate)).then($scope.ajaxSuccess, $scope.ajaxFailure);
-    };
-
     $scope.delete = function (muscleToDelete) {
         var index = indexOfItemWithID(muscleToDelete.id, $scope.muscles);
         if (index != -1) {
@@ -81,8 +77,6 @@ app.controller("MusclesController", ["$scope", "$http", "$mdToast", "$mdDialog",
             $http.delete(apiService.muscles_url + muscleToDelete.id, { 'params' : { 'format': 'json' } }).then($scope.ajaxSuccess, $scope.ajaxFailure);
         }
     };
-
-
 
     $scope.newMuscle = function (event) {
         $mdDialog.show({
@@ -92,14 +86,10 @@ app.controller("MusclesController", ["$scope", "$http", "$mdToast", "$mdDialog",
             targetEvent: event,
             clickOutsideToClose: false,
             escapeToClose: false,
-            fullscreen: $mdMedia('xs') || $mdMedia('sm'),
-            locals: {
-                allComponents: $scope.allComponents
-            }
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
         }).then(function (newMuscle) {
             $http.post(apiService.muscles_url, buildRequest(newMuscle)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {
-                    console.log(response.data.muscle);
                     $scope.muscles.push(response.data.muscle);
                 }
                 $scope.ajaxSuccess(response);
