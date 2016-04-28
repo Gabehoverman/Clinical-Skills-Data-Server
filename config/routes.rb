@@ -4,11 +4,7 @@ Rails.application.routes.draw do
 
   get 'dashboard/index'
 
-  resources :systems, :only => [:index, :create, :update, :destroy] do
-    collection do
-      get 'count'
-    end
-  end
+  resources :systems, :only => [:index, :create, :update, :destroy]
   resources :components, :only => [:index, :create, :update, :destroy]
   resources :exam_techniques, :only => [:index, :create, :update, :destroy]
   resources :palpations, :only => [:index, :create, :update, :destroy]
