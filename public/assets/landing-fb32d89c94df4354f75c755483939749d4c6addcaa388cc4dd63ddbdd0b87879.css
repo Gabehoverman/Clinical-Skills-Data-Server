@@ -1,0 +1,39 @@
+/* line 10, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage md-grid-list {
+  margin: 8px;
+}
+
+/* line 12, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage .gray {
+  background: #f5f5f5;
+}
+
+/* line 14, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage .green {
+  background: #b9f6ca;
+}
+
+/* line 16, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage .yellow {
+  background: #ffff8d;
+}
+
+/* line 18, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage .blue {
+  background: #84ffff;
+}
+
+/* line 20, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage .purple {
+  background: #b388ff;
+}
+
+/* line 22, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage .red {
+  background: #ff8a80;
+}
+
+/* line 24, /Users/Nick/Developer/clinical-skills-data-server/app/assets/stylesheets/landing.scss */
+.gridListdemoBasicUsage md-grid-tile {
+  transition: all 400ms ease-out 50ms;
+}

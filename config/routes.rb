@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   get 'landing/index'
 
-  resources :systems, :only => [:index, :create, :update, :destroy]
+  resources :systems, :only => [:index, :create, :update, :destroy] do
+    collection do
+      get 'count'
+    end
+  end
   resources :components, :only => [:index, :create, :update, :destroy]
   resources :exam_techniques, :only => [:index, :create, :update, :destroy]
   resources :palpations, :only => [:index, :create, :update, :destroy]

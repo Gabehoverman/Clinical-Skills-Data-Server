@@ -10,7 +10,7 @@ class Component < ActiveRecord::Base
 
   validates :name, :uniqueness => true
 
-  	def self.api_all
+	def self.api_all
 		json = []
 		Component.all.each do |component|
 			json.push(
