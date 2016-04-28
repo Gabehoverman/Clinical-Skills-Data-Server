@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  root 'landing#index'
+  root 'dashboard#index'
 
-  get 'landing/index'
+  get 'dashboard/index'
 
   resources :systems, :only => [:index, :create, :update, :destroy] do
     collection do
