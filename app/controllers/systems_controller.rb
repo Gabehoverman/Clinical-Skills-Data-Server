@@ -1,5 +1,11 @@
 class SystemsController < ApplicationController
 
+  def count
+    respond_to do |format|
+      format.json { render  json: System.count }
+    end
+  end
+
   def index
     @toolbar_title = 'Systems'
     js :new_system_dialog_template_url => ActionController::Base.helpers.asset_path('new_system_dialog.html')

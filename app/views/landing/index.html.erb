@@ -1,8 +1,10 @@
-<md-content>
-	<h1>Clinical Skills App Project</h1>
-	<h2>Development Data Server</h2>
-	<h3>West Virginia School of Medicine</h3>
-	<p>
-		This website is dedicated to serving data to the mobile application clients for the Clinical Skills Application. This system is not intended to be deployed into production.
-	</p>
+<md-content flex style="padding: 0.75%;" ng-controller="LandingController" ng-cloak>
+  <md-grid-list md-cols-xs="3" md-cols-md="4" md-cols-gt-md="5" md-row-height="1:1" md-gutter="0.75%">
+    <md-grid-tile ng-click="navigate(resource)" ng-repeat="resource in resources" style="background: #66BB6A;" md-rowspan="1" md-colspan="1">
+      <h1 class="count-text">{{resource.count}}</h1>
+      <md-grid-tile-footer>
+        <h3>{{resource.name}}</h3>
+      </md-grid-tile-footer>
+    </md-grid-tile>
+  </md-grid-list>
 </md-content>
