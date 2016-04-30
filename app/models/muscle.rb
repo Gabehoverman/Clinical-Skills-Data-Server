@@ -7,9 +7,7 @@ class Muscle < ActiveRecord::Base
 	def self.api_all
 		json = []
 		Muscle.all.each do |muscle|
-			json.push({
-				:muscle => muscle.as_json(include: { component: { only: [:id, :name] } })
-			})
+			json.push(muscle.as_json(root: true, include: { component: { only: [:id, :name] } }))
 		end
 		return json
 	end
@@ -20,9 +18,7 @@ class Muscle < ActiveRecord::Base
 		unless component.nil?
 			muscles = component.muscles
 			muscles.each do |muscle|
-			json.push({
-				:muscle => muscle.as_json
-			})
+				json.push(muscle.as_json(root: true, include: { component: { only: [:id, :name] } }))
 			end
 		end
 		return json
