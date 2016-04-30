@@ -7,9 +7,7 @@ class Palpation < ActiveRecord::Base
 	def self.api_all
 		json = []
 		Palpation.all.each do |palpation|
-			json.push({
-				:palpation => palpation.as_json
-			})
+			json.push(palpation.as_json(root: true, include: { component: { only: [:id, :name] } }))
 		end
 		return json
 	end
@@ -20,9 +18,7 @@ class Palpation < ActiveRecord::Base
 		unless component.nil?
 			palpations = component.palpations
 			palpations.each do |palpation|
-			json.push({
-				:palpation => palpation.as_json
-			})
+				json.push(palpation.as_json(root: true, include: { component: { only: [:id, :name] } }))
 			end
 		end
 		return json
