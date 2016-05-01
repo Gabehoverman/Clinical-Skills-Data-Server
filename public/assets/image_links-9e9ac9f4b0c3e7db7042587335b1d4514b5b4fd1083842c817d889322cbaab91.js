@@ -177,7 +177,10 @@ app.controller("ImageLinksController", ["$scope", "$http", "$mdToast", "$mdDialo
             targetEvent: event,
             clickOutsideToClose: false,
             escapeToClose: false,
-            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+            fullscreen: $mdMedia('xs') || $mdMedia('sm'),
+            locals: {
+                allComponents: $scope.allComponents
+            }
         }).then(function (newImageLink) {
         $http.post(apiService.image_links_url, buildRequest(newImageLink)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {
