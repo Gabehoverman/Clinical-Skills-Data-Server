@@ -1,6 +1,4 @@
-function NewExamTechniqueDialogController($scope, $mdDialog, allSystems) {
-
-    $scope.allSystems = allSystems;
+function NewExamTechniqueDialogController($scope, $mdDialog) {
 
     $scope.newExamTechnique = {
         name: "",

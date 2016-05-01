@@ -15,7 +15,7 @@ function NewMuscleDialogController($scope, $mdDialog, allComponents) {
     };
 
     $scope.create = function() {
-        if ($scope.newMuscle.name === "" || $scope.selectedComponent === "") {
+        if ($scope.newMuscle.name === "" || $scope.selectedComponent.name === "") {
             $scope.newMuscleForm.$setSubmitted();
         } else {
             $scope.newMuscle.component.id = $scope.selectedComponent.id;

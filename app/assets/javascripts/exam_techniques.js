@@ -2,6 +2,7 @@ var ExamTechniquesController = Paloma.controller("ExamTechniques");
 app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdDialog", "$mdEditDialog", "$mdMedia", 'apiService', function ($scope, $http, $mdToast, $mdDialog, $mdEditDialog, $mdMedia, apiService) {
 
     $scope.examTechniques = [];
+    $scope.allSystems = [];
 
     $scope.editing = false;
 
@@ -19,6 +20,17 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
                 for (var i = 0; i < response.data.length; i++) {
                     var exam_technique = response.data[i].exam_technique;
                     $scope.examTechniques.push(exam_technique);
+                }
+            }, $scope.ajaxFailure
+        );
+
+        $scope.systemsPromise = $http.get(apiService.systems_url, { 'params' : { 'format': 'json' } }).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var system = response.data[i].system;
+                    if (indexOfItemWithID(system.id, $scope.allSystems) == -1) {
+                        $scope.allSystems.push(system);
+                    }
                 }
             }, $scope.ajaxFailure
         );
@@ -94,7 +106,10 @@ app.controller("ExamTechniquesController", ["$scope", "$http", "$mdToast", "$mdD
             targetEvent: event,
             clickOutsideToClose: false,
             escapeToClose: false,
-            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+            fullscreen: $mdMedia('xs') || $mdMedia('sm'),
+            locals: {
+                allSystems: $scope.allSystems
+            }
         }).then(function (newExamTechnique) {
             $http.post(apiService.exam_techniques_url, buildRequest(newExamTechnique)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {

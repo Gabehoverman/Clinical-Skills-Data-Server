@@ -27,7 +27,7 @@
 
             <div layout="row">
                 <md-input-container class="md-block" flex>
-                    <md-select placeholder="System" ng-model="selectedSystem" required>
+                    <md-select placeholder="System" ng-model="selectedSystem">
                         <md-option ng-value="system" ng-repeat="system in allSystems | orderBy: 'name'">
                             {{system.name}}
                         </md-option>
