@@ -8,9 +8,10 @@ class VideoLink < ActiveRecord::Base
 	def self.api_all
 		json = []
 		VideoLink.all.each do |video_link|
-			json.push({
-				:video_link => video_link.as_json
-			})
+			json.push(video_link.as_json(root: true, include: {
+					exam_techniques: { only: [:id, :name] },
+					special_tests: { only: [:id, :name] }
+			}))
 		end
 		return json
 	end
@@ -21,9 +22,10 @@ class VideoLink < ActiveRecord::Base
 		unless special_test.nil?
 			video_links = special_test.video_links
 			video_links.each do |video_link|
-			json.push({
-				:video_link => video_link.as_json
-			})
+			json.push(video_link.as_json(root: true, include: {
+					exam_techniques: { only: [:id, :name] },
+					special_tests: { only: [:id, :name] }
+			}))
 			end
 		end
 		return json
@@ -35,9 +37,10 @@ class VideoLink < ActiveRecord::Base
 		unless exam_technique.nil?
 			video_links = exam_technique.video_links
 			video_links.each do |video_link|
-			json.push({
-				:video_link => video_link.as_json
-			})
+			json.push(video_link.as_json(root: true, include: {
+					exam_techniques: { only: [:id, :name] },
+					special_tests: { only: [:id, :name] }
+			}))
 			end
 		end
 		return json
