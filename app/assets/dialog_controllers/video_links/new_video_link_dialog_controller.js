@@ -16,4 +16,10 @@ function NewVideoLinkDialogController($scope, $mdDialog) {
             $mdDialog.hide($scope.newVideoLink);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    };
 }

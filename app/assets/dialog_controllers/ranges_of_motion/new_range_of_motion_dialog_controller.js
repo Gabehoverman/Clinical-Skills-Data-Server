@@ -25,4 +25,10 @@ function NewRangeOfMotionDialogController($scope, $mdDialog, allComponents) {
             $mdDialog.hide($scope.newRangeOfMotion);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

@@ -25,4 +25,10 @@ function NewPalpationDialogController($scope, $mdDialog, allComponents) {
             $mdDialog.hide($scope.newPalpation);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

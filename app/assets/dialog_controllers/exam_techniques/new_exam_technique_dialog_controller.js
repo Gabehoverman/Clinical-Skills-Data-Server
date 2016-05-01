@@ -24,4 +24,10 @@ function NewExamTechniqueDialogController($scope, $mdDialog, allSystems) {
             $mdDialog.hide($scope.newExamTechnique);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    };
 }

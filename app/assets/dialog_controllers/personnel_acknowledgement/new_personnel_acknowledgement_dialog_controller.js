@@ -17,4 +17,10 @@ function NewPersonnelAcknowledgementController($scope, $mdDialog) {
             $mdDialog.hide($scope.newPersonnelAcknowledgement);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

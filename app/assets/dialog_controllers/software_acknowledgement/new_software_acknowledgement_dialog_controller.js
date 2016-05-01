@@ -16,4 +16,10 @@ function NewSoftwareAcknowledgementController($scope, $mdDialog) {
             $mdDialog.hide($scope.newSoftwareAcknowledgement);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

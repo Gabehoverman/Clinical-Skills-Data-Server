@@ -16,4 +16,10 @@ function NewSystemDialogController($scope, $mdDialog) {
 			$mdDialog.hide($scope.newSystem);
 		}
 	};
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    };
 }
