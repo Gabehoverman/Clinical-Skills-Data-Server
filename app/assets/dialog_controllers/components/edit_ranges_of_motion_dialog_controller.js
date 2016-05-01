@@ -71,5 +71,11 @@ function EditRangeOfMotionsController($scope, $mdDialog, component, allRangesOfM
         $mdDialog.hide(null);
     };
 
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.save();
+        }
+    };
+
     $scope.filterRangeOfMotions();
 }

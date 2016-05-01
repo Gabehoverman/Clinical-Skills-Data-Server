@@ -71,5 +71,11 @@ function EditPalpationsController($scope, $mdDialog, component, allPalpations, e
         $mdDialog.hide(null);
     };
 
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.save();
+        }
+    };
+
     $scope.filterPalpations();
 }

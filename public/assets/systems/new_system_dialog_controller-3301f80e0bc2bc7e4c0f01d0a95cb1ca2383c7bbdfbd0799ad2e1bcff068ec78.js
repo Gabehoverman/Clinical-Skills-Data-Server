@@ -17,9 +17,9 @@ function NewSystemDialogController($scope, $mdDialog) {
 		}
 	};
 
-    $scope.enterKeyListener = function (event) {
+    $scope.test = function (event) {
         if (event.keyCode === 13) {
             $scope.create();
         }
-    };
+    }
 }

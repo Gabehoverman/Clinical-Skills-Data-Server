@@ -71,5 +71,11 @@ function EditComponentsController($scope, $mdDialog, system, allComponents, edit
         $mdDialog.hide(null);
     };
 
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.save();
+        }
+    };
+
     $scope.filterComponents();
 }

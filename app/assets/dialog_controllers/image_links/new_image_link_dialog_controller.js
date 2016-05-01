@@ -16,4 +16,10 @@ function NewImageLinkDialogController($scope, $mdDialog) {
             $mdDialog.hide($scope.newImageLink);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

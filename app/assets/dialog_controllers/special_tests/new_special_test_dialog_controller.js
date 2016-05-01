@@ -26,4 +26,10 @@ function NewSpecialTestDialogController($scope, $mdDialog, allComponents) {
             $mdDialog.hide($scope.newSpecialTest);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

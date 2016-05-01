@@ -23,4 +23,10 @@ function NewMuscleDialogController($scope, $mdDialog, allComponents) {
             $mdDialog.hide($scope.newMuscle);
         }
     };
+
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.create();
+        }
+    }
 }

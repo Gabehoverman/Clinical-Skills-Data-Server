@@ -71,5 +71,11 @@ function EditMusclesController($scope, $mdDialog, component, allMuscles, editing
         $mdDialog.hide(null);
     };
 
+    $scope.enterKeyListener = function (event) {
+        if (event.keyCode === 13) {
+            $scope.save();
+        }
+    };
+
     $scope.filterMuscles();
 }
