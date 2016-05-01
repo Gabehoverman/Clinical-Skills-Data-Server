@@ -139,7 +139,7 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
         }).then(function (newRangeOfMotion) {
             $http.post(apiService.ranges_of_motion_url, buildRequest(newRangeOfMotion)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {
-                    $scope.rangesOfMotion.push(response.data.range_of_motion);
+                    $scope.rangesOfMotion.push(response.data.rangeOfMotion);
                 }
                 $scope.ajaxSuccess(response);
             }, $scope.ajaxFailure);

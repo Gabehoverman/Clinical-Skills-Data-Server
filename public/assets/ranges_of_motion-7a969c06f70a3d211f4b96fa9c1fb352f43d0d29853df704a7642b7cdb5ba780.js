@@ -14,12 +14,12 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
     };
 
     RangesOfMotionController.prototype.index = function () {
-        $scope.new_range_of_motion_dialog_template_url = this.params.new_range_of_motion_dialog_template_url;
+        $scope.new_rangeOfMotion_dialog_template_url = this.params.new_rangeOfMotion_dialog_template_url;
 
-        $scope.rangesOfMotionPromise = $http.get(apiService.ranges_of_motion_url, { 'params' : { 'format': 'json' } }).then(
+        $scope.rangesOfMotionPromise = $http.get(apiService.rangesOfMotion_url, { 'params' : { 'format': 'json' } }).then(
             function success(response) {
                 for (var i = 0; i < response.data.length; i++) {
-                    var rangeOfMotion = response.data[i].range_of_motion;
+                    var rangeOfMotion = response.data[i].rangeOfMotion;
                     if (indexOfItemWithID(rangeOfMotion.id, $scope.rangesOfMotion) == -1) {
                         $scope.rangesOfMotion.push(rangeOfMotion);
                     }
@@ -59,9 +59,9 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
                     'required': 'Motion is required'
                 },
                 save: function (input) {
-                    var index = indexOfItemWithID(rangeOfMotionToUpdate.id, $scope.rangesOfMotion);
+                    var index = indexOfItemWithID(rangeOfMotionToUpdate.id, $scope.ranges_of_motion);
                     if (index != -1) {
-                        var rangeOfMotion = $scope.rangesOfMotion[index];
+                        var rangeOfMotion = $scope.ranges_of_motion[index];
                         rangeOfMotion.motion = input.$modelValue;
                         $http.patch(apiService.ranges_of_motion_url + rangeOfMotion.id, buildRequest(rangeOfMotion)).then($scope.ajaxSuccess, $scope.ajaxFailure);
                     }
@@ -103,7 +103,7 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
                 clickOutsideToClose: false,
                 escToClose: false,
                 targetEvent: event,
-                title: 'Edit Range Of Motion Notes',
+                title: 'Edit RangeOfMotion Notes',
                 save: function (input) {
                     var index = indexOfItemWithID(rangeOfMotionToUpdate.id, $scope.rangesOfMotion);
                     if (index != -1) {
@@ -127,7 +127,7 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
     $scope.newRangeOfMotion = function (event) {
         $mdDialog.show({
             controller: NewRangeOfMotionDialogController,
-            templateUrl: $scope.new_range_of_motion_dialog_template_url,
+            templateUrl: $scope.new_rangeOfMotion_dialog_template_url,
             parent: angular.element(document.body),
             targetEvent: event,
             clickOutsideToClose: false,
@@ -137,9 +137,10 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
                 allComponents: $scope.allComponents
             }
         }).then(function (newRangeOfMotion) {
-            $http.post(apiService.ranges_of_motion_url, buildRequest(newRangeOfMotion)).then(function(response) {
+            $http.post(apiService.rangesOfMotion_url, buildRequest(newRangeOfMotion)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {
-                    $scope.rangesOfMotion.push(response.data.range_of_motion);
+                    console.log(response.data.rangeOfMotion);
+                    $scope.rangesOfMotion.push(response.data.rangeOfMotion);
                 }
                 $scope.ajaxSuccess(response);
             }, $scope.ajaxFailure);

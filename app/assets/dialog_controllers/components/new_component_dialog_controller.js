@@ -20,8 +20,8 @@ function NewComponentDialogController($scope, $mdDialog, allSystems) {
 		if ($scope.newComponent.name === "" || $scope.selectedSystem === "") {
 			$scope.newComponentForm.$setSubmitted();
 		} else {
-			$scope.newComponent.system.id = $scope.selectedSystem.id;
-			$scope.newComponent.system.name = $scope.selectedSystem.name;
+            $scope.newComponent.system.id = $scope.selectedSystem.id;
+            $scope.newComponent.system.name = $scope.selectedSystem.name;
 			$mdDialog.hide($scope.newComponent);
 		}
 	};

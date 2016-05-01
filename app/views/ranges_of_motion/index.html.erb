@@ -1,5 +1,5 @@
-<script type="text/javascript" src="<%= asset_path 'new_palpation_dialog_controller.js' %>"></script>
-<md-content layout="row" flex ng-controller="PalpationsController">
+<script type="text/javascript" src="<%= asset_path 'new_range_of_motion_dialog_controller.js' %>"></script>
+<md-content layout="row" flex ng-controller="RangesOfMotionController">
   <md-card flex ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
       <div class="md-toolbar-tools">
@@ -12,40 +12,40 @@
         </md-button>
         <md-button ng-cloak class="md-raised" ng-click="editing = !editing" ng-hide="editing" aria-label="edit">Edit</md-button>
         <md-button ng-cloak class="md-raised md-primary md-hue-2 primary-button" ng-click="done()" ng-show="editing" aria-label="save">Done</md-button>
-        <md-button class="md-raised md-primary primary-button" ng-click="newPalpation($event)" aria-label="add">Add</md-button>
+        <md-button class="md-raised md-primary primary-button" ng-click="newRangeOfMotion($event)" aria-label="add">Add</md-button>
       </div>
     </md-toolbar>
     <md-table-container flex>
       <table md-table md-progress="palpationsPromise">
         <thead md-head md-order="query.order">
         <tr md-row>
-          <th md-column md-order-by="structure"><span>Structure</span></th>
+          <th md-column md-order-by="motion"><span>Motion</span></th>
           <th md-column md-order-by="component"><span>Component</span></th>
-          <th md-column md-order-by="details"><span>Details</span></th>
+          <th md-column md-order-by="degrees"><span>Degrees</span></th>
           <th md-column md-order-by="notes"><span>Notes</span></th>
           <th md-column ng-hide="!editing"><span>Delete</span></th>
         </tr>
         </thead>
         <tbody md-body>
-        <tr md-row md-select="palpation" md-select-id="{{palpation.id}}" ng-repeat="palpation in palpations | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-          <td md-cell ng-click="editStructure($event, palpation)" ng-class="(editing == true) ? 'cell-editing' : ''">
-            {{palpation.structure}}
+        <tr md-row md-select="rangeOfMotion" md-select-id="{{rangeOfMotion.id}}" ng-repeat="rangeOfMotion in rangesOfMotion | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+          <td md-cell ng-click="editMotion($event, rangeOfMotion)" ng-class="(editing == true) ? 'cell-editing' : ''">
+            {{rangeOfMotion.motion}}
           </td>
           <td md-cell>
-            <md-select placeholder="Component" ng-model="palpation.component.name" md-on-close="editComponent(palpation)" ng-disabled="!editing">
+            <md-select placeholder="Component" ng-model="rangeOfMotion.component.name" md-on-close="editComponent(rangeOfMotion)" ng-disabled="!editing">
               <md-option ng-value="component.name" ng-repeat="component in allComponents | orderBy: 'name'">
                 {{component.name}}
               </md-option>
             </md-select>
           </td>
-          <td md-cell ng-click="editDetails($event, palpation)" ng-class="(editing == true) ? 'cell-editing' : ''">
-            {{palpation.details}}
+          <td md-cell ng-click="editDegrees($event, rangeOfMotion)" ng-class="(editing == true) ? 'cell-editing' : ''">
+            {{rangeOfMotion.degrees}}
           </td>
-          <td md-cell ng-click="editNotes($event, palpation)" ng-class="(editing == true) ? 'cell-editing' : ''">
-            {{palpation.notes}}
+          <td md-cell ng-click="editNotes($event, rangeOfMotion)" ng-class="(editing == true) ? 'cell-editing' : ''">
+            {{rangeOfMotion.notes}}
           </td>
           <td md-cell ng-hide="!editing">
-            <md-button class="md-icon-button" ng-click="delete(palpation)" aria-label="delete">
+            <md-button class="md-icon-button" ng-click="delete(rangeOfMotion)" aria-label="delete">
               <md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
             </md-button>
           </td>
@@ -54,7 +54,7 @@
       </table>
     </md-table-container>
 
-    <md-table-pagination md-page-select md-boundary-links md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{palpations.length}}"></md-table-pagination>
+    <md-table-pagination md-page-select md-boundary-links md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{rangesOfMotion.length}}"></md-table-pagination>
 
   </md-card>
 

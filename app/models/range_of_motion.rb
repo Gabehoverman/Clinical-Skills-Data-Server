@@ -7,9 +7,7 @@ class RangeOfMotion < ActiveRecord::Base
 	def self.api_all
 		json = []
 		RangeOfMotion.all.each do |range_of_motion|
-			json.push({
-				:range_of_motion => range_of_motion.as_json
-			})
+			json.push(range_of_motion.as_json(root: true, include: { component: { only: [:id, :name] } }))
 		end
 		return json
 	end
@@ -20,9 +18,7 @@ class RangeOfMotion < ActiveRecord::Base
 		unless component.nil?
 			ranges_of_motion = component.range_of_motions
 			ranges_of_motion.each do |range_of_motion|
-			json.push({
-				:range_of_motion => range_of_motion.as_json
-			})
+				json.push(range_of_motion.as_json(root: true, include: { component: { only: [:id, :name] } }))
 			end
 		end
 		return json

@@ -127,7 +127,7 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
     $scope.newRangeOfMotion = function (event) {
         $mdDialog.show({
             controller: NewRangeOfMotionDialogController,
-            templateUrl: $scope.new_range_of_motion_dialog_template_url,
+            templateUrl: $scope.new_rangeOfMotion_dialog_template_url,
             parent: angular.element(document.body),
             targetEvent: event,
             clickOutsideToClose: false,
@@ -137,9 +137,10 @@ app.controller("RangesOfMotionController", ["$scope", "$http", "$mdToast", "$mdD
                 allComponents: $scope.allComponents
             }
         }).then(function (newRangeOfMotion) {
-            $http.post(apiService.ranges_of_motion_url, buildRequest(newRangeOfMotion)).then(function(response) {
+            $http.post(apiService.rangesOfMotion_url, buildRequest(newRangeOfMotion)).then(function(response) {
                 if (response.config.method === 'POST' && response.status === 200) {
-                    $scope.rangesOfMotion.push(response.data.range_of_motion);
+                    console.log(response.data.rangeOfMotion);
+                    $scope.rangesOfMotion.push(response.data.rangeOfMotion);
                 }
                 $scope.ajaxSuccess(response);
             }, $scope.ajaxFailure);
