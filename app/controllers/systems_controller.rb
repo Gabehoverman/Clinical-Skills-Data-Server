@@ -9,8 +9,8 @@ class SystemsController < ApplicationController
   def index
     @toolbar_title = 'Systems'
     js :new_system_dialog_template_url => ActionController::Base.helpers.asset_path('new_system_dialog.html')
-    js :edit_components_dialog_template_url => ActionController::Base.helpers.asset_path('edit_components_dialog.html')
-    js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('edit_exam_techniques_dialog.html')
+    js :edit_components_dialog_template_url => ActionController::Base.helpers.asset_path('system_edit_components_dialog.html')
+    js :edit_exam_techniques_dialog_template_url => ActionController::Base.helpers.asset_path('system_edit_exam_techniques_dialog.html')
 
     respond_to do |format|
       format.json { render  json: System.api_all_associations }

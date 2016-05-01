@@ -8,9 +8,10 @@ class ImageLink < ActiveRecord::Base
 	def self.api_all
 		json = []
 		ImageLink.all.each do |image_link|
-			json.push({
-				:image_link => image_link.as_json
-			})
+			json.push(image_link.as_json(root: true, include: {
+					exam_techniques: { only: [:id, :name] },
+					special_tests: { only: [:id, :name] }
+			}))
 		end
 		return json
 	end
@@ -21,9 +22,10 @@ class ImageLink < ActiveRecord::Base
 		unless special_test.nil?
 			image_links = special_test.image_links
 			image_links.each do |image_link|
-			json.push({
-				:image_link => image_link.as_json
-			})
+				json.push(image_link.as_json(root: true, include: {
+						exam_techniques: { only: [:id, :name] },
+						special_tests: { only: [:id, :name] }
+				}))
 			end
 		end
 		return json

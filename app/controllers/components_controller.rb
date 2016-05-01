@@ -3,10 +3,10 @@ class ComponentsController < ApplicationController
   def index
     @toolbar_title = 'Components'
     js :new_component_dialog_template_url => ActionController::Base.helpers.asset_path('new_component_dialog.html')
-    js :edit_muscles_dialog_template_url => ActionController::Base.helpers.asset_path('edit_muscles_dialog.html')
-    js :edit_palpations_dialog_template_url => ActionController::Base.helpers.asset_path('edit_palpations_dialog.html')
-    js :edit_ranges_of_motion_dialog_template_url => ActionController::Base.helpers.asset_path('edit_ranges_of_motion_dialog.html')
-    js :edit_special_tests_dialog_template_url => ActionController::Base.helpers.asset_path('edit_special_tests_dialog.html')
+    js :edit_muscles_dialog_template_url => ActionController::Base.helpers.asset_path('component_edit_muscles_dialog.html')
+    js :edit_palpations_dialog_template_url => ActionController::Base.helpers.asset_path('component_edit_palpations_dialog.html')
+    js :edit_ranges_of_motion_dialog_template_url => ActionController::Base.helpers.asset_path('component_edit_ranges_of_motion_dialog.html')
+    js :edit_special_tests_dialog_template_url => ActionController::Base.helpers.asset_path('component_edit_special_tests_dialog.html')
     respond_to do |format|
       if params['system'].nil?
         format.json { render json: Component.api_all_associations, status: :ok }
