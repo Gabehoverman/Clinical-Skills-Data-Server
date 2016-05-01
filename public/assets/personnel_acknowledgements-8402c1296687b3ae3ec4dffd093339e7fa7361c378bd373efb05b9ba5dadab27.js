@@ -112,7 +112,7 @@ app.controller("PersonnelAcknowledgementsController", ["$scope", "$http", "$mdTo
 
     $scope.newPersonnelAcknowledgement = function (event) {
         $mdDialog.show({
-            controller: TestController,
+            controller: NewPersonnelAcknowledgementController,
             templateUrl: $scope.new_personnel_acknowledgement_dialog_template_url,
             parent: angular.element(document.body),
             targetEvent: event,

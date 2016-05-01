@@ -1,4 +1,4 @@
-function TestController($scope, $mdDialog) {
+function NewPersonnelAcknowledgementController($scope, $mdDialog) {
 
     $scope.newPersonnelAcknowledgement = {
         name: "",
