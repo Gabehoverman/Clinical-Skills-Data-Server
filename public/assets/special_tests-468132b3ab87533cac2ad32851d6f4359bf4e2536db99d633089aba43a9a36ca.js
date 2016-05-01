@@ -7,7 +7,7 @@ app.controller("SpecialTestsController", ["$scope", "$http", "$mdToast", "$mdDia
     $scope.editing = false;
 
     $scope.query = {
-        order: 'name',
+        order: 'structure',
         limit: 15,
         page: 1,
         filter: ""
@@ -46,7 +46,7 @@ app.controller("SpecialTestsController", ["$scope", "$http", "$mdToast", "$mdDia
     $scope.editName = function (event, specialTestToUpdate) {
         if ($scope.editing) {
             $mdEditDialog.large({
-                modelValue: specialTestToUpdate.name,
+                modelValue: specialTestToUpdate.structure,
                 placeholder: "Name",
                 clickOutsideToClose: false,
                 escToClose: false,
