@@ -1,0 +1,67 @@
+<md-dialog flex="50" ng-keyup="enterKeyListener($event)">
+
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1>New Range Of Motion</h1>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="close()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content style="padding-left: 5%; padding-right: 5%;">
+        <form name="newRangeOfMotionForm">
+
+            <div layout="row">
+                <div flex>
+                    <md-input-container class="md-block" flex>
+                        <label>Motion</label>
+                        <input type="text" name="motion" ng-model="newRangeOfMotion.motion" required>
+                        <div ng-messages="newRangeOfMotionForm.motion.$error">
+                            <div ng-message="required">Motion is a required field</div>
+                        </div>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout="row">
+                <div flex>
+                    <md-input-container class="md-block" flex>
+                        <md-select placeholder="Component" ng-model="selectedComponent">
+                            <md-option ng-value="component" ng-repeat="component in allComponents | orderBy: 'name'">
+                                {{component.name}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+            </div>
+
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>Degrees</label>
+                    <textarea name="degrees" ng-model="newRangeOfMotion.degrees" rows="5" required></textarea>
+                    <div ng-messages="newRangeOfMotionForm.degrees.$error">
+                        <div ng-message="required">Degrees is a required field</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <div layout="row">
+                <md-input-container class="md-block" flex>
+                    <label>Notes</label>
+                    <textarea name="notes" ng-model="newRangeOfMotion.notes" rows="5"></textarea>
+                </md-input-container>
+            </div>
+
+        </form>
+    </md-content>
+
+    <div flex></div>
+
+    <md-dialog-actions layout="row">
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="create()" aria-label="create">Create</md-button>
+    </md-dialog-actions>
+
+</md-dialog>
