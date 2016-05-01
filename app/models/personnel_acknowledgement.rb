@@ -6,9 +6,7 @@ class PersonnelAcknowledgement < ActiveRecord::Base
 		json = []
 
 		PersonnelAcknowledgement.all.each do |personnelAcknowledgement|
-			json.push(
-					personnelAcknowledgement.as_json(root: true)
-			)
+			json.push(personnelAcknowledgement.as_json(root: true))
 		end
 		return json
 	end
