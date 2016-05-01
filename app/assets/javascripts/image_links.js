@@ -117,7 +117,7 @@ app.controller("ImageLinksController", ["$scope", "$http", "$mdToast", "$mdDialo
             clickOutsideToClose: false,
             escapeToClose: false,
             locals: {
-                component: componentToUpdate,
+                imageLink: imageLinkToUpdate,
                 allSpecialTests: $scope.allSpecialTests,
                 editing: $scope.editing
             },

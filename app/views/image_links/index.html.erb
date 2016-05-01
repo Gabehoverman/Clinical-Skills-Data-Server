@@ -1,4 +1,6 @@
 <script type="text/javascript" src="<%= asset_path 'new_image_link_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'image_link_edit_exam_techniques_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'image_link_edit_special_tests_dialog_controller.js' %>"></script>
 <md-content layout="row" flex ng-controller="ImageLinksController">
   <md-card flex ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
@@ -35,12 +37,12 @@
             {{imageLink.link}}
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="editExamTechniques($event, imageLink)" aria-label="image-link">
+            <md-button class="md-primary" ng-click="editExamTechniques(imageLink)" aria-label="image-link">
               {{(imageLink.exam_techniques.length) ? imageLink.exam_techniques.length : 0}}
             </md-button>
           </td>
           <td md-cell>
-            <md-button class="md-primary" ng-click="editSpecialTests($event, imageLink)" aria-label="image-link">
+            <md-button class="md-primary" ng-click="editSpecialTests(imageLink)" aria-label="image-link">
               {{(imageLink.special_tests.length) ? imageLink.special_tests.length : 0}}
             </md-button>
           </td>
