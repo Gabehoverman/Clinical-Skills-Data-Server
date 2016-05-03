@@ -2,6 +2,7 @@ class Palpation < ActiveRecord::Base
 
   belongs_to :component
 
+  validates :structure, :presence => true
   validates :structure, :uniqueness => true
 
 	def self.api_all

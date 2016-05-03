@@ -2,6 +2,7 @@ class Muscle < ActiveRecord::Base
 
   belongs_to :component
 
+  validates :name, :presence => true
   validates :name, :uniqueness => true
 
 	def self.api_all

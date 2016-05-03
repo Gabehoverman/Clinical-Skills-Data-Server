@@ -8,6 +8,7 @@ class Component < ActiveRecord::Base
 
   has_many :special_tests
 
+  validates :name, :presence => true
   validates :name, :uniqueness => true
 
 	def self.api_all

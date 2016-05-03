@@ -2,6 +2,7 @@ class RangeOfMotion < ActiveRecord::Base
 
   belongs_to :component
 
+  validates :motion, :presence => true
   validates :motion, :uniqueness => true
 
 	def self.api_all
