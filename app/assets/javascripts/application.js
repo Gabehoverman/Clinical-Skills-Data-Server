@@ -20,8 +20,8 @@ $(document).ready(function(){
 
 app.controller("BodyController", ['$scope', '$mdSidenav', '$mdToast', function($scope, $mdSidenav, $mdToast) {
 
-    $scope.toggleSidenav = function (menuID) {
-        $mdSidenav(menuID).toggle();
+    $scope.toggleSidenav = function (id) {
+        $mdSidenav(id).toggle();
     };
 
     $scope.ajaxSuccess = function (response) {

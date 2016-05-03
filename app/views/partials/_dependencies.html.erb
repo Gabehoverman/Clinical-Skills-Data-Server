@@ -17,7 +17,7 @@
 
 <!-- Initialize AngularJS App -->
 <script>
-	var app = angular.module('WVU-SoM-Data-Server', [
+	var app = angular.module('Clinical-Skills-Data-Server', [
 		'ngMaterial',
 		'ngAnimate',
 		'ngMessages',
@@ -28,8 +28,7 @@
 	]);
 
 	app.service('apiService', function() {
-		this.root_url = "http://localhost:3000/";
-		// this.root_url = "https://wvsom-clinical-skills.herokuapp.com";
+    this.root_url = "<%= root_url %>";
 		this.systems_url = this.root_url + "systems/";
 		this.components_url = this.root_url + "components/";
 		this.exam_techniques_url = this.root_url + "exam_techniques/";

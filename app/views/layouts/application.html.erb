@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="WVU-SoM-Data-Server">
+<html ng-app="Clinical-Skills-Data-Server">
   <head>
-    <title>WVU-SoM Data Server</title>
+    <title>Clinical Skills Data Server</title>
 
-    <%= render :partial => 'shared/dependencies' %>
+    <%= render :partial => 'partials/dependencies' %>
 
     <%= stylesheet_link_tag "application", params[:controller], :media => "all" %>
     <%= javascript_include_tag "application", params[:controller] %>
@@ -15,7 +15,7 @@
 
   <body id="body" layout="row" ng-controller="BodyController" ng-cloak>
 
-    <%= render :partial => 'shared/sidebar' %>
+    <%= render :partial => 'partials/sidebar' %>
 
     <div layout="column" class="relative" layout-fill role="main">
       <% unless @hide_toolbar %>
