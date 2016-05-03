@@ -4,6 +4,8 @@ class SpecialTestsController < ApplicationController
 
     @toolbar_title = 'Special Tests'
     js :new_special_test_dialog_template_url => ActionController::Base.helpers.asset_path('new_special_test_dialog.html')
+    js :edit_image_links_dialog_template_url => ActionController::Base.helpers.asset_path('special_test_edit_image_links_dialog.html')
+    js :edit_video_links_dialog_template_url => ActionController::Base.helpers.asset_path('special_test_edit_video_links_dialog.html')
     respond_to do |format|
       if params['component'].nil?
         format.json { render json: SpecialTest.api_all, status: :ok }
@@ -33,6 +35,24 @@ class SpecialTestsController < ApplicationController
     @special_test = SpecialTest.find(params[:id])
     unless params['component'].nil?
       @special_test.component = Component.where(name: params['component']['name']).first
+    end
+    @special_test.image_links.clear
+    unless params['image_links'].nil?
+      params['image_links'].each do |e|
+        image_link = ImageLink.find(e['id'])
+        unless @special_test.image_links.include?(image_link)
+          @special_test.image_links << image_link
+        end
+      end
+    end
+    @special_test.video_links.clear
+    unless params['video_links'].nil?
+      params['video_links'].each do |e|
+        video_link = VideoLink.find(e['id'])
+        unless @special_test.video_links.include?(video_link)
+          @special_test.video_links << video_link
+        end
+      end
     end
     respond_to do |format|
       if @special_test.update(special_test_params)

@@ -1,0 +1,63 @@
+<md-dialog class="edit-dialog" flex="50" ng-keyup="enterKeyListener($event)">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h1>Image Links for {{specialTest.name}}</h1>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="hide()" aria-label="close">
+                <md-icon class="material-icons">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-toolbar class="md-table-toolbar md-default">
+        <div class="md-toolbar-tools">
+            <md-icon class="material-icons">search</md-icon>
+            <form flex name="filter.form">
+                <input autofocus class="search-bar" type="text" ng-model="query.filter" placeholder="Search">
+            </form>
+            <md-button class="md-icon-button" ng-click="query.filter = ''" aria-label="clear">
+                <md-icon class="material-icons">clear_all</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-table-container>
+        <table md-table>
+            <thead md-head md-order="query.order">
+            <tr md-row>
+                <th md-column md-order-by="title"><span>Title</span></th>
+                <th md-column ng-hide="!editing"><span>Remove</span></th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <tr md-row md-select="imageLink" md-select-id="{{imageLink.id}}" ng-repeat="imageLink in usedImageLinks | filter: query.filter | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                <td md-cell>
+                    {{imageLink.title}}
+                </td>
+                <td md-cell ng-hide="!editing">
+                    <md-button class="md-icon-button" ng-click="remove(imageLink)" aria-label="use">
+                        <md-icon class="material-icons md-warn md-hue-2" style="fill: inherit">delete</md-icon>
+                    </md-button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </md-table-container>
+
+    <div flex></div>
+
+    <md-table-pagination md-page-select md-limit="query.limit" md-page="query.page" md-total="{{usedImageLinks.length}}"></md-table-pagination>
+
+    <md-dialog-actions layout="row">
+        <md-button class="md-raised md-warn" ng-click="cancel()" ng-show="editing" aria-label="cancel">Cancel</md-button>
+        <span flex></span>
+        <md-select ng-model="imageLinkToAdd" placeholder="Add ImageLink" ng-show="editing">
+            <md-option ng-value="imageLink" ng-repeat="imageLink in unusedImageLinks | filter: query.filter | orderBy: 'title'">
+                {{imageLink.title}}
+            </md-option>
+        </md-select>
+        <md-button class="md-raised md-primary md-hue-2" ng-click="addImageLink()" ng-show="editing" aria-label="add">Add Image Link</md-button>
+        <span flex></span>
+        <md-button class="md-raised md-primary" ng-click="save()" ng-show="editing" aria-label="save">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="cancel()" ng-show="!editing" aria-label="close">Close</md-button>
+    </md-dialog-actions>
+</md-dialog>

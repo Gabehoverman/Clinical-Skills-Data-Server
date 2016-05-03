@@ -1,4 +1,6 @@
 <script type="text/javascript" src="<%= asset_path 'new_special_test_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'special_test_edit_image_links_dialog_controller.js' %>"></script>
+<script type="text/javascript" src="<%= asset_path 'special_test_edit_video_links_dialog_controller.js' %>"></script>
 <md-content layout="row" flex ng-controller="SpecialTestsController">
   <md-card flex ng-cloak>
     <md-toolbar class="md-table-toolbar md-default">
@@ -24,6 +26,8 @@
           <th md-column md-order-by="positive-sign"><span>Positive Sign</span></th>
           <th md-column md-order-by="indication"><span>Indication</span></th>
           <th md-column md-order-by="notes"><span>Notes</span></th>
+          <th md-column md-order-by="notes"><span>Image Links</span></th>
+          <th md-column md-order-by="notes"><span>Video Links</span></th>
           <th md-column ng-hide="!editing"><span>Delete</span></th>
         </tr>
         </thead>
@@ -47,6 +51,16 @@
           </td>
           <td md-cell ng-click="editNotes($event, specialTest)" ng-class="(editing == true) ? 'cell-editing' : ''">
             {{specialTest.notes}}
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="editImageLinks($event, specialTest)" aria-label="image-links">
+              {{(specialTest.image_links.length) ? specialTest.image_links.length : 0}}
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-primary" ng-click="editVideoLinks($event, specialTest)" aria-label="video-links">
+              {{(specialTest.video_links.length) ? specialTest.video_links.length : 0}}
+            </md-button>
           </td>
           <td md-cell ng-hide="!editing">
             <md-button class="md-icon-button" ng-click="delete(specialTest)" aria-label="delete">
