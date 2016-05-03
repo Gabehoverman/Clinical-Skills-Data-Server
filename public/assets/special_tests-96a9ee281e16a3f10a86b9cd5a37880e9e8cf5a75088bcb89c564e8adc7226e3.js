@@ -3,6 +3,8 @@ app.controller("SpecialTestsController", ["$scope", "$http", "$mdToast", "$mdDia
 
     $scope.specialTests = [];
     $scope.allComponents = [];
+    $scope.allImageLinks = [];
+    $scope.allVideoLinks = [];
 
     $scope.editing = false;
 
@@ -15,6 +17,8 @@ app.controller("SpecialTestsController", ["$scope", "$http", "$mdToast", "$mdDia
 
     SpecialTestsController.prototype.index = function () {
         $scope.new_special_test_dialog_template_url = this.params.new_special_test_dialog_template_url;
+        $scope.edit_image_links_dialog_template_url = this.params.edit_image_links_dialog_template_url;
+        $scope.edit_video_links_dialog_template_url = this.params.edit_video_links_dialog_template_url;
 
         $scope.specialTestsPromise = $http.get(apiService.special_tests_url, { 'params' : { 'format': 'json' } }).then(
             function success(response) {
@@ -32,6 +36,24 @@ app.controller("SpecialTestsController", ["$scope", "$http", "$mdToast", "$mdDia
                 for (var i = 0; i < response.data.length; i++) {
                     var component = response.data[i].component;
                     $scope.allComponents.push(component);
+                }
+            }, $scope.ajaxFailure
+        );
+
+        $scope.imageLinksPromise = $http.get(apiService.image_links_url, { 'params' : { 'format': 'json' } }).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var imageLink = response.data[i].image_link;
+                    $scope.allImageLinks.push(imageLink);
+                }
+            }, $scope.ajaxFailure
+        );
+
+        $scope.videoLinksPromise = $http.get(apiService.video_links_url, { 'params' : { 'format': 'json' } }).then(
+            function success(response) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var videoLink = response.data[i].video_link;
+                    $scope.allVideoLinks.push(videoLink);
                 }
             }, $scope.ajaxFailure
         );
@@ -147,6 +169,58 @@ app.controller("SpecialTestsController", ["$scope", "$http", "$mdToast", "$mdDia
                 }
             });
         }
+    };
+
+    $scope.editImageLinks = function(event, specialTestToUpdate) {
+        $mdDialog.show({
+            controller: EditImageLinksController,
+            templateUrl: $scope.edit_image_links_dialog_template_url,
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            locals: {
+                specialTest: specialTestToUpdate,
+                allImageLinks: $scope.allImageLinks,
+                editing: $scope.editing
+            },
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+        }).then(function (imageLinks) {
+            if (imageLinks) {
+                var index = indexOfItemWithID(specialTestToUpdate.id, $scope.specialTests);
+                if (index != -1) {
+                    $scope.specialTests[index].image_links = imageLinks;
+                    var specialTest = $scope.specialTests[index];
+                    $http.patch(apiService.special_tests_url + specialTest.id, buildRequest(specialTest)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                }
+            }
+        });
+    };
+
+    $scope.editVideoLinks = function(event, specialTestToUpdate) {
+        $mdDialog.show({
+            controller: EditVideoLinksController,
+            templateUrl: $scope.edit_video_links_dialog_template_url,
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: false,
+            escapeToClose: false,
+            locals: {
+                specialTest: specialTestToUpdate,
+                allVideoLinks: $scope.allVideoLinks,
+                editing: $scope.editing
+            },
+            fullscreen: $mdMedia('xs') || $mdMedia('sm')
+        }).then(function (videoLinks) {
+            if (videoLinks) {
+                var index = indexOfItemWithID(specialTestToUpdate.id, $scope.specialTests);
+                if (index != -1) {
+                    $scope.specialTests[index].video_links = videoLinks;
+                    var specialTest = $scope.specialTests[index];
+                    $http.patch(apiService.special_tests_url + specialTest.id, buildRequest(specialTest)).then($scope.ajaxSuccess, $scope.ajaxFailure);
+                }
+            }
+        });
     };
 
     $scope.delete = function (specialTestToDelete) {

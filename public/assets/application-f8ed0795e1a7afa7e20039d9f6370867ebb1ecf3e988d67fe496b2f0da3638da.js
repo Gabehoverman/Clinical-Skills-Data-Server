@@ -11933,7 +11933,6 @@ app.controller("BodyController", ['$scope', '$mdSidenav', '$mdToast', function($
     };
 
     $scope.ajaxFailure = function (response) {
-        console.log(response);
         var text = response.status + ": " + response.statusText;
         if (response.status == -1) {
             text = "Error: Lost Connection to Server"

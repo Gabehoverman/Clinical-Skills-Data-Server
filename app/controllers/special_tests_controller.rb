@@ -4,6 +4,8 @@ class SpecialTestsController < ApplicationController
 
     @toolbar_title = 'Special Tests'
     js :new_special_test_dialog_template_url => ActionController::Base.helpers.asset_path('new_special_test_dialog.html')
+    js :edit_image_links_dialog_template_url => ActionController::Base.helpers.asset_path('special_test_edit_image_links_dialog.html')
+    js :edit_video_links_dialog_template_url => ActionController::Base.helpers.asset_path('special_test_edit_video_links_dialog.html')
     respond_to do |format|
       if params['component'].nil?
         format.json { render json: SpecialTest.api_all, status: :ok }

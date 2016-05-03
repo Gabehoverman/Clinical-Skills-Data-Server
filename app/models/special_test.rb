@@ -10,9 +10,12 @@ class SpecialTest < ActiveRecord::Base
 	def self.api_all
 		json = []
 		SpecialTest.all.each do |special_test|
-			json.push({
-				:special_test => special_test.as_json(include: { component: { only: [:id, :name] } })
-			})
+			json.push(special_test.as_json(root: true, include: {
+					component: { only: [:id, :name] },
+					image_links: { only: [:id, :title] },
+					video_links: { only: [:id, :title] }
+				}
+			))
 		end
 		return json
 	end
