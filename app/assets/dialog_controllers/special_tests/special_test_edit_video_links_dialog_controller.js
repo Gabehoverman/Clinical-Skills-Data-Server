@@ -20,9 +20,7 @@ function EditVideoLinksController($scope, $mdDialog, specialTest, allVideoLinks,
             var videoLink = $scope.allVideoLinks[i];
             if (($scope.isInitialFilter) ? indexOfItemWithID(videoLink.id, $scope.specialTest.video_links) == -1 : indexOfItemWithID(videoLink.id, $scope.usedVideoLinks) == -1) {
                 if (indexOfItemWithID(videoLink.id, $scope.unusedVideoLinks) == -1) {
-                    if (videoLink.special_tests.length === 0) {
-                        $scope.unusedVideoLinks.push(videoLink);
-                    }
+                    $scope.unusedVideoLinks.push(videoLink);
                 }
             } else {
                 if (indexOfItemWithID(videoLink.id, $scope.usedVideoLinks) == -1) {

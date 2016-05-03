@@ -20,9 +20,7 @@ function EditImageLinksController($scope, $mdDialog, specialTest, allImageLinks,
             var imageLink = $scope.allImageLinks[i];
             if (($scope.isInitialFilter) ? indexOfItemWithID(imageLink.id, $scope.specialTest.image_links) == -1 : indexOfItemWithID(imageLink.id, $scope.usedImageLinks) == -1) {
                 if (indexOfItemWithID(imageLink.id, $scope.unusedImageLinks) == -1) {
-                    if (imageLink.special_tests.length === 0) {
-                        $scope.unusedImageLinks.push(imageLink);
-                    }
+                    $scope.unusedImageLinks.push(imageLink);
                 }
             } else {
                 if (indexOfItemWithID(imageLink.id, $scope.usedImageLinks) == -1) {
