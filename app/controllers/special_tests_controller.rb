@@ -36,6 +36,24 @@ class SpecialTestsController < ApplicationController
     unless params['component'].nil?
       @special_test.component = Component.where(name: params['component']['name']).first
     end
+    @special_test.image_links.clear
+    unless params['image_links'].nil?
+      params['image_links'].each do |e|
+        image_link = ImageLink.find(e['id'])
+        unless @special_test.image_links.include?(image_link)
+          @special_test.image_links << image_link
+        end
+      end
+    end
+    @special_test.video_links.clear
+    unless params['video_links'].nil?
+      params['video_links'].each do |e|
+        video_link = VideoLink.find(e['id'])
+        unless @special_test.video_links.include?(video_link)
+          @special_test.video_links << video_link
+        end
+      end
+    end
     respond_to do |format|
       if @special_test.update(special_test_params)
         format.json { render json: @special_test, status: :ok }

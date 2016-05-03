@@ -9,7 +9,7 @@ function EditImageLinksController($scope, $mdDialog, specialTest, allImageLinks,
     $scope.isInitialFilter = true;
 
     $scope.query = {
-        order: 'name',
+        order: 'title',
         limit: 10,
         page: 1,
         filter: ""
@@ -38,7 +38,8 @@ function EditImageLinksController($scope, $mdDialog, specialTest, allImageLinks,
         if (index != -1) {
             var allIndex = indexOfItemWithID(imageLinkToRemove.id, $scope.allImageLinks);
             if (allIndex != -1) {
-                $scope.allImageLinks[allIndex].specialTest = null;
+                var specialTestIndex = indexOfItemWithID($scope.specialTest.id, $scope.allImageLinks[allIndex].special_tests);
+                $scope.allImageLinks[allIndex].special_tests.splice(specialTestIndex, 1);
             }
             $scope.usedImageLinks.splice(index, 1);
             $scope.filterImageLinks();
@@ -52,7 +53,11 @@ function EditImageLinksController($scope, $mdDialog, specialTest, allImageLinks,
             $scope.unusedImageLinks.splice(index, 1);
             var allIndex = indexOfItemWithID($scope.imageLinkToAdd.id, $scope.allImageLinks);
             if (allIndex != -1) {
-                $scope.allImageLinks[allIndex].specialTest = { "name": $scope.specialTest.name };
+                var imageLink = $scope.allImageLinks[allIndex];
+                if (!imageLink.special_tests) {
+                    imageLink.special_tests = [];
+                }
+                imageLink.special_test.push( { "name": $scope.specialTest.name } );
             }
             $scope.imageLinkToAdd = null;
             $scope.filterImageLinks();
