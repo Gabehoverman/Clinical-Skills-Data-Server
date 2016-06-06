@@ -1,4 +1,4 @@
-function NewPersonnelAcknowledgementController($scope, $mdDialog) {
+function NewPersonnelAcknowledgementController($scope, $mdDialog, $http) {
 
     $scope.newPersonnelAcknowledgement = {
         name: "",
