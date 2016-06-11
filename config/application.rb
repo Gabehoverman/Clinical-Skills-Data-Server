@@ -25,7 +25,7 @@ module WvusomDataServer
     
     # Add to precompilation list
     config.assets.precompile += [
-    'dialog_controllers/personnel_acknowledgement/new_personnel_acknowledgement_dialog_controller.js'
+    'new_personnel_acknowledgement_dialog_controller.js'
     ]
   end
 end
