@@ -24,8 +24,6 @@ module WvusomDataServer
     config.active_record.raise_in_transactional_callbacks = true
     
     # Add to precompilation list
-    config.assets.precompile += [
-    'new_personnel_acknowledgement_dialog_controller.js'
-    ]
+    config.assets.precompile = ['*.js', '*.css', '**/*.js', '**/*.css']
   end
 end
