@@ -22,5 +22,10 @@ module WvusomDataServer
     
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+    
+    # Add to precompilation list
+    config.assets.precompile += [
+    'dialog_controllers/personnel_acknowledgement/new_personnel_acknowledgement_dialog_controller.js'
+    ]
   end
 end
