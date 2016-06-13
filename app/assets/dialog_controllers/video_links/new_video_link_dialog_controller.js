@@ -23,3 +23,4 @@ function NewVideoLinkDialogController($scope, $mdDialog) {
         }
     };
 }
+NewVideoLinkDialogController.$inject = ["$scope", "$mdDialog"];

@@ -31,3 +31,4 @@ function NewExamTechniqueDialogController($scope, $mdDialog, allSystems) {
         }
     };
 }
+NewExamTechniqueDialogController.$inject = ["$scope", "$mdDialog", "allSystems"];

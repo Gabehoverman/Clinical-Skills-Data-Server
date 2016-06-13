@@ -23,3 +23,4 @@ function NewSystemDialogController($scope, $mdDialog) {
         }
     };
 }
+NewSystemDialogController.$inject = ["$scope", "$mdDialog"];

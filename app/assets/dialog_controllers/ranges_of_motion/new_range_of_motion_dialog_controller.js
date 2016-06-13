@@ -32,3 +32,4 @@ function NewRangeOfMotionDialogController($scope, $mdDialog, allComponents) {
         }
     }
 }
+NewRangeOfMotionDialogController.$inject = ["$scope", "$mdDialog", "allComponents"];

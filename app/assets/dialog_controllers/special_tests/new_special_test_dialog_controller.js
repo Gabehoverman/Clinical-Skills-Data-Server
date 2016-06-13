@@ -33,3 +33,4 @@ function NewSpecialTestDialogController($scope, $mdDialog, allComponents) {
         }
     }
 }
+NewSpecialTestDialogController.$inject = ["$scope", "$mdDialog", "allComponents"];

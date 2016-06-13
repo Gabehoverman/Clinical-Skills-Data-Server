@@ -23,3 +23,4 @@ function NewSoftwareAcknowledgementController($scope, $mdDialog) {
         }
     }
 }
+NewSoftwareAcknowledgementController.$inject = ["$scope", "$mdDialog"];

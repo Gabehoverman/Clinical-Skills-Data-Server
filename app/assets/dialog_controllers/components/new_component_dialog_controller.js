@@ -32,3 +32,4 @@ function NewComponentDialogController($scope, $mdDialog, allSystems) {
         }
     };
 }
+NewComponentDialogController.$inject = ["$scope", "$mdDialog", "allSystems"];

@@ -30,3 +30,4 @@ function NewMuscleDialogController($scope, $mdDialog, allComponents) {
         }
     }
 }
+NewMuscleDialogController.$inject = ["$scope", "$mdDialog", "allComponents"];
