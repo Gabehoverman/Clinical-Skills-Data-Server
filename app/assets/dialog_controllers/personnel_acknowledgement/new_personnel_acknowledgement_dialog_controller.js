@@ -24,3 +24,4 @@ function NewPersonnelAcknowledgementController($scope, $mdDialog) {
         }
     }
 }
+NewPersonnelAcknowledgementController.$inject = ["$scope", "$mdDialog"];
