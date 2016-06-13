@@ -23,3 +23,4 @@ function NewImageLinkDialogController($scope, $mdDialog) {
         }
     }
 }
+NewImageLinkDialogController.$inject = ["$scope", "$mdDialog"];

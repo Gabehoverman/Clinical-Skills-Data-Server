@@ -32,3 +32,4 @@ function NewPalpationDialogController($scope, $mdDialog, allComponents) {
         }
     }
 }
+NewPalpationDialogController.$inject = ["$scope", "$mdDialog", "allComponents"];
