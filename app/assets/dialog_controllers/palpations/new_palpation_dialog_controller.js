@@ -17,7 +17,7 @@ function NewPalpationDialogController($scope, $mdDialog, allComponents) {
     };
 
     $scope.create = function() {
-        if ($scope.newPalpation.structure === "" || $scope.selectedComponent.name !== "") {
+        if ($scope.newPalpation.structure === "" || $scope.selectedComponent.name === "") {
             $scope.newPalpationForm.$setSubmitted();
         } else {
             $scope.newPalpation.component.id = $scope.selectedComponent.id;
