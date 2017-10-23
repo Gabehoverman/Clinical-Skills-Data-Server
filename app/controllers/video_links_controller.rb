@@ -10,6 +10,8 @@ class VideoLinksController < ApplicationController
         format.json { render json: VideoLink.api_for_special_test_name(params['special_test']), status: :ok }
       elsif not params['exam_technique'].nil?
         format.json { render json: VideoLink.api_for_exam_technique_name(params['exam_technique']), status: :ok }
+      elsif not params['system'].nil?
+        format.json { render json: VideoLink.api_for_system_name(params['system']), status: :ok }
       else
         format.json { render json: VideoLink.api_all, status: :ok }
       end

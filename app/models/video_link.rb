@@ -47,4 +47,22 @@ class VideoLink < ActiveRecord::Base
 		return json
 	end
 
+	def self.api_for_system_name(system_name)
+		json = []
+		##system_name = System.where('lower(name) = ?', system_name.downcase).first
+		video_links = VideoLink.where('system_id = ?', system_name)
+
+		unless system_name.nil?
+			#video_links = system.video_links
+			video_links.each do |video_link|
+
+				json.push(video_link.as_json(root: true, include: {
+						exam_techniques: { only: [:id, :name] },
+						special_tests: { only: [:id, :name] }
+				}))
+			end
+		end
+		return json
+	end
+
 end

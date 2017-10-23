@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160423211311) do
+ActiveRecord::Schema.define(version: 20171009211126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160423211311) do
     t.string  "positive_sign"
     t.string  "indication"
     t.text    "notes"
+    t.string  "how_to"
   end
 
   create_table "special_tests_video_links", id: false, force: :cascade do |t|
@@ -100,6 +101,7 @@ ActiveRecord::Schema.define(version: 20160423211311) do
   create_table "video_links", force: :cascade do |t|
     t.string "title"
     t.string "link"
+    t.string "system_id"
   end
 
 end
