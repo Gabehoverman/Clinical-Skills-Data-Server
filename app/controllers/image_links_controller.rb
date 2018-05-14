@@ -69,7 +69,7 @@ class ImageLinksController < ApplicationController
   private
 
   def image_link_params
-    params.permit(:id, :title, :link)
+    params.permit(:id, :title, :link, :image)
   end
 
 end

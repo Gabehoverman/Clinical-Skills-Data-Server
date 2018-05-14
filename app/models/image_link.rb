@@ -1,6 +1,9 @@
 class ImageLink < ActiveRecord::Base
 
-  has_and_belongs_to_many :exam_techniques
+	has_attached_file :image, styles: { large: "600x600>", medium: "300x300", thumb: "150x150>" }, default_url: "/images/:style/missing.png"
+	# validates_attachment_content_type :images, content_type: /\Aimage\/.*\z/
+
+	has_and_belongs_to_many :exam_techniques
   has_and_belongs_to_many :special_tests
 
 	validates :title, :presence => true
