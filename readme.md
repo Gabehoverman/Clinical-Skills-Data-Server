@@ -4,6 +4,6 @@ Developed for the West Virginia School of Medicine
 
 Clinical Skills iOS: https://github.com/Gabehoverman/Clinical-Skills-iOS
 
-![Dashboard](./dashboard.png)
+![Dashboard](./Dashboard.png)
 
 ## Installation Steps
